@@ -3,25 +3,25 @@
         <van-tabs :swipeable="true">
             <van-tab v-for="(item,index) in tabbarList" :key="index" :title="item">
                 <div v-if="index === 0">
-                    <SearchTabbarZongHe @backtop="getbacktop"></SearchTabbarZongHe>
+                    <SearchTabbarZongHe @backtop="backTop"/>
                 </div>
                 <div v-if="index ===1">
-                    <SearchTabbarDanQu></SearchTabbarDanQu>
+                    <SearchTabbarDanQu/>
+                </div>
+                <div v-if="index===2">
+                    <SearchTabbarShiPin/>
                 </div>
                 <div v-if="index===3">
-                    <SearchTabbarShiPin></SearchTabbarShiPin>
+                    <SearchTabbarGeShou/>
                 </div>
                 <div v-if="index===4">
-                 <SearchTabbarGeShou></SearchTabbarGeShou>
+                    <SearchTabbarZhuanJi/>
                 </div>
                 <div v-if="index===5">
-                    <SearchTabbarZhuanJi></SearchTabbarZhuanJi>
+                    <SearchTabbarGeDan/>
                 </div>
                 <div v-if="index===6">
-                    <SearchTabbarGeDan></SearchTabbarGeDan>
-                </div>
-                <div v-if="index===7">
-              <SearchTabbarDianTai></SearchTabbarDianTai>
+                    <SearchTabbarDianTai/>
                 </div>
             </van-tab>
         </van-tabs>
@@ -43,7 +43,7 @@
         name: "searchTabbar",
         data() {
             return {
-                tabbarList: ['综合', '单曲', '云村', '视频', '歌手', '专辑', '歌单', '主播电台', '用户'],
+                tabbarList: ['综合', '单曲',  '视频', '歌手', '专辑', '歌单', '主播电台'],
 
             }
         },
@@ -62,7 +62,7 @@
 
         },
         methods: {
-            getbacktop() {
+            backTop() {
                 this.$emit('backtop')
             }
         }

@@ -67,7 +67,7 @@
                                 :border="false"
                                 :key="index"
                                 title-class="titleText"
-                                @click="ToDetail(index)">
+                                @click=" ToDetail(index)">
                             <template #title>
                                 <p>
                                     {{item.title}}
@@ -131,7 +131,7 @@
                             <div class="contentText">
                                 <p>{{item.content}}</p>
                             </div>
-                            <van-divider></van-divider>
+                            <van-divider/>
                         </div>
                     </div>
                     <div v-if="hotComment.length===0">
@@ -175,7 +175,7 @@
                                 <div class="contentText">
                                     <p>{{item.content}}</p>
                                 </div>
-                                <van-divider></van-divider>
+                                <van-divider/>
                             </div>
                         </div>
 
@@ -224,6 +224,12 @@
                 vm.getMvCommentData({id: vm.$route.query.mvId, limit: vm.newLimit});
                 vm.$toast.clear()
             })
+        },
+        created() {
+            if (this.$store.state.audioEl) {
+                this.$store.state.audioEl.pause();
+                if (!this.$store.state.changeIcon) this.$store.commit('showIcon');
+            }
         },
         data() {
             return {

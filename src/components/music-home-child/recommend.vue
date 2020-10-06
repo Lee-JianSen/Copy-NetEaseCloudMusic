@@ -54,12 +54,12 @@
                 :new-music="newMusic">
 
         </new-musci-or-disc>
-        <!--        <live-->
-        <!--                v-if="liveInfoList.length>0"-->
-        <!--                :live-list="liveInfoList"-->
-        <!--                :top-title="topTitle3"-->
-        <!--                :btn-more="btnMore3"-->
-        <!--        ></live>-->
+<!--                <live-->
+<!--                        v-if="liveInfoList.length>0"-->
+<!--                        :live-list="liveInfoList"-->
+<!--                        :top-title="topTitle3"-->
+<!--                        :btn-more="btnMore3"-->
+<!--                ></live>-->
     </div>
 
 </template>

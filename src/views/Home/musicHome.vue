@@ -187,11 +187,11 @@ npm
                     this.songListInfoList.push(...recommendSongList.creatives);
                     this.officialSongInfoList.push(...officialSongList.creatives);
                     // 新歌新碟
-                    this.newMusic.push(res.data.data.blocks[4].creatives[0], res.data.data.blocks[4].creatives[1]);
-                    this.newDisc.push(res.data.data.blocks[4].creatives[2], res.data.data.blocks[4].creatives[3]);
+                    this.newMusic.push(res.data.data.blocks[3].creatives[0], res.data.data.blocks[3].creatives[1]);
+                    this.newDisc.push(res.data.data.blocks[3].creatives[2], res.data.data.blocks[3].creatives[3]);
 
                     // this.liveList = res.data.data.blocks[4];
-                    // this.liveInfoList.push(...this.liveList.creatives);
+                    // this.liveInfoList.push(...this.liveList.extInfo.roomInfoList);
 
                     if (recommendSongList.uiElement !== undefined) {
                         this.topTitle1 = recommendSongList.uiElement.subTitle.title;

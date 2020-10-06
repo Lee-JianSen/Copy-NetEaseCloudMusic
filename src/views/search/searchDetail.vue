@@ -4,18 +4,21 @@
                 class="content"
                 ref="scroll"
                 :probe-type="3"
-                :pull-up-load="true">
+                :pull-up-load="true"
+                @scroll="ListenScroll">
             <div>
-                <search @isSearchResultFunc="isSearchResultFunc" :isShow="isSearchResult"></search>
+                <search @isSearchResultFunc="isSearchResultFunc" :isShow="isSearchResult"/>
                 <div v-if="!isSearchResult">
-                    <div><img src="../../assets/jietu.jpg" style="width: 100%;height: auto">
-                        <historcal-record @isSearchResultFunc="isSearchResultFunc" ></historcal-record>
-                        <hot-search @isSearchResultFunc="isSearchResultFunc"></hot-search></div>
+                    <div>
+                        <img src="../../assets/jietu.jpg" alt="" style="width: 100%;height: auto">
+                        <historcal-record @isSearchResultFunc="isSearchResultFunc"/>
+                        <hot-search @isSearchResultFunc="isSearchResultFunc"/>
+                    </div>
                 </div>
                 <div v-if="isSearchResult">
-                    <search-tabbar @backtop="getbacktop"></search-tabbar>
+                    <search-tabbar @backtop="getbacktop"/>
                 </div>
-                <search-suggest @isSearchResultFunc="isSearchResultFunc"></search-suggest>
+                <search-suggest @isSearchResultFunc="isSearchResultFunc"/>
             </div>
         </scroll>
     </div>
@@ -27,18 +30,25 @@
     import Scroll from "../../components/scroll"
     import historcalRecord from "./searchChild/historcalRecord"
     import searchSuggest from "./searchChild/searchSuggest";
-import searchTabbar from "./searchResultChild/searchTabbar";
+    import searchTabbar from "./searchResultChild/searchTabbar";
+
     export default {
         name: "searchDetail",
+        mounted() {
+            this.$nextTick(() => {
+                if (this.$store.state.audioEl) {
+                    this.$refs.scroll.$el.style.height = 92 + 'vh';
+                }
+            })
+        },
         data() {
             return {
                 isSearchResult: false,
-                backtop:''
+                backTop: '',
+                scrollOnce: true,
             }
         },
-        created() {
-            console.log(this.$route.meta.keep);
-        },
+
         components: {
             search,
             hotSearch,
@@ -51,8 +61,15 @@ import searchTabbar from "./searchResultChild/searchTabbar";
             isSearchResultFunc(val) {
                 this.isSearchResult = val
             },
-            getbacktop(){
-             this.$refs.scroll.scrollTo(0,0,400)
+            getbacktop() {
+                this.$refs.scroll.scrollTo(0, 0, 400)
+            },
+            ListenScroll(position) {
+                if (this.$store.state.audioEl && this.scrollOnce) {
+                    this.scrollOnce = false;
+                    this.$refs.scroll.$el.style.height = 92 + 'vh';
+                    this.$refs.scroll.refresh();
+                }
             }
         }
     }
@@ -60,9 +77,10 @@ import searchTabbar from "./searchResultChild/searchTabbar";
 
 <style scoped>
     .content {
+        width: 100vw;
         overflow: hidden;
         position: absolute;
-        top: 0px;
+        top: 0;
         bottom: 0;
         left: 0;
         right: 0;

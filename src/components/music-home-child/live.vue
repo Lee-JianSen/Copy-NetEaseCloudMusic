@@ -52,6 +52,7 @@
             topTitle: String,
             btnMore: String
         },
+        
         mounted() {
             this.$nextTick(() => {
                 setTimeout(() => {

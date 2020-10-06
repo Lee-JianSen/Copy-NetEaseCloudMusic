@@ -76,7 +76,6 @@
                             v-show="isShowLrc"
                             @click="showLrc">
                         <scroll
-
                                 class="contentLrc"
                                 ref="lyricList"
                                 :probe-type="3">
@@ -85,7 +84,7 @@
                                 <p
                                         v-for="(line,index) in lines"
                                         ref="lyricLine"
-                                        :key="index"
+                                        :key="line.time"
                                         :class="{'current':currentLineNum===index}"
                                         class="text">{{line.txt}}</p>
 
@@ -95,7 +94,7 @@
                                 <p
                                         v-for="(line,index) in lines"
                                         ref="lyricLine"
-                                        :key="index"
+                                        :key="line.time"
                                         class="text">{{line.txt}}</p>
 
                             </div>
@@ -150,17 +149,18 @@
                                     size="32px"
                                     color="#bfbfbf"
                                     @click.stop="$refs.audio.startPlayOrPause(),ChangeIcon()"/>
-                            <img src="../../assets/next.png" height="32" width="32" @click="nextMusic"/>
-                            <img src="../../assets/more.png" height="32" width="32" @click="more"/>
+                            <img src="../../assets/next.png" alt="" height="32" width="32" @click="nextMusic"/>
+                            <img src="../../assets/more.png" alt="" height="32" width="32" @click="more"/>
                         </div>
                     </div>
                 </div>
             </div>
         </transition>
+
         <transition name="move2">
             <div class="moreBox" v-show="show">
                 <div class="musicList">
-                    <van-cell value-class="title1" :value='title1'></van-cell>
+                    <van-cell value-class="title1" :value='title1'/>
                     <scroll
                             class="content"
                             ref="scroll"
@@ -171,7 +171,7 @@
                                     size="large"
                                     :center="true"
                                     v-for="(item,index) in playList"
-                                    :key="index"
+                                    :key="item.id"
                                     :value-class="{'cellText':true,'selectColor':item.isColor}"
                                     @click="musicDetailClick(item,index)">
                                 <template #default>
@@ -212,7 +212,6 @@
             this.$store.dispatch('getMusicUrl', this.musicId);
             this.$store.dispatch('getMusicDetail', this.musicId);
             this.Lyric(this.musicId);
-            console.log('执行mounted');
         },
         data() {
             return {
@@ -385,6 +384,7 @@
                 this.changeTime = false;
                 this.$refs.audio.changeCurrentTime(time);
                 if (Object.keys(this.currentLyric).length !== 0) this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000);
+
             },
             nextMusic() {
                 switch (this.playType) {
@@ -468,7 +468,7 @@
                             txt: '暂无歌词'
                         });
                     }
-
+                    console.log(this.lines);
                 }).catch(error => {
                     console.log('获取歌词失败');
                     console.log(error);

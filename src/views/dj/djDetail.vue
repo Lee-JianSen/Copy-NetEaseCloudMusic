@@ -18,7 +18,7 @@
                             cover
                             width="100vw"
                             height="20rem"
-                            :src="djDetail.picUrl"></van-image>
+                            :src="djDetail.picUrl"/>
                     <van-cell
                             class="myCell"
                             center
@@ -164,6 +164,7 @@
             getMusicId(musicId) {
                 this.musicCheck(musicId);
                 this.$store.commit('changeMusicId', musicId);
+
             },
             musicListScroll(position) {
                 let opacity = Math.abs(Math.round((position.y)) / 300);
@@ -262,12 +263,13 @@
                 .van-tabs__nav {
                     border-top-left-radius: 70px;
                     border-top-right-radius: 70px;
-
+                    color: rgba(250, 200, 200, 1);
                 }
 
                 .avatarTitle {
                     padding: 30px;
                     font-weight: bold;
+
                 }
 
                 .leftImage {
