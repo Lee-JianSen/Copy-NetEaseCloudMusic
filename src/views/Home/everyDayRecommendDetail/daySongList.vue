@@ -33,16 +33,16 @@
                 </div>
                 <div>
                     <div class="songListInfo">
-                        <div>
+                        <div class="topLeftBox">
                             <div class="playCount">
                                 <van-icon name="service-o" color="#eee"/>
                                 {{songListData.playCount|playCount1}}
                             </div>
                             <van-image
                                     class="leftImage"
-                                    width="130" height="120"
                                     radius="5"
-                                    :src="songListPic" alt="">
+                                    width="130" height="130"
+                                    :src="songListData.picUrl" alt="">
                             </van-image>
                         </div>
                         <div class="songListTitle">
@@ -139,7 +139,7 @@
 </template>
 
 <script>
-    import scroll from "../../../components/scroll";
+    import scroll from "../../../components/common/scroll";
     import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
     import {GetSongListAPI, GetMusicDetail} from "../../../http/all-api";
     import {createSongListInfo} from "../../../../model/songListInfo";
@@ -268,7 +268,6 @@
             touch-action: none;
 
             #content {
-                position: relative;
 
                 .bg {
                     width: 100vw;
@@ -290,6 +289,10 @@
                     justify-content: space-around;
                     backdrop-filter: blur(50px);
                     background-color: rgba(0, 0, 0, 0.3);
+
+                    .topLeftBox {
+                        position: relative;
+                    }
                 }
 
                 .orderInfo {
@@ -321,8 +324,8 @@
 
                 .playCount {
                     position: absolute;
-                    top: 160px;
-                    left: 270px;
+                    top: 15px;
+                    right: 10%;
                     z-index: 200;
                     font-size: 30px;
                     color: #eeeeee;
@@ -341,11 +344,10 @@
 
                 .subTitle {
                     p {
-                        line-height: 52px;
                         font-size: 30px;
                         overflow: hidden;
                         text-overflow: ellipsis;
-                        padding: 10px;
+                        margin: 10px;
                         word-wrap: break-word;
                         white-space: pre-wrap;
                         display: -webkit-box;
