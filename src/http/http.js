@@ -14,10 +14,20 @@ export function http(config) {
         withCredentials: true
     });
     instance.interceptors.request.use(config => {
+        Vue.prototype.$toast.loading({
+            message: '加载中',
+            forbidClick: true,
+            duration: 0
+        });
         config.headers['token'] = store.state.token;
         return config
     }, error => {
         console.log('请求出错' + error);
+        Vue.prototype.$toast({
+            message: '请求出错',
+            forbidClick: true,
+            duration: 1000
+        });
         return Promise.reject(error.response);
     });
 
@@ -26,8 +36,14 @@ export function http(config) {
             store.commit('saveToken', response.config.headers.token);
             store.commit('changeLogin', true);
         }
+        Vue.prototype.$toast.clear();
         return response
     }, error => {
+        Vue.prototype.$toast({
+            message: '请求出错',
+            forbidClick: true,
+            duration: 1000
+        });
         console.log('响应出错');
         console.dir(error);
         if (error.response.status) {
