@@ -33,8 +33,8 @@
 </template>
 
 <script>
-    import HorizontalScroll from "../horizontalScroll";
-    import {initScroll} from "../common/mixin";
+    import HorizontalScroll from "../common/horizontalScroll";
+    import {initScroll} from "../../tool/mixin";
     import BtnMore from "../common/btnMore";
     import {Icon, Image as VanImage} from "vant";
 

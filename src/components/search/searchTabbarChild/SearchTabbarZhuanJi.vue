@@ -25,13 +25,13 @@
 </template>
 
 <script>
-    import {GetSearchApi} from "../../../../http/all-api";
+    import {GetSearchApi} from "../../../http/all-api";
     import {Icon} from "vant";
     import {Button} from 'vant';
     import {Card} from 'vant';
     import {Tag} from 'vant';
     import {Cell, CellGroup} from 'vant';
-    import {formatDate, formatDuring} from "../../../../components/common/utils";
+    import {formatDate, formatDuring} from "../../../tool/utils";
     export default {
         name: "SearchTabbarZhuanJi",
         data(){

@@ -14,7 +14,7 @@
 </template>
 
 <script>
-    import {disorder} from "./utils";
+    import {disorder} from "../../tool/utils";
 
     export default {
         name: "audioCom",

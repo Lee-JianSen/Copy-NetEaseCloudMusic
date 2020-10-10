@@ -19,7 +19,7 @@
     import {Icon} from 'vant';
     import {Dialog} from 'vant';
     import {GetSearchApi} from "../../../http/all-api";
-    import { Cell, CellGroup } from 'vant';
+    import {Cell, CellGroup} from 'vant';
 
     export default {
         name: "historcalRecord",
@@ -40,27 +40,27 @@
                     });
             },
             historysearch(item) {
-                GetSearchApi(item,'1018').then(res => {
-                    let lists = res.data.result;
 
-                    console.log(res);
+                GetSearchApi(item, '1018').then(res => {
+                    let lists = res.data.result;
                     this.$emit("isSearchResultFunc", true);
                     console.log(this.$store.state.searchResultShow);
                     this.$store.commit("searchResultList", lists);
                     this.$store.commit("searchWordFunc", item);
                     let IsShow = false;
-                    this.$store.commit('searchResultShow', IsShow)
-                    this.$store.commit('addWord', item)
+                    this.$store.commit('searchResultShow', IsShow);
+                    this.$store.commit('addWord', item);
+                    this.$toast.clear()
                 }).catch(error => {
-
+                    console.log(error);
                 });
             }
         },
         components: {
             [Icon.name]: Icon,
             [Dialog.Component.name]: Dialog.Component,
-            [Cell.name]:Cell,
-            [CellGroup.name]:CellGroup
+            [Cell.name]: Cell,
+            [CellGroup.name]: CellGroup
         },
     }
 </script>

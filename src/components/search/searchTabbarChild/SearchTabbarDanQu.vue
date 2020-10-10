@@ -36,7 +36,7 @@
 <script>
     import {Icon} from "vant";
     import {Button} from 'vant';
-    import {GetSearchApi} from "../../../../http/all-api";
+    import {GetSearchApi} from "../../../http/all-api";
     import { Cell, CellGroup } from 'vant';
     export default {
         name: "SearchTabbarDanQu",

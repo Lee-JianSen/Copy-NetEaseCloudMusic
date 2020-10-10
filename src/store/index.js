@@ -2,7 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import {GetMusicDetail, GetMusicUrlAPI} from "../http/all-api";
 import {createMusicInfo} from "../../model/musicInfo";
-import {unique} from "../components/common/utils";
+import {unique} from "../tool/utils";
 import {Toast} from 'vant'
 import persistedState from 'vuex-persistedstate'
 

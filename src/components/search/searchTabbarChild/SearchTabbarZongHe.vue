@@ -33,7 +33,7 @@
 
                 </van-cell>
             </div>
-            <img src="../../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
+            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
             <!--        歌单-->
             <div style="height: 30px;">
                 <span style="margin-left: 18px;font-weight: bold;">歌单</span>
@@ -62,7 +62,7 @@
             <div style="font-size: 14px;text-align: center;margin-top: 8px">
                 {{$store.state.searchResultList.playList.moreText}}
             </div>
-            <img src="../../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
+            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
 
             <!--        视频-->
             <div style="height: 30px;">
@@ -153,10 +153,10 @@
     import {Card} from 'vant';
     import {Tag} from 'vant';
     import {Cell, CellGroup} from 'vant';
-    import {formatDuring} from "../../../../components/common/utils";
+    import {formatDuring} from "../../../tool/utils";
 
-    import {GetSearchApi} from "../../../../http/all-api";
-    import {formatDate} from "../../../../components/common/utils";
+    import {GetSearchApi} from "../../../http/all-api";
+    import {formatDate} from "../../../tool/utils";
 
     export default {
         name: "SearchTabbarZongHe",

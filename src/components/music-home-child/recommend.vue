@@ -73,8 +73,8 @@
     // 引入组件
     import MusicSort from "./musicSort";
     import RecommendedSongList from './recommendedSongList';
-    import Scroll from '../scroll'
-    import HorizontalScroll from '../horizontalScroll'
+    import Scroll from '../common/scroll'
+    import HorizontalScroll from '../common/horizontalScroll'
     import RecommendMusic from "./recommendMusic";
     import OfficialSongList from "./officialSongList";
     import YunCun from "./yunCun";

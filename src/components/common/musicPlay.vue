@@ -192,10 +192,10 @@
 
 <script>
     // 格式化音乐时间
-    import {realFormatSecond} from '../common/utils'
+    import {realFormatSecond} from '../../tool/utils'
     import {Icon, Image as VanImage, Slider, Cell} from 'vant';
     import AudioCom from "./audioCom";
-    import scroll from "../scroll";
+    import scroll from "./scroll";
     import Lyric from 'lyric-parser';
     import {GetMusicLyricAPI} from "../../http/all-api";
 

@@ -47,9 +47,9 @@
 <script>
     // vant导入
     import {Cell, CellGroup, Image as VanImage, Icon} from 'vant';
-    import {initScroll} from "../common/mixin";
+    import {initScroll} from "../../tool/mixin";
     import BtnMore from "../common/btnMore";
-    import HorizontalScroll from "../horizontalScroll";
+    import HorizontalScroll from "../common/horizontalScroll";
     import AudioCom from "../common/audioCom";
 
     export default {

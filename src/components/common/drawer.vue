@@ -35,7 +35,7 @@
 </template>
 
 <script>
-    import HorizontalScroll from "../horizontalScroll";
+    import HorizontalScroll from "./horizontalScroll";
 
     export default {
         name: "drawer",

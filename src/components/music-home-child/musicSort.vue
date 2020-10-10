@@ -36,13 +36,13 @@
 
 <script>
     // 混入横向滚动方法，动态改变横向可滚动距离
-    import {initScroll} from "../common/mixin";
+    import {initScroll} from "../../tool/mixin";
 
     import {Image as VanImage} from 'vant';
     // 引入网络请求方法
     import {GetHomeIconAPI, GetFmAPI} from "../../http/all-api";
 
-    import horizontalScroll from "../horizontalScroll";
+    import horizontalScroll from "../common/horizontalScroll";
 
     export default {
         name: "musicSort",

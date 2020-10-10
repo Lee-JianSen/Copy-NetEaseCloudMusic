@@ -112,7 +112,7 @@
 </template>
 
 <script>
-    import scroll from "../scroll";
+    import scroll from "./scroll";
     import homeNav from '../nav/home-nav';
     import drawer from "./drawer";
     import {Divider, Button, Grid, GridItem, Cell, CellGroup, Image as VanImage} from 'vant'
@@ -209,8 +209,6 @@
             },
             drawerScroll(position) {
                 this.$refs.drawer1.moveX = 0;
-                this.$refs.drawer1.startPos = 0;
-                this.$refs.drawer1.leftMove = 0;
             },
             cellItemClick(index) {
                 switch (index) {

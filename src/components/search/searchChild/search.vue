@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="searchBox">
         <form action="/">
             <div v-if="$store.state.addWord===''">
                 <van-search
@@ -55,6 +55,7 @@
     import {Icon} from 'vant';
     import {Cell, CellGroup} from 'vant';
     import {Search} from 'vant';
+    import {debounce} from "../../../tool/utils";
 
     export default {
         name: "search",
@@ -83,18 +84,17 @@
         methods: {
             //确定搜索时触发
             onSearch(val) {
+                this.$toast.loading({
+                    message: '加载中',
+                    forbidClick: true,
+                    duration: 0
+                });
+
                 if (this.value.replace(/(^\s*)|(\s*$)/g, "") === "") {
                     this.value = this.$store.state.guanjianci;
-                    // console.log('哈哈');
                 }
                 GetSearchApi(this.value, '1018').then(res => {
-                    // console.log(res);
                     let lists = res.data.result;
-                    console.log(lists);
-                    // console.log(lists);
-                    // let lists = res;
-                    // console.log(lists);
-                    // console.log(res);
                     this.$emit("isSearchResultFunc", true);
                     this.$store.commit("searchResultList", lists);
 
@@ -103,11 +103,19 @@
                     let newarr = Array.from(new Set(hisList));
                     this.$store.commit('historyBianLiList', newarr);
 
-                    this.$store.commit('searchWordFunc', this.value)
-                    this.$store.commit('addWord', val)
-
+                    this.$store.commit('searchWordFunc', this.value);
+                    this.$store.commit('addWord', val);
+                    this.$toast.clear()
                 }).catch(error => {
                     console.log(error);
+                    this.$toast.clear();
+                    this.$toast({
+                        message: '加载失败',
+                        forbidClick: true,
+                        duration: 1000
+
+                    });
+
                 });
                 //点击搜索按钮之后，关闭推荐列表
                 let IsShow = false;
@@ -116,34 +124,35 @@
             },
             //输入框获得焦点时触发
             onFocus() {
-                if (this.value !== '') {
-                    let IsShow = true;
-                    this.$store.commit('searchResultShow', IsShow)
-                }
+                let isShow;
+                isShow = this.value !== '';
+
+                this.$store.commit('searchResultShow', isShow)
             },
             //输入框内容变化时触发
-            onInput() {
+            onInput: debounce(function () {
                 if (this.value.replace(/(^\s*)|(\s*$)/g, "") !== "") {
                     GetSearchSuggestApi(this.value, 'mobile').then(res => {
                         const result = res.data.result.allMatch;
                         this.$store.commit('searchResult', result);
-                        let IsShow = true;
-                        let Value = this.value;
-                        this.$store.commit('searchResultShow', IsShow, Value);
-                        // console.log(res);
+                        let isShow = true;
+                        let value = this.value;
+                        this.$store.commit('searchResultShow', isShow, value);
                     }).catch(error => {
-                        // console.log(error);
+                        console.log(error);
                     })
                 } else {
-                    let IsShow = false;
-                    let Value = this.value;
-                    this.$store.commit('searchResultShow', IsShow, Value);
+                    let isShow = false;
+                    let value = this.value;
+                    this.$store.commit('searchResultShow', isShow, value);
                 }
-            },
+
+            }, 500),
+
             // 输入框失去焦点时触发
             onBlur() {
-                let IsShow = false;
-                this.$store.commit('searchResultShow', IsShow)
+                let isShow = false;
+                this.$store.commit('searchResultShow', isShow)
             },
             goBack() {
                 if (this.isShow) {
@@ -173,5 +182,4 @@
 </script>
 
 <style scoped>
-
 </style>

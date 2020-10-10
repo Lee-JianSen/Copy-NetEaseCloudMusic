@@ -15,34 +15,32 @@
 
 <script>
     import {GetSearchApi} from "../../../http/all-api";
-    import { Cell, CellGroup } from 'vant';
+    import {Cell, CellGroup} from 'vant';
+
     export default {
         name: "searchSuggest",
-        components:{
-            [Cell.name]:Cell,
-            [CellGroup.name]:CellGroup
+        components: {
+            [Cell.name]: Cell,
+            [CellGroup.name]: CellGroup
         },
         methods: {
             searchsuggest(val) {
-                console.log(val);
-                GetSearchApi(val,'1018').then(res => {
+
+                GetSearchApi(val, '1018').then(res => {
                     let lists = res.data.result;
-                    // console.log(lists);
-                    // console.log(res);
                     this.$emit("isSearchResultFunc", true);
-                    console.log(this.$store.state.searchResultShow);
                     this.$store.commit("searchResultList", lists);
                     let IsShow = false;
                     this.$store.commit('searchResultShow', IsShow);
-                    // this.$store.commit('searchWord',val)
-                    this.$store.commit('addWord', val)
+                    this.$store.commit('addWord', val);
 
                     this.$store.state.historyList.unshift(val);
-                    let hisList=this.$store.state.historyList;
-                    let newarr= Array.from(new Set(hisList));
+                    let hisList = this.$store.state.historyList;
+                    let newarr = Array.from(new Set(hisList));
                     this.$store.commit('historyBianLiList', newarr);
+                    this.$toast.clear()
                 }).catch(error => {
-
+                    console.log(error);
                 });
 
             }
@@ -53,10 +51,9 @@
 <style scoped>
     .father {
         position: absolute;
-        top: 140px;
+        top: 0;
         left: 12%;
         width: 77%;
         box-shadow: 2px 2px 10px #909090;
-
     }
 </style>

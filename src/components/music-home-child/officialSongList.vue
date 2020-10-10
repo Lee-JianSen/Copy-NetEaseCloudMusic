@@ -37,8 +37,8 @@
 </template>
 <script>
     // 横向滚动组件
-    import HorizontalScroll from "../horizontalScroll";
-    import {initScroll} from "../common/mixin";
+    import HorizontalScroll from "../common/horizontalScroll";
+    import {initScroll} from "../../tool/mixin";
     import BtnMore from "../common/btnMore";
     //引入vant组件 Grid宫格布局
     import {Image as VanImage, Icon} from 'vant';
@@ -75,9 +75,12 @@
             })
             },
             SongListClick(id) {
-                // todo 跳转歌单详情
                 console.log('歌单点击跳转');
                 console.log(id);
+                this.$router.push({
+                    path: '/daySongList',
+                    query: {id}
+                })
             }
         },
         components: {

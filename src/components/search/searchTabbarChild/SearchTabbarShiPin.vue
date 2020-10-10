@@ -26,9 +26,9 @@
     import {Button} from 'vant';
     import {Card} from 'vant';
     import {Tag} from 'vant';
-    import {formatDuring} from "../../../../components/common/utils";
+    import {formatDuring} from "../../../tool/utils";
     import {Cell, CellGroup} from 'vant';
-    import {GetSearchApi} from "../../../../http/all-api";
+    import {GetSearchApi} from "../../../http/all-api";
 
     export default {
         name: "SearchTabbarShiPin",

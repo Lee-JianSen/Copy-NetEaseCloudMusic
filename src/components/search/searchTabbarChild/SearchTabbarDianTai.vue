@@ -24,7 +24,7 @@
 </template>
 
 <script>
-    import {GetSearchApi} from "../../../../http/all-api";
+    import {GetSearchApi} from "../../../http/all-api";
     import {Icon} from "vant";
     import {Button} from 'vant';
     import {Card} from 'vant';

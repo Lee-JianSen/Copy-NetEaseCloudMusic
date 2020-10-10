@@ -3,25 +3,25 @@
         <van-tabs :swipeable="true">
             <van-tab v-for="(item,index) in tabbarList" :key="index" :title="item">
                 <div v-if="index === 0">
-                    <SearchTabbarZongHe @backtop="backTop"/>
+                    <search-tabbar-zong-he @backtop="backTop"/>
                 </div>
                 <div v-if="index ===1">
-                    <SearchTabbarDanQu/>
+                    <search-tabbar-dan-qu/>
                 </div>
                 <div v-if="index===2">
-                    <SearchTabbarShiPin/>
+                    <search-tabbar-shi-pin/>
                 </div>
                 <div v-if="index===3">
-                    <SearchTabbarGeShou/>
+                    <search-tabbar-ge-shou/>
                 </div>
                 <div v-if="index===4">
-                    <SearchTabbarZhuanJi/>
+                    <search-tabbar-zhuan-ji/>
                 </div>
                 <div v-if="index===5">
-                    <SearchTabbarGeDan/>
+                    <search-tabbar-ge-dan/>
                 </div>
                 <div v-if="index===6">
-                    <SearchTabbarDianTai/>
+                    <search-tabbar-dian-tai/>
                 </div>
             </van-tab>
         </van-tabs>
@@ -29,13 +29,13 @@
 </template>
 
 <script>
-    import SearchTabbarZongHe from "./searchTabbarChild/SearchTabbarZongHe";
-    import SearchTabbarDanQu from "./searchTabbarChild/SearchTabbarDanQu";
-    import SearchTabbarShiPin from "./searchTabbarChild/SearchTabbarShiPin";
-    import SearchTabbarGeShou from "./searchTabbarChild/SearchTabbarGeShou";
-    import SearchTabbarZhuanJi from "./searchTabbarChild/SearchTabbarZhuanJi";
-    import SearchTabbarGeDan from "./searchTabbarChild/SearchTabbarGeDan";
-    import SearchTabbarDianTai from "./searchTabbarChild/SearchTabbarDianTai";
+    import SearchTabbarZongHe from "../searchTabbarChild/SearchTabbarZongHe";
+    import SearchTabbarDanQu from "../searchTabbarChild/SearchTabbarDanQu";
+    import SearchTabbarShiPin from "../searchTabbarChild/SearchTabbarShiPin";
+    import SearchTabbarGeShou from "../searchTabbarChild/SearchTabbarGeShou";
+    import SearchTabbarZhuanJi from "../searchTabbarChild/SearchTabbarZhuanJi";
+    import SearchTabbarGeDan from "../searchTabbarChild/SearchTabbarGeDan";
+    import SearchTabbarDianTai from "../searchTabbarChild/SearchTabbarDianTai";
     import {Cell, CellGroup} from 'vant';
     import {Tab, Tabs} from 'vant';
 
@@ -43,7 +43,7 @@
         name: "searchTabbar",
         data() {
             return {
-                tabbarList: ['综合', '单曲',  '视频', '歌手', '专辑', '歌单', '主播电台'],
+                tabbarList: ['综合', '单曲', '视频', '歌手', '专辑', '歌单', '主播电台'],
 
             }
         },
