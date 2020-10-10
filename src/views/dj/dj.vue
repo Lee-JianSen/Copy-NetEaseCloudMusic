@@ -33,7 +33,7 @@
 
 <script>
     import commNav from "../../components/nav/commNav";
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import {GetDjRecommendAPI} from "../../http/all-api";
     import {createDjInfo} from "../../../model/djInfo";
     import {Grid, GridItem, Icon, Image as VanImage} from "vant";

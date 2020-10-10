@@ -54,7 +54,7 @@
 </template>
 
 <script>
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import CommNav from "../../components/nav/commNav";
     import {GetTopListAPI} from "../../http/all-api";
     import {createRankInfo} from "../../../model/rankInfo";

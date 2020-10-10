@@ -229,11 +229,11 @@
 </template>
 
 <script>
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import {Icon, Tab, Tabs, Image as VanImage, Grid, GridItem} from 'vant';
     import {GetHotPlayList, GetHighqualityAPI} from "../../http/all-api";
     import {createAllPlayInfo} from "../../../model/allPlayInfo";
-    import {debounce,unique} from "../../components/common/utils";
+    import {debounce,unique} from "../../tool/utils";
 
     export default {
         name: "allPlayList",

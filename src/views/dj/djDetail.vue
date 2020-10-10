@@ -89,12 +89,12 @@
 
 <script>
     import commNav from "../../components/nav/commNav";
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import {GetDjDetailAPI, GetDjProgramAPI} from "../../http/all-api";
     import {createDjDetailInfo} from "../../../model/djDetailInfo";
     import {createProgramInfo} from "../../../model/programInfo";
     import {Cell, Icon, Image as VanImage, Tab, Tabs} from "vant";
-    import {formatDate, formatDuring, unique} from "../../components/common/utils";
+    import {formatDate, formatDuring, unique} from "../../tool/utils";
 
     export default {
         name: "djDetail",

@@ -61,11 +61,11 @@
 </template>
 
 <script>
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import {GetAllMvAPI} from "../../http/all-api";
     import {Cell, Image as VanImage, Divider, Collapse, CollapseItem} from "vant";
     import {createAllMvInfo} from "../../../model/allMvInfo";
-    import {formatDuring, unique} from "../../components/common/utils";
+    import {formatDuring, unique} from "../../tool/utils";
 
     export default {
         name: "homeMv",

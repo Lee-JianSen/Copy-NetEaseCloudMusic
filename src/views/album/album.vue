@@ -130,7 +130,7 @@
 </template>
 
 <script>
-    import scroll from "../../components/scroll";
+    import scroll from "../../components/common/scroll";
     import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
     import {GetAlbumAPI} from "../../http/all-api";
     import {createAlbumInfo} from "../../../model/albumInfo";

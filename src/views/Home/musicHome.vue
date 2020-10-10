@@ -53,12 +53,13 @@ npm
 <script>
     // @ is an alias to /src
     import TabControl from "../../components/music-home-child/tabControl";
-    import Scroll from "../../components/scroll";
+    import Scroll from "../../components/common/scroll";
     import Recommend from "../../components/music-home-child/recommend";
     import VideoHome from "../video/video-home";
     import {GetBannerAPI, GetHomeFindAPI, GetVideoAPI, GetVideoDetailInfoAPI} from "../../http/all-api";
     import {Loading} from 'vant'
     import {createVideo} from "../../../model/videoInfo";
+    import {debounce} from "../../tool/utils";
 
     export default {
         name: 'Home',
@@ -158,13 +159,14 @@ npm
                         break;
                 }
             },
-            homeScroll(position) {
+            homeScroll: debounce(function (position) {
                 if (this.$store.state.musicId !== null && !this.toChangeHeight) {
                     this.toChangeHeight = true;
                     this.$refs.scroll.$el.style.height = 80 + 'vh';
                     this.$refs.scroll.refresh();
                 }
-            },
+            }, 250),
+
             async getBannerData() {
                 this.bannerList = [];
                 await GetBannerAPI(1).then(res => {

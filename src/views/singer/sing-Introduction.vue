@@ -22,7 +22,7 @@
 
 <script>
     import {GetSingerDescribeApi, GetSingerDanQuApi} from "../../http/all-api";
-    import Scroll from "../../components/scroll";
+    import Scroll from "../../components/common/scroll";
     import {Icon} from 'vant';
 import commNav from "../../components/nav/commNav";
     export default {

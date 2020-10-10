@@ -184,7 +184,7 @@
 </template>
 
 <script>
-    import Scroll from "../../components/scroll";
+    import Scroll from "../../components/common/scroll";
     import commNav from "../../components/nav/commNav";
     import {
         GetVideoDetailAPI,
@@ -195,7 +195,7 @@
     } from "../../http/all-api";
     import {createVideoDetailInfo} from "../../../model/videoDetailInfo";
     import {createVideoRelated} from "../../../model/videoRelatedInfo";
-    import {formatDate, unique, formatDuring} from "../../components/common/utils";
+    import {formatDate, unique, formatDuring} from "../../tool/utils";
     import {Cell, Divider, Icon, Image as VanImage} from "vant";
     import {createCommentHotInfo} from "../../../model/commentInfo";
 

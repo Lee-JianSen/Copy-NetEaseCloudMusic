@@ -239,8 +239,8 @@
     } from "../../http/all-api";
     import {Icon, Button, Card, Tag, Cell, CellGroup, Tab, Tabs, Popup} from "vant";
     import commNav from "../../components/nav/commNav";
-    import Scroll from "../../components/scroll"
-    import {formatDate} from "../../components/common/utils";
+    import Scroll from "../../components/common/scroll"
+    import {formatDate} from "../../tool/utils";
 
     export default {
         name: "singer",

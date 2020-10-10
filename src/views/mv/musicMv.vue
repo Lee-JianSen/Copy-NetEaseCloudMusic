@@ -192,10 +192,10 @@
 
 <script>
 
-    import Scroll from "../../components/scroll";
+    import Scroll from "../../components/common/scroll";
     import commNav from "../../components/nav/commNav";
     import {Cell, Divider, Icon, Image as VanImage} from "vant";
-    import {formatDate, formatDuring, unique} from "../../components/common/utils";
+    import {formatDate, formatDuring, unique} from "../../tool/utils";
     import {
         GetMVDetailAPI,
         GetMVDetailInfoAPI,
