@@ -1,5 +1,7 @@
 <template>
     <div>
+        <search @isSearchResultFunc="isSearchResultFunc" :isShow="isSearchResult"/>
+
         <scroll
                 class="content"
                 ref="scroll"
@@ -7,7 +9,6 @@
                 :pull-up-load="true"
                 @scroll="ListenScroll">
             <div>
-                <search @isSearchResultFunc="isSearchResultFunc" :isShow="isSearchResult"/>
                 <div v-if="!isSearchResult">
                     <div>
                         <img src="../../assets/jietu.jpg" alt="" style="width: 100%;height: auto">
@@ -21,16 +22,17 @@
                 <search-suggest @isSearchResultFunc="isSearchResultFunc"/>
             </div>
         </scroll>
+
     </div>
 </template>
 
 <script>
-    import search from "./searchChild/search";
-    import hotSearch from "./searchChild/hotSearch"
-    import Scroll from "../../components/scroll"
-    import historcalRecord from "./searchChild/historcalRecord"
-    import searchSuggest from "./searchChild/searchSuggest";
-    import searchTabbar from "./searchResultChild/searchTabbar";
+    import search from "../../components/search/searchChild/search";
+    import hotSearch from "../../components/search/searchChild/hotSearch"
+    import Scroll from "../../components/common/scroll"
+    import historcalRecord from "../../components/search/searchChild/historcalRecord"
+    import searchSuggest from "../../components/search/searchChild/searchSuggest";
+    import searchTabbar from "../../components/search/searchResultChild/searchTabbar";
 
     export default {
         name: "searchDetail",
@@ -80,7 +82,7 @@
         width: 100vw;
         overflow: hidden;
         position: absolute;
-        top: 0;
+        top: 130px;
         bottom: 0;
         left: 0;
         right: 0;
