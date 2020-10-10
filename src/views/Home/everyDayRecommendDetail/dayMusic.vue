@@ -123,7 +123,7 @@
 </template>
 
 <script>
-    import scroll from "../../../components/scroll";
+    import scroll from "../../../components/common/scroll";
     import musicPlay from "../../../components/common/musicPlay";
     import {GetRecommendSongAPI} from "../../../http/all-api";
     import {createMusicInfo} from "../../../../model/musicInfo";
