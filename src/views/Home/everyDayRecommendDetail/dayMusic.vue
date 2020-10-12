@@ -76,58 +76,20 @@
                 </van-cell-group>
             </div>
         </scroll>
-        <van-action-sheet v-model="isShowDetail">
-            <div class="musicDetail">
-                <van-cell-group>
-                    <van-cell
-                            class="mc-cell"
-                            :center="true"
-                            :border="false"
-                            label-class="ov"
-                            title-class="ov titleText">
-                        <template #title>
-                            <p class="ov titleText">
-                                歌曲:{{musicDetail.name}}
-                            </p>
-                        </template>
-                        <template #label>
-                            <p class="ov">
-                                {{musicDetail.singer}}
-                            </p>
-                        </template>
-                        <template #icon>
-                            <van-image
-                                    class="leftImage"
-                                    width="50" height="50"
-                                    radius="5"
-                                    :src="musicDetail.picUrl" alt="">
-                            </van-image>
-                        </template>
-                    </van-cell>
-                    <van-cell
-                            class="cellItem"
-                            size="large"
-                            :center="true"
-                            v-for="(item,index) in cellItem1"
-                            :icon="item.icon"
-                            :value="item.title"
-                            :key="index"
-                            value-class="cellText"
-                            @click.stop="musicDetailClick(index)">
-                    </van-cell>
-                </van-cell-group>
-
-            </div>
-        </van-action-sheet>
+        <active-sheet
+                :is-show-detail="isShowDetail"
+                :music-detail="musicDetail"
+                @clickOverlay="clickOverlay"/>
     </div>
 </template>
 
 <script>
     import scroll from "../../../components/common/scroll";
     import musicPlay from "../../../components/common/musicPlay";
+    import activeSheet from "../../../components/common/activeSheet";
     import {GetRecommendSongAPI} from "../../../http/all-api";
     import {createMusicInfo} from "../../../../model/musicInfo";
-    import {Cell, CellGroup, Image as VanImage, Icon, ActionSheet} from 'vant';
+    import {Cell, CellGroup, Image as VanImage, Icon} from 'vant';
 
     export default {
         name: "dayMusic",
@@ -141,7 +103,7 @@
         async created() {
             await this.getMusicInfo();
             this.$toast.clear();
-          if (this.isMusicPlay)  this.$refs.scroll.$el.style.height = 92 + '%';
+            if (this.isMusicPlay) this.$refs.scroll.$el.style.height = 92 + '%';
             this.$refs.scroll.refresh();
         },
         computed: {
@@ -159,22 +121,7 @@
                 musicInfo: [],
                 musicDetail: {},
                 isShowTop: false,
-                isShowDetail: false,
-                cellItem1: [
-                    {
-                        icon: 'comment-o',
-                        title: '查看评论'
-                    }, {
-                        icon: 'cluster-o',
-                        title: '分享'
-                    }, {
-                        icon: 'user-o',
-                        title: '查看mv'
-                    }, {
-                        icon: 'smile-o',
-                        title: '查看专辑'
-                    }
-                ],
+                isShowDetail: false
             }
         },
         methods: {
@@ -225,61 +172,25 @@
                 this.$store.dispatch('getMusicUrl', allId);
                 this.$store.dispatch('getMusicDetail', allId);
             },
+            clickOverlay() {
+                this.isShowDetail = false;
+            },
             musicDetailShow(index) {
                 this.musicDetail = this.musicInfo[index];
                 this.isShowDetail = !this.isShowDetail;
-                console.log(this.musicDetail);
+                console.log(this.isShowDetail);
             },
-            musicDetailClick(index) {
-                this.isShowDetail = !this.isShowDetail;
-                switch (index) {
-                    case 0:
-                        this.$router.push({
-                            path: '/commentMusic',
-                            query: {
-                                musicName: this.musicDetail.name,
-                                singer: this.musicDetail.singer,
-                                musicPic: this.musicDetail.picUrl,
-                                id: this.musicDetail.id
-                            }
-                        });
-                        break;
-                    case 1:
-                        console.log('分享');
-                        break;
-                    case 2:
-                        console.log('查看mv');
-                        console.log(this.musicDetail.mvId);
-                        if (this.musicDetail.mvId !== 0 && this.musicDetail.mvId !== null) {
-                            this.$router.push({
-                                path: '/music-mv',
-                                query: {
-                                    mvId: this.musicDetail.mvId
-                                }
-                            });
-                        } else {
-                            this.$toast('抱歉,暂无MV')
-                        }
 
-                        break;
-                    case 3:
-                        console.log('查看专辑');
-                        this.$router.push({
-                            path: '/album',
-                            query: {id: this.musicDetail.albumId}
-                        });
-                        break;
-                }
-            }
         },
         components: {
             scroll,
             musicPlay,
+            activeSheet,
             [Cell.name]: Cell,
             [CellGroup.name]: CellGroup,
             [VanImage.name]: VanImage,
             [Icon.name]: Icon,
-            [ActionSheet.name]: ActionSheet,
+
         }
     }
 </script>
@@ -289,46 +200,6 @@
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
-    }
-
-    .comm() {
-        .mc-cell {
-            width: 100vw;
-            margin: 30px 15px 0 0;
-        }
-
-        .leftImage {
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-
-        .rightImage {
-            padding-right: 40px;
-        }
-
-        .titleText {
-            width: 800px;
-            font-weight: 600;
-            font-size: 38px;
-
-            .titleAlias {
-                color: #a7a6a7;
-                font-size: 36px;
-            }
-
-            .mvBox {
-                display: inline-block;
-                padding: 0 8px;
-                color: #c2463a;
-                border: 1px solid #c2463a;
-                border-radius: 6px;
-            }
-        }
-
-        .labelTextStyle {
-            width: 500px;
-            font-size: 30px;
-        }
     }
 
     .dayMusic {
@@ -362,22 +233,7 @@
             bottom: 0;
             z-index: 0;
             touch-action: none;
-            .comm();
-        }
-
-        .musicDetail {
-            padding: 16px 16px 30px;
-            .comm();
-
-            .cellItem {
-                padding: 30px 30px;
-            }
-
-            .cellText {
-                font-weight: bold;
-                padding-left: 20px;
-                font-size: 38px;
-            }
+            .activeSheetStyle();
         }
     }
 
