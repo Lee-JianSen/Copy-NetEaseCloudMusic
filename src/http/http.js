@@ -21,7 +21,6 @@ export function http(config) {
             || config.url === "/comment/like") {
 
         } else {
-            console.log('log');
             Vue.prototype.$toast.loading({
                 message: '加载中',
                 forbidClick: true,
