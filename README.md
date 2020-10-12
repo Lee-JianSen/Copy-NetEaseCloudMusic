@@ -43,7 +43,7 @@ Github地址：[github.com/Binaryify/N…](https://github.com/Binaryify/NeteaseC
 
 ##### 首页：
 
-##### <img src="https://ftp.bmp.ovh/imgs/2020/09/60b7b83eb04c1b87.png" alt="https://ftp.bmp.ovh/imgs/2020/09/60b7b83eb04c1b87.png"  width="300" height="600" /><img src="https://ftp.bmp.ovh/imgs/2020/09/b7b96281633d70c0.png" alt="https://ftp.bmp.ovh/imgs/2020/09/b7b96281633d70c0.png" width="300" height="600" />
+##### [![0abcfd35d8b57190f3c8a5a06be9eaa.png](https://i.postimg.cc/d32hCT9B/0abcfd35d8b57190f3c8a5a06be9eaa.png)](https://postimg.cc/5Qt9dyTY)[![12742d14ae766c0bb63ed2804908c75.png](https://i.postimg.cc/VkLJSv0q/12742d14ae766c0bb63ed2804908c75.png)](https://postimg.cc/D8HvH2g0)
 
 ##### 推荐视频：
 
@@ -96,6 +96,10 @@ Github地址：[github.com/Binaryify/N…](https://github.com/Binaryify/NeteaseC
 播放器页面：
 
 [![b0d9c7d3b75d75767f2992d39cb8cbd.png](https://i.postimg.cc/Fz6Wftg0/b0d9c7d3b75d75767f2992d39cb8cbd.png)](https://postimg.cc/gLvq5T70)[![365091f1a6f9881b9633718a3afa227.png](https://i.postimg.cc/YCYnSs4m/365091f1a6f9881b9633718a3afa227.png)](https://postimg.cc/XrNcHxkV)[![a5aa5f438b47fdb9c9ce44f985dce25.png](https://i.postimg.cc/MTKddZ9y/a5aa5f438b47fdb9c9ce44f985dce25.png)](https://postimg.cc/v1krmyFB)
+
+搜索页面：
+
+[![26b79a0322f4863e9baa6c21680f9b3.png](https://i.postimg.cc/Pf3W2bXp/26b79a0322f4863e9baa6c21680f9b3.png)](https://postimg.cc/t76ngxVp)[![b31cf4765a510113783834c7cb3aa3f.png](https://i.postimg.cc/65FdN9GB/b31cf4765a510113783834c7cb3aa3f.png)](https://postimg.cc/8jBFRgHY)[![55b31176faf9b1f30092544c6cd1eee.png](https://i.postimg.cc/LX0JBTtm/55b31176faf9b1f30092544c6cd1eee.png)](https://postimg.cc/qhyBp2DF)
 
 ### 项目实现功能
 
