@@ -8,7 +8,7 @@
 
 ### 技术栈
 
-1.Vue全家桶(vue4.x,vue-cli,vue-router,vuex)
+1.Vue全家桶(vue,vue-cli,vue-router,vuex)
 
 2.axios
 
@@ -47,21 +47,19 @@ Github地址：[github.com/Binaryify/N…](https://github.com/Binaryify/NeteaseC
 
 ##### 推荐视频：
 
-<img src="https://ftp.bmp.ovh/imgs/2020/09/72e8ff0334302e50.png" alt="https://ftp.bmp.ovh/imgs/2020/09/72e8ff0334302e50.png" width="300" height="600" /><img src="https://ftp.bmp.ovh/imgs/2020/09/574793bd802fa9e8.png" alt="https://ftp.bmp.ovh/imgs/2020/09/574793bd802fa9e8.png" width="300" height="600"  />
-
-<img src="https://ftp.bmp.ovh/imgs/2020/09/48d5de71d5dcc7aa.png" width="300" height="600" />
+[![eee83ed729c22a12d76fac0f1610bd9.png](https://i.postimg.cc/8cr88H9k/eee83ed729c22a12d76fac0f1610bd9.png)](https://postimg.cc/64wbndBF)[![b599428bb40f0b6e90e260cd72f66b9.png](https://i.postimg.cc/R0VVkkRM/b599428bb40f0b6e90e260cd72f66b9.png)](https://postimg.cc/JsvLJdvg)[![fd49d02edf2e2eec2d2377b23c3cef1.png](https://i.postimg.cc/XvZtBxNf/fd49d02edf2e2eec2d2377b23c3cef1.png)](https://postimg.cc/HJg6fwyn)
 
 ##### 日推：
 
-<img src="https://ftp.bmp.ovh/imgs/2020/09/405838a00f768868.png" width="300" height="600"  /><img src="https://ftp.bmp.ovh/imgs/2020/09/9ead68fc895beffc.png" alt="image-20200916162853372"  width="300" height="600" />
+[![69ebff9a71661b8c670b33c283676e1.png](https://i.postimg.cc/xjGhmXQ4/69ebff9a71661b8c670b33c283676e1.png)](https://postimg.cc/Yj9dKqh6)[![03b14a589358a6c80f3100f09862777.png](https://i.postimg.cc/qvq5WQ3P/03b14a589358a6c80f3100f09862777.png)](https://postimg.cc/HrGzyw3z)
 
 ##### 歌曲评论：
 
-<img src="https://ftp.bmp.ovh/imgs/2020/09/1ab5c2a11785b92f.png" width="300" height="600" /><img src="https://ftp.bmp.ovh/imgs/2020/09/438da41e7f27bea5.png" alt="image-20200916163236308" width="300" height="600" />
+[![c6f8ccfdba8cafbe0f3ffeab445dee9.png](https://i.postimg.cc/mkh9Tcyg/c6f8ccfdba8cafbe0f3ffeab445dee9.png)](https://postimg.cc/zHZvjGQs)[![7613c9e3c28e1699ddbd250138ab59f.png](https://i.postimg.cc/wjDmxYLL/7613c9e3c28e1699ddbd250138ab59f.png)](https://postimg.cc/75Y6XcBZ)
 
 ##### 歌单广场：
 
-<img src="https://ftp.bmp.ovh/imgs/2020/09/767e6512d7a52b17.png" width="300" height="600"  />
+[![a9633be0c3b54b8f5fbd63658bac4b6.png](https://i.postimg.cc/j5227pw8/a9633be0c3b54b8f5fbd63658bac4b6.png)](https://postimg.cc/YGctcyxg)
 
 ##### 排行榜：
 
