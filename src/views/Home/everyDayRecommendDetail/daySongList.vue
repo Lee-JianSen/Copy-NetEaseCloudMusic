@@ -128,18 +128,22 @@
                             </van-image>
                         </template>
                         <template #right-icon>
-                            <van-icon name="ellipsis" class="rightImage"/>
+                            <van-icon @click.stop="musicDetailShow(index)" name="ellipsis" class="rightImage"/>
                         </template>
                     </van-cell>
                 </van-cell-group>
             </div>
-
         </scroll>
+        <active-sheet
+                :is-show-detail="isShowDetail"
+                :music-detail="musicDetail"
+                @clickOverlay="clickOverlay"/>
     </div>
 </template>
 
 <script>
     import scroll from "../../../components/common/scroll";
+    import activeSheet from "../../../components/common/activeSheet";
     import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
     import {GetSongListAPI, GetMusicDetail} from "../../../http/all-api";
     import {createSongListInfo} from "../../../../model/songListInfo";
@@ -163,7 +167,9 @@
             return {
                 songListData: {},
                 musicInfo: [],
+                musicDetail: {},
                 isShowTop: false,
+                isShowDetail: false
             }
         },
         computed: {
@@ -209,7 +215,15 @@
                 let opacity = Math.abs(Math.round(position.y) / 100);
                 this.$refs.topNav.style.background = `rgba(114,114,114,${opacity})`;
                 this.isShowTop = position.y <= -220;
-            }
+            },
+            clickOverlay() {
+                this.isShowDetail = false;
+            },
+            musicDetailShow(index) {
+                this.musicDetail = this.musicInfo[index];
+                this.isShowDetail = !this.isShowDetail;
+                console.log(this.isShowDetail);
+            },
         },
         components: {
             [Cell.name]: Cell,
@@ -217,7 +231,8 @@
             [VanImage.name]: VanImage,
             [Icon.name]: Icon,
             [Button.name]: Button,
-            scroll
+            scroll,
+            activeSheet
         },
         filters: {
             playCount1(num) {
