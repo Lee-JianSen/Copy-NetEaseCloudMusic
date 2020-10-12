@@ -2,6 +2,7 @@ import {GetMusicCheck} from "./all-api";
 
 export default {
     install(Vue) {
+        // 检查歌词是否可用
         Vue.prototype.musicCheck = function (musicId) {
             GetMusicCheck(musicId).then(res => {
                 if (res.data.success === false) {

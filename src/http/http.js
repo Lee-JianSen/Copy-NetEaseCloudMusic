@@ -13,13 +13,22 @@ export function http(config) {
         timeout: 5000,
         withCredentials: true
     });
+    // 请求拦截
     instance.interceptors.request.use(config => {
-        Vue.prototype.$toast.loading({
-            message: '加载中',
-            forbidClick: true,
-            duration: 0
-        });
         config.headers['token'] = store.state.token;
+        if (config.url === 'search/suggest'
+            || config.url === "/resource/like"
+            || config.url === "/comment/like") {
+
+        } else {
+            console.log('log');
+            Vue.prototype.$toast.loading({
+                message: '加载中',
+                forbidClick: true,
+                duration: 0
+            });
+        }
+
         return config
     }, error => {
         console.log('请求出错' + error);
@@ -31,6 +40,7 @@ export function http(config) {
         return Promise.reject(error.response);
     });
 
+    // 响应拦截
     instance.interceptors.response.use(response => {
         if (response.config.headers.token) {
             store.commit('saveToken', response.config.headers.token);
