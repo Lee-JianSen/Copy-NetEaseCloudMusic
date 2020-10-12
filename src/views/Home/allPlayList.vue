@@ -25,201 +25,36 @@
                         title-active-color="#c2463a"
                         @change="activeChange"
                         background="transparent">
-                    <van-tab title="推荐" name="tj">
+                    <van-tab v-for="(item,index) in allType"
+                             :key="item.name"
+                             :title="item.title"
+                             :name="item.name">
                         <van-grid class="gridItem" :border="false" :column-num="3">
                             <van-grid-item
-
-                                    :key="index"
-                                    v-for="(item,index) in all">
+                                    class="gridItems"
+                                    :key="indey"
+                                    v-for="(value,indey) in item.data">
                                 <div>
                                     <div class="playCount">
                                         <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
+                                        {{value.playCount|playCount}}
                                     </div>
 
                                     <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
+                                         @click="SongListClick(value.id)">
 
                                         <van-image
                                                 fit="cover"
                                                 radius="5px"
-                                                :src="imageUrlSize(item)"
-                                                @load="imageLoadEnd"
-                                        />
-
-                                        <div class="text">{{item.description}}</div>
-
-                                    </div>
-                                </div>
-                            </van-grid-item>
-                        </van-grid>
-                    </van-tab>
-                    <van-tab title="精品" name="jp">
-
-                        <van-grid class="gridItem" :border="false" :column-num="3">
-                            <van-grid-item
-                                    :key="index"
-                                    v-for="(item,index) in jp">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                :src="imageUrlSize(item)"
-                                                @load="imageLoadEnd"
-
-                                        />
-
-                                        <div class="text">{{item.description}}</div>
-                                    </div>
-                                </div>
-                            </van-grid-item>
-                        </van-grid>
-
-                    </van-tab>
-                    <van-tab title="华语" name="hy">
-
-                        <van-grid class="gridItem" :border="false" :column-num="3">
-                            <van-grid-item
-                                    :key="index"
-                                    v-for="(item,index) in hy">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                :src="imageUrlSize(item)"
+                                                width="28vw"
+                                                height="16vh"
+                                                :src="value.coverImgUrl"
                                                 @load="imageLoadEnd"/>
-
-                                        <div class="text">{{item.description}}</div>
+                                        <div class="text">{{value.description}}</div>
                                     </div>
                                 </div>
                             </van-grid-item>
                         </van-grid>
-
-                    </van-tab>
-                    <van-tab title="流行" name="lx">
-
-                        <van-grid class="gridItem" :border="false" :column-num="3">
-                            <van-grid-item
-                                    :key="index"
-                                    v-for="(item,index) in lx">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                :src="imageUrlSize(item)"
-                                                @load="imageLoadEnd"/>
-
-                                        <div class="text">{{item.description}}</div>
-                                    </div>
-                                </div>
-                            </van-grid-item>
-                        </van-grid>
-
-                        <div>
-                            <van-grid class="gridItem" :border="false" :column-num="3">
-                                <van-grid-item
-                                        :key="index"
-                                        v-for="(item,index) in hy">
-                                    <div>
-                                        <div class="playCount">
-                                            <van-icon name="service-o" color="#eee"/>
-                                            {{item.playCount|playCount}}
-                                        </div>
-
-                                        <div class="songListInfo"
-                                             @click="SongListClick(item.id)">
-
-                                            <van-image
-                                                    fit="cover"
-                                                    radius="5px"
-                                                    :src="imageUrlSize(item)"/>
-
-                                            <div class="text">{{item.description}}</div>
-                                        </div>
-                                    </div>
-                                </van-grid-item>
-                            </van-grid>
-                        </div>
-                    </van-tab>
-                    <van-tab title="摇滚" name="yg">
-
-                        <van-grid class="gridItem" :border="false" :column-num="3">
-                            <van-grid-item
-                                    :key="index"
-                                    v-for="(item,index) in yg">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                :src="imageUrlSize(item)"
-                                                @load="imageLoadEnd"/>
-
-                                        <div class="text">{{item.description}}</div>
-                                    </div>
-                                </div>
-                            </van-grid-item>
-                        </van-grid>
-
-                    </van-tab>
-                    <van-tab title="民谣" name="my">
-
-                        <van-grid class="gridItem" :border="false" :column-num="3">
-                            <van-grid-item
-                                    :key="index"
-                                    v-for="(item,index) in my">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{item.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(item.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                :src="imageUrlSize(item)"
-                                                @load="imageLoadEnd"/>
-
-                                        <div class="text">{{item.description}}</div>
-                                    </div>
-                                </div>
-                            </van-grid-item>
-                        </van-grid>
-
                     </van-tab>
                 </van-tabs>
             </scroll>
@@ -233,7 +68,7 @@
     import {Icon, Tab, Tabs, Image as VanImage, Grid, GridItem} from 'vant';
     import {GetHotPlayList, GetHighqualityAPI} from "../../http/all-api";
     import {createAllPlayInfo} from "../../../model/allPlayInfo";
-    import {debounce,unique} from "../../tool/utils";
+    import {debounce, unique} from "../../tool/utils";
 
     export default {
         name: "allPlayList",
@@ -245,26 +80,47 @@
             });
         },
         async created() {
-            await this.getAllPlayListData({limit: this.limit, cat: '全部', dataType: this.all})
+            await this.getAllPlayListData({limit: this.limit, cat: '全部', dataType: this.allType[0].data})
             this.$toast.clear();
         },
         data() {
             return {
                 active: 0,
                 limit: 51,
-                all: [],
-                jp: [],
-                hy: [],
-                lx: [],
-                yg: [],
-                my: [],
+                allType: [
+                    {
+                        title: '推荐',
+                        name: 'tj',
+                        data: []
+                    }, {
+                        title: '精品',
+                        name: 'jp',
+                        data: []
+                    }, {
+                        title: '华语',
+                        name: 'hy',
+                        data: []
+                    }, {
+                        title: '流行',
+                        name: 'lx',
+                        data: []
+                    }, {
+                        title: '摇滚',
+                        name: 'yg',
+                        data: []
+                    }, {
+                        title: '民谣',
+                        name: 'my',
+                        data: []
+                    }
+                ],
                 maxCount: 0,
             }
         },
         computed: {
             imageUrlSize() {
                 return function (item) {
-                    return item.coverImgUrl + '?param=120y120'
+                    return item.coverImgUrl + '?param=150y150'
                 }
             }
         },
@@ -278,7 +134,6 @@
             async getAllPlayListData({limit, cat, order, dataType}) {
                 await GetHotPlayList({limit: limit, cat: cat, order: order}).then(res => {
                     if (res.data.playlists.length !== 100) {
-                        console.log(this.maxCount);
                         let result = res.data.playlists;
                         result.forEach(item => {
                             dataType.push(createAllPlayInfo(item))
@@ -295,71 +150,61 @@
                     console.log(err);
                 });
             },
-            async activeChange(name, title) {
-                this.$toast.loading({
-                    message: '加载中',
-                    forbidClick: true,
-                    duration: 0
-                });
+            activeChange(name, title) {
+
                 switch (name) {
                     case 'tj':
                         this.limit = 51;
-                        if (this.all.length === 0) await this.getAllPlayListData({
+                        if (this.allType[0].data.length === 0) this.getAllPlayListData({
                             limit: 51,
                             cat: '全部',
-                            dataType: this.all
+                            dataType: this.allType[0].data
                         });
-                        this.$toast.clear();
                         break;
                     case 'jp':
                         this.limit = 21;
-                        await GetHighqualityAPI({limit: 21, cat: '全部'}).then(res => {
+                        GetHighqualityAPI({limit: 21, cat: '全部'}).then(res => {
                             let result = res.data.playlists;
                             result.forEach(item => {
-                                this.jp.push(createAllPlayInfo(item))
+                                this.allType[1].data.push(createAllPlayInfo(item))
                             });
                             return result;
                         }).catch(error => {
                             console.log('获取精品歌单报错');
                             console.log(error);
                         });
-                        this.$toast.clear();
                         break;
                     case 'hy':
                         this.limit = 51;
-                        if (this.hy.length === 0) await this.getAllPlayListData({
+                        if (this.allType[2].data.length === 0) this.getAllPlayListData({
                             limit: 51,
                             cat: '华语',
-                            dataType: this.hy
+                            dataType: this.allType[2].data
                         });
-                        this.$toast.clear();
                         break;
                     case 'lx':
                         this.limit = 51;
-                        if (this.lx.length === 0) await this.getAllPlayListData({
+                        if (this.allType[3].data.length === 0) this.getAllPlayListData({
                             limit: 51,
                             cat: '流行',
-                            dataType: this.lx
+                            dataType: this.allType[3].data
                         });
-                        this.$toast.clear();
                         break;
                     case  'yg':
                         this.limit = 51;
-                        if (this.yg.length === 0) await this.getAllPlayListData({
+                        if (this.allType[4].data.length === 0) this.getAllPlayListData({
                             limit: 51,
                             cat: '摇滚',
-                            dataType: this.yg
+                            dataType: this.allType[4].data
                         });
-                        this.$toast.clear();
                         break;
                     case 'my':
                         this.limit = 51;
-                        if (this.my.length === 0) await this.getAllPlayListData({
+                        if (this.allType[5].data.length === 0) this.getAllPlayListData({
                             limit: 51,
                             cat: '民谣',
-                            dataType: this.my
+                            dataType: this.allType[5].data
                         });
-                        this.$toast.clear();
                         break;
                 }
             },
@@ -376,8 +221,8 @@
                 this.limit += 20;
                 switch (this.active) {
                     case 'tj':
-                        await this.getAllPlayListData({limit: this.limit, cat: '全部', dataType: this.all});
-                        this.all = this.unique(this.all);
+                        await this.getAllPlayListData({limit: this.limit, cat: '全部', dataType: this.allType[0].data});
+                        this.allType[0].data = unique(this.allType[0].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                     case 'jp':
@@ -388,33 +233,33 @@
                                 return;
                             }
                             result.forEach(item => {
-                                this.jp.push(createAllPlayInfo(item))
+                                this.allType[1].data.push(createAllPlayInfo(item))
                             });
                         }).catch(error => {
                             console.log('获取精品歌单报错');
                             console.log(error);
                         });
-                        this.jp = this.unique(this.jp);
+                        this.allType[1].data = unique(this.allType[1].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                     case 'hy':
-                        await this.getAllPlayListData({limit: this.limit, cat: '华语', dataType: this.hy});
-                        this.hy = this.unique(this.hy);
+                        await this.getAllPlayListData({limit: this.limit, cat: '华语', dataType: this.allType[2].data});
+                        this.allType[2].data = unique(this.allType[2].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                     case 'lx':
-                        await this.getAllPlayListData({limit: this.limit, cat: '流行', dataType: this.lx});
-                        this.lx = this.unique(this.lx);
+                        await this.getAllPlayListData({limit: this.limit, cat: '流行', dataType: this.allType[3].data});
+                        this.allType[3].data = unique(this.allType[3].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                     case  'yg':
-                        await this.getAllPlayListData({limit: this.limit, cat: '摇滚', dataType: this.yg});
-                        this.yg = this.unique(this.yg);
+                        await this.getAllPlayListData({limit: this.limit, cat: '摇滚', dataType: this.allType[4].data});
+                        this.allType[4].data = unique(this.allType[4].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                     case 'my':
-                        this.getAllPlayListData({limit: this.limit, cat: '民谣', dataType: this.my});
-                        this.my = this.unique(this.my);
+                        this.getAllPlayListData({limit: this.limit, cat: '民谣', dataType: this.allType[5].data});
+                        this.allType[5].data = unique(this.allType[5].data);
                         this.$refs.scroll.finishPullUp();
                         break;
                 }
@@ -453,6 +298,7 @@
             padding: 30px;
             align-items: center;
             font-weight: bold;
+
             .navTitle {
                 padding-left: 30px;
             }
@@ -473,20 +319,17 @@
         }
 
         .content {
-            width: 100vw;
-            /*height: 92%;*/
-            overflow: hidden;
-            position: absolute;
-            top: 120px;
-            left: 0;
-            bottom: 0;
-            /*z-index: 0;*/
-            touch-action: none;
+            .scrollStyle(120px);
+
 
             .gridItem {
                 width: 100vw;
                 position: relative;
                 margin-right: 30px;
+
+                .gridItems {
+                    height: 95%;
+                }
 
                 .text {
                     width: 300px;
@@ -502,7 +345,7 @@
 
                 .playCount {
                     position: absolute;
-                    top: 40px;
+                    top: 45px;
                     right: 40px;
                     z-index: 999;
                     font-size: 36px;
