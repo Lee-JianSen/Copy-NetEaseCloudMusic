@@ -196,14 +196,8 @@
 <style lang="less" scoped>
     .homeMv {
         .content {
-            overflow: hidden;
-            position: absolute;
-            top: 280px;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 0;
-            touch-action: none;
+            .scrollStyle(280px);
+
 
 
             .mvBox {

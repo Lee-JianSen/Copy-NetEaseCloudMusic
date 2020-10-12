@@ -460,76 +460,10 @@
 </script>
 
 <style scoped lang="less">
-    .comm() {
-        .mc-cell {
-            width: 100vw;
-            margin: 30px 15px 0 0;
-        }
-
-        .leftImage {
-            margin-left: 30px;
-            margin-right: 30px;
-        }
-
-        .rightImage {
-            padding-right: 40px;
-        }
-
-        .titleText {
-            width: 500px;
-            font-weight: 600;
-            font-size: 36px;
-
-            p {
-                width: 700px;
-                white-space: pre-wrap;
-
-            }
-        }
-        .labelTextStyle {
-            width: 500px;
-            font-size: 30px;
-            color: rgb(175, 175, 175);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-    }
-
-    .cellComm() {
-        .avatarPic {
-            padding: 30px;
-        }
-
-        .timeText {
-            font-size: 26px;
-        }
-
-        .valueText {
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 15px;
-        }
-        .like {
-            color: #c2463a;
-        }
-        .contentText {
-            white-space: pre-wrap;
-            padding: 0 50px 20px 150px;
-            font-size: 38px;
-        }
-    }
 
     .videoDetail {
         .content {
-            overflow: hidden;
-            position: absolute;
-            top: 120px;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 0;
-            touch-action: none;
+            .scrollStyle(120px);
 
             .info {
                 padding: 30px;
@@ -586,9 +520,10 @@
                 padding: 30px;
 
                 .topBox {
-                    .comm()
+                    .videoStyle()
                 }
-                .mvBox{
+
+                .mvBox {
                     display: inline-block;
                     padding: 0 8px;
                     color: #c2463a;
@@ -603,11 +538,11 @@
 
 
             .hot {
-                .cellComm();
+                .commentStyle();
             }
 
             .new {
-                .cellComm();
+                .commentStyle();
             }
 
             .notComment {

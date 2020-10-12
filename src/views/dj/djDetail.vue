@@ -217,14 +217,7 @@
         }
 
         .content1 {
-            width: 100vw;
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 2;
-            touch-action: none;
+            .scrollStyle();
 
             .topInfo {
                 position: relative;
@@ -314,6 +307,7 @@
                     padding-left: 15px;
                     font-size: 38px;
                     color: #a7a6a7;
+                    white-space: pre-wrap;
                 }
 
                 .iconIndex {

@@ -224,15 +224,7 @@
         }
 
         .content {
-            width: 100vw;
-            /*height: 92%;*/
-            overflow: hidden;
-            position: absolute;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            z-index: 0;
-            touch-action: none;
+            .scrollStyle();
             .activeSheetStyle();
         }
     }

@@ -291,14 +291,6 @@ npm
     }
 
     .content {
-        width: 100vw;
-        overflow: hidden;
-        position: absolute;
-        top: 220px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        touch-action: none;
+        .scrollStyle(220px);
     }
 </style>

@@ -175,7 +175,6 @@
 
         .videoLi {
             width: 95vw;
-
             padding: 0 30px;
             border-radius: 15px;
             margin-top: 100px;

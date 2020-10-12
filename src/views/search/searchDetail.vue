@@ -77,16 +77,8 @@
     }
 </script>
 
-<style scoped>
+<style scoped lang="less">
     .content {
-        width: 100vw;
-        overflow: hidden;
-        position: absolute;
-        top: 130px;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        z-index: 0;
-        touch-action: none;
+        .scrollStyle(130px);
     }
 </style>

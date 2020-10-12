@@ -1,6 +1,6 @@
 <template>
     <div class="rank">
-       <comm-nav title="排行榜"></comm-nav>
+        <comm-nav title="排行榜"></comm-nav>
         <scroll
                 class="content"
                 ref="scroll"
@@ -120,15 +120,7 @@
         width: 100vw;
 
         .content {
-            width: 100vw;
-            /*height: 92%;*/
-            overflow: hidden;
-            position: absolute;
-            top: 150px;
-            left: 0;
-            bottom: 0;
-            z-index: 0;
-            touch-action: none;
+            .scrollStyle(150px);
         }
 
         .rankContent {
@@ -172,9 +164,10 @@
                 h4 {
                     font-size: 50px;
                     margin-top: 30px;
-                   margin-left: 30px;
+                    margin-left: 30px;
                     margin-bottom: 30px;
                 }
+
                 .rankPic {
                     position: relative;
 

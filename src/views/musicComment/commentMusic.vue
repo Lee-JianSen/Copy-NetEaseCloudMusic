@@ -1,6 +1,6 @@
 <template>
     <div class="commentMusic">
-        <comm-nav :title="`评论(${totalCount})`"></comm-nav>
+        <comm-nav :title="`评论(${totalCount})`"/>
         <div v-show="showTop" class="ceilingNav">
             <van-cell
 
@@ -106,7 +106,7 @@
                                 <div class="contentText">
                                     <p>{{item.content}}</p>
                                 </div>
-                                <van-divider></van-divider>
+                                <van-divider/>
                             </div>
                         </div>
                     </van-skeleton>
@@ -153,7 +153,7 @@
                                 <div class="contentText">
                                     <p>{{item.content}}</p>
                                 </div>
-                                <van-divider></van-divider>
+                                <van-divider/>
                             </div>
                         </div>
                     </van-skeleton>
@@ -373,29 +373,6 @@
         }
     }
 
-    .cellComm() {
-        .avatarPic {
-            padding: 30px;
-        }
-
-        .timeText {
-            font-size: 26px;
-        }
-
-        .valueText {
-            display: flex;
-            justify-content: flex-end;
-            padding-right: 15px;
-        }
-        .like {
-            color: #c2463a;
-        }
-        .contentText {
-            white-space: pre-wrap;
-            padding: 0 50px 20px 150px;
-            font-size: 38px;
-        }
-    }
 
     .commentMusic {
         .ceilingNav {
@@ -428,14 +405,8 @@
         }
 
         .content {
-            overflow: hidden;
-            position: absolute;
-            top: 120px;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            z-index: 0;
-            touch-action: none;
+            .scrollStyle(120px);
+
 
             .topBox {
                 .comm()
@@ -476,11 +447,11 @@
         }
 
         .hot {
-            .cellComm();
+            .commentStyle();
         }
 
         .new {
-            .cellComm();
+            .commentStyle();
 
         }
     }

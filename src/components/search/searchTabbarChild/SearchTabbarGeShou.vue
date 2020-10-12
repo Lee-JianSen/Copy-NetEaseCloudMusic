@@ -51,12 +51,13 @@
         },
         methods: {
             pushSinger(id) {
-                this.$router.push({
-                    path: '/singer',
-                    query: {
-                        id: id
-                    }
-                })
+                console.log('跳转歌手' + id);
+                // this.$router.push({
+                //     path: '/singer',
+                //     query: {
+                //         id: id
+                //     }
+                // })
             }
         }
     }

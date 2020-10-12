@@ -12,7 +12,7 @@
             <div v-for="item in $store.state.searchResultList.song.songs">
                 <van-cell
                         @click="getMusicId(item.id)"
-                         label-class="labelStyle"
+                        label-class="labelStyle"
                         title-class="titleStyle">
                     <template #title>
                         <span>{{item.name}}</span>
@@ -226,11 +226,12 @@
 </script>
 
 <style scoped>
-.titleStyle{
+    .titleStyle {
 
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     .labelStyle {
         width: 600px;
         font-size: 10px;
@@ -244,7 +245,7 @@
         color: #BEBFC0;
         overflow: hidden;
         text-overflow: ellipsis;
-width: 100px;
+        width: 100px;
     }
 
     .search-icon {
