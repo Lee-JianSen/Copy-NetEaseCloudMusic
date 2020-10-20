@@ -64,7 +64,7 @@
     import scroll from "../../components/common/scroll";
     import {GetAllMvAPI} from "../../http/all-api";
     import {Cell, Image as VanImage, Divider, Collapse, CollapseItem} from "vant";
-    import {createAllMvInfo} from "../../../model/allMvInfo";
+    import {createAllMvInfo} from "../../../model/dataInfo/allMvInfo";
     import {formatDuring, unique} from "../../tool/utils";
 
     export default {

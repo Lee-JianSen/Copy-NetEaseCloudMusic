@@ -88,7 +88,7 @@
     import musicPlay from "../../../components/common/musicPlay";
     import activeSheet from "../../../components/common/activeSheet";
     import {GetRecommendSongAPI} from "../../../http/all-api";
-    import {createMusicInfo} from "../../../../model/musicInfo";
+    import {createMusicInfo} from "../../../../model/dataInfo/musicInfo";
     import {Cell, CellGroup, Image as VanImage, Icon} from 'vant';
 
     export default {

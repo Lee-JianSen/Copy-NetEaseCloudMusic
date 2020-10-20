@@ -57,7 +57,7 @@
     import scroll from "../../components/common/scroll";
     import CommNav from "../../components/nav/commNav";
     import {GetTopListAPI} from "../../http/all-api";
-    import {createRankInfo} from "../../../model/rankInfo";
+    import {createRankInfo} from "../../../model/dataInfo/rankInfo";
     import {Grid, GridItem, Image as VanImage, Icon, ActionSheet} from 'vant';
 
     export default {

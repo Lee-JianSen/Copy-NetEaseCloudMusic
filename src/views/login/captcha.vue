@@ -33,7 +33,7 @@
 
     // 导入api请求方法
     import {SendCaptchaAPI, CheckCaptchaAPI, RegisterAPI, LoginStatusAPI} from "../../http/all-api";
-    import {userInfoModel} from "../../../model/userInfo";
+    import {userInfoModel} from "../../../model/dataInfo/userInfo";
 
     export default {
         name: "captcha",

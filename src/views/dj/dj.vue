@@ -35,7 +35,7 @@
     import commNav from "../../components/nav/commNav";
     import scroll from "../../components/common/scroll";
     import {GetDjRecommendAPI} from "../../http/all-api";
-    import {createDjInfo} from "../../../model/djInfo";
+    import {createDjInfo} from "../../../model/dataInfo/djInfo";
     import {Grid, GridItem, Icon, Image as VanImage} from "vant";
 
     export default {

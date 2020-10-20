@@ -193,11 +193,11 @@
         GetVideoUrlAPI,
         GetVideoCommentAPI, GetResourceLikeAPI, GetLikeAPI
     } from "../../http/all-api";
-    import {createVideoDetailInfo} from "../../../model/videoDetailInfo";
-    import {createVideoRelated} from "../../../model/videoRelatedInfo";
+    import {createVideoDetailInfo} from "../../../model/dataInfo/videoDetailInfo";
+    import {createVideoRelated} from "../../../model/dataInfo/videoRelatedInfo";
     import {formatDate, unique, formatDuring} from "../../tool/utils";
     import {Cell, Divider, Icon, Image as VanImage} from "vant";
-    import {createCommentHotInfo} from "../../../model/commentInfo";
+    import {createCommentHotInfo} from "../../../model/dataInfo/commentInfo";
 
     export default {
         name: "video-detail",

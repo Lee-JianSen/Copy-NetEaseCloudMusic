@@ -91,8 +91,8 @@
     import commNav from "../../components/nav/commNav";
     import scroll from "../../components/common/scroll";
     import {GetDjDetailAPI, GetDjProgramAPI} from "../../http/all-api";
-    import {createDjDetailInfo} from "../../../model/djDetailInfo";
-    import {createProgramInfo} from "../../../model/programInfo";
+    import {createDjDetailInfo} from "../../../model/dataInfo/djDetailInfo";
+    import {createProgramInfo} from "../../../model/dataInfo/programInfo";
     import {Cell, Icon, Image as VanImage, Tab, Tabs} from "vant";
     import {formatDate, formatDuring, unique} from "../../tool/utils";
 

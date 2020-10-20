@@ -171,7 +171,7 @@
     import Scroll from "../../components/common/scroll";
     import {Cell, CellGroup, Icon, Image as VanImage, Divider, Skeleton} from "vant";
     import {GetMusicCommentAPI, GetLikeAPI} from "../../http/all-api";
-    import {createCommentHotInfo} from "../../../model/commentInfo";
+    import {createCommentHotInfo} from "../../../model/dataInfo/commentInfo";
     import {formatDate, unique} from "../../tool/utils";
 
     export default {

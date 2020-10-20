@@ -50,7 +50,7 @@
     import md5 from 'js-md5';
     //导入api请求方法
     import {PhoneLoginAPI} from "../../http/all-api";
-    import {userInfoModel} from "../../../model/userInfo";
+    import {userInfoModel} from "../../../model/dataInfo/userInfo";
     import store from "../../store";
 
     export default {

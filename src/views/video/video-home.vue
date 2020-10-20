@@ -46,7 +46,7 @@
 
 <script>
     import {GetResourceLikeAPI, GetVideoAPI, GetVideoDetailInfoAPI} from "../../http/all-api";
-    import {createVideo} from "../../../model/videoInfo";
+    import {createVideo} from "../../../model/dataInfo/videoInfo";
     import {Cell, Image as VanImage} from "vant";
 
     export default {

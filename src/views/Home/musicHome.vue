@@ -58,7 +58,7 @@ npm
     import VideoHome from "../video/video-home";
     import {GetBannerAPI, GetHomeFindAPI, GetVideoAPI, GetVideoDetailInfoAPI} from "../../http/all-api";
     import {Loading} from 'vant'
-    import {createVideo} from "../../../model/videoInfo";
+    import {createVideo} from "../../../model/dataInfo/videoInfo";
     import {debounce} from "../../tool/utils";
 
     export default {

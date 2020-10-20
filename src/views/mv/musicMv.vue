@@ -204,9 +204,9 @@
         GetVideoRelatedAPI,
         GetMvCommentAPI, GetVideoUrlAPI, GetLikeAPI,
     } from "../../http/all-api";
-    import {createMvInfo} from "../../../model/mvInfo";
-    import {createVideoRelated} from "../../../model/videoRelatedInfo";
-    import {createCommentHotInfo} from "../../../model/commentInfo";
+    import {createMvInfo} from "../../../model/dataInfo/mvInfo";
+    import {createVideoRelated} from "../../../model/dataInfo/videoRelatedInfo";
+    import {createCommentHotInfo} from "../../../model/dataInfo/commentInfo";
 
     export default {
         name: "music-mv",

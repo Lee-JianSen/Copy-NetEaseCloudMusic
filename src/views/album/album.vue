@@ -133,8 +133,8 @@
     import scroll from "../../components/common/scroll";
     import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
     import {GetAlbumAPI} from "../../http/all-api";
-    import {createAlbumInfo} from "../../../model/albumInfo";
-    import {createMusicInfo} from "../../../model/musicInfo";
+    import {createAlbumInfo} from "../../../model/dataInfo/albumInfo";
+    import {createMusicInfo} from "../../../model/dataInfo/musicInfo";
 
     export default {
         name: "album",

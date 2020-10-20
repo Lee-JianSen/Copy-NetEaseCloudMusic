@@ -67,7 +67,7 @@
     import scroll from "../../components/common/scroll";
     import {Icon, Tab, Tabs, Image as VanImage, Grid, GridItem} from 'vant';
     import {GetHotPlayList, GetHighqualityAPI} from "../../http/all-api";
-    import {createAllPlayInfo} from "../../../model/allPlayInfo";
+    import {createAllPlayInfo} from "../../../model/dataInfo/allPlayInfo";
     import {debounce, unique} from "../../tool/utils";
 
     export default {
@@ -133,6 +133,7 @@
             },
             async getAllPlayListData({limit, cat, order, dataType}) {
                 await GetHotPlayList({limit: limit, cat: cat, order: order}).then(res => {
+                    console.log(res);
                     if (res.data.playlists.length !== 100) {
                         let result = res.data.playlists;
                         result.forEach(item => {

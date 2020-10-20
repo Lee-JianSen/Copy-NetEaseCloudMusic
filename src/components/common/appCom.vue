@@ -117,7 +117,7 @@
     import drawer from "./drawer";
     import {Divider, Button, Grid, GridItem, Cell, CellGroup, Image as VanImage} from 'vant'
     import {LoginStatusAPI, SignInAPI} from "../../http/all-api";
-    import {userInfoModel} from "../../../model/userInfo";
+    import {userInfoModel} from "../../../model/dataInfo/userInfo";
     import musicPlay from "./musicPlay";
 
     export default {

@@ -39,6 +39,6 @@ function filterMusicId(songList) {
     }
     songList.forEach(item => {
         res.push(item.id)
-    })
+    });
     return res
 }

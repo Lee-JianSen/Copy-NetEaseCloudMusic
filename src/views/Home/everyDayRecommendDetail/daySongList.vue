@@ -146,8 +146,8 @@
     import activeSheet from "../../../components/common/activeSheet";
     import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
     import {GetSongListAPI, GetMusicDetail} from "../../../http/all-api";
-    import {createSongListInfo} from "../../../../model/songListInfo";
-    import {createMusicInfo} from "../../../../model/musicInfo";
+    import {createSongListInfo} from "../../../../model/dataInfo/songListInfo";
+    import {createMusicInfo} from "../../../../model/dataInfo/musicInfo";
 
     export default {
         name: "daySongList",
