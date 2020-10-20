@@ -1,10 +1,16 @@
 @theme-color: #c2463a;
-* {
+//*{
+//  margin: 0;
+//  padding: 0;
+//}
+//
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre,
+form, fieldset, legend, button, input, textarea, th, td, .van-cell {
   margin: 0;
   padding: 0;
-  letter-spacing: 2px;
-
+  font-size: 100%;
 }
+
 
 // 滑动组件样式
 .scrollStyle (@scrollTop:0,@scrollLeft:0,@scrollBottom:0) {
@@ -97,6 +103,7 @@
     font-size: 38px;
   }
 }
+
 // 相关视频样式
 .videoStyle() {
   .mc-cell {
