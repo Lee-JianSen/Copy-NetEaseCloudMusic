@@ -60,6 +60,7 @@ npm
     import {Loading} from 'vant'
     import {createVideo} from "../../../model/dataInfo/videoInfo";
     import {debounce} from "../../tool/utils";
+    import {createSongList} from "../../../model/songList";
 
     export default {
         name: 'Home',
@@ -181,41 +182,51 @@ npm
             },
             async getHomeData() {
                 await GetHomeFindAPI().then(res => {
-                    this.initData();
-                    let recommendSongList = res.data.data.blocks[0];
-                    this.recommendMusic = res.data.data.blocks[1];
-                    let officialSongList = res.data.data.blocks[2];
-                    this.yunCun = res.data.data.blocks[3].extInfo;
-                    this.songListInfoList.push(...recommendSongList.creatives);
-                    this.officialSongInfoList.push(...officialSongList.creatives);
-                    // 新歌新碟
-                    this.newMusic.push(res.data.data.blocks[3].creatives[0], res.data.data.blocks[3].creatives[1]);
-                    this.newDisc.push(res.data.data.blocks[3].creatives[2], res.data.data.blocks[3].creatives[3]);
+                        this.initData();
+                        let recommendSongList = res.data.data.blocks[0];
+                        this.recommendMusic = res.data.data.blocks[1];
+                        let officialSongList = res.data.data.blocks[2];
+                        this.yunCun = res.data.data.blocks[3].extInfo;
 
-                    // this.liveList = res.data.data.blocks[4];
-                    // this.liveInfoList.push(...this.liveList.extInfo.roomInfoList);
+                        // 推荐歌单数据
+                        recommendSongList.creatives.forEach(item => {
+                            let data = createSongList(item);
+                            this.songListInfoList.push((data));
+                        });
+                        officialSongList.creatives.forEach(item => {
+                            let data = createSongList(item);
+                            this.officialSongInfoList.push(data);
+                        });
+                        console.log(this.officialSongList);
+                        // 新歌新碟
+                        this.newMusic.push(res.data.data.blocks[3].creatives[0], res.data.data.blocks[3].creatives[1]);
+                        this.newDisc.push(res.data.data.blocks[3].creatives[2], res.data.data.blocks[3].creatives[3]);
 
-                    if (recommendSongList.uiElement !== undefined) {
-                        this.topTitle1 = recommendSongList.uiElement.subTitle.title;
-                        this.btnMore1 = recommendSongList.uiElement.button.text;
-                    } else {
-                        return ''
+                        // this.liveList = res.data.data.blocks[4];
+                        // this.liveInfoList.push(...this.liveList.extInfo.roomInfoList);
+
+                        if (recommendSongList.uiElement !== undefined) {
+                            this.topTitle1 = recommendSongList.uiElement.subTitle.title;
+                            this.btnMore1 = recommendSongList.uiElement.button.text;
+                        } else {
+                            return ''
+                        }
+                        if (officialSongList.uiElement !== undefined) {
+                            this.topTitle2 = officialSongList.uiElement.subTitle.title;
+                            this.btnMore2 = officialSongList.uiElement.button.text;
+                        } else {
+                            return ''
+                        }
+                        // 直播
+                        // if (this.liveList.uiElement !== undefined) {
+                        //     this.topTitle3 = this.liveList.uiElement.mainTitle.title;
+                        //     // this.btnMore3 = this.liveList.uiElement.button.text;
+                        // } else {
+                        //     return ''
+                        // }
+                        return res;
                     }
-                    if (officialSongList.uiElement !== undefined) {
-                        this.topTitle2 = officialSongList.uiElement.subTitle.title;
-                        this.btnMore2 = officialSongList.uiElement.button.text;
-                    } else {
-                        return ''
-                    }
-                    // 直播
-                    // if (this.liveList.uiElement !== undefined) {
-                    //     this.topTitle3 = this.liveList.uiElement.mainTitle.title;
-                    //     // this.btnMore3 = this.liveList.uiElement.button.text;
-                    // } else {
-                    //     return ''
-                    // }
-                    return res;
-                }).catch(error => {
+                ).catch(error => {
                     console.log('首页-发现出错');
                     console.dir(error);
                 });
@@ -260,7 +271,8 @@ npm
                     };
                     this.playerOptions.push(arr);
                 }
-            },
+            }
+            ,
             async pullingDown() {
                 this.isLoading = true;
                 if (this.currentType === 'recommend') {
@@ -280,8 +292,10 @@ npm
             Scroll,
             Recommend,
             VideoHome,
-            [Loading.name]: Loading
-        },
+            [Loading.name]:
+            Loading
+        }
+        ,
     }
 </script>
 <style scoped lang="less">

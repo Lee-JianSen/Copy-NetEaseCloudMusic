@@ -34,25 +34,7 @@
                                     class="gridItems"
                                     :key="indey"
                                     v-for="(value,indey) in item.data">
-                                <div>
-                                    <div class="playCount">
-                                        <van-icon name="service-o" color="#eee"/>
-                                        {{value.playCount|playCount}}
-                                    </div>
-
-                                    <div class="songListInfo"
-                                         @click="SongListClick(value.id)">
-
-                                        <van-image
-                                                fit="cover"
-                                                radius="5px"
-                                                width="28vw"
-                                                height="16vh"
-                                                :src="value.coverImgUrl"
-                                                @load="imageLoadEnd"/>
-                                        <div class="text">{{value.description}}</div>
-                                    </div>
-                                </div>
+                                <song-list-com :song-list-data="value"/>
                             </van-grid-item>
                         </van-grid>
                     </van-tab>
@@ -66,6 +48,7 @@
 <script>
     import scroll from "../../components/common/scroll";
     import {Icon, Tab, Tabs, Image as VanImage, Grid, GridItem} from 'vant';
+    import songListCom from "../../components/music-home-child/songListCom";
     import {GetHotPlayList, GetHighqualityAPI} from "../../http/all-api";
     import {createAllPlayInfo} from "../../../model/dataInfo/allPlayInfo";
     import {debounce, unique} from "../../tool/utils";
@@ -267,6 +250,7 @@
             },
         },
         components: {
+            songListCom,
             scroll,
             [Icon.name]: Icon,
             [Tab.name]: Tab,
@@ -322,11 +306,14 @@
         .content {
             .scrollStyle(120px);
 
+            .van-grid-item__content {
+                padding: 16px 4px;
+            }
 
             .gridItem {
                 width: 100vw;
                 position: relative;
-                margin-right: 30px;
+                padding: 16px 5px;
 
                 .gridItems {
                     height: 95%;
