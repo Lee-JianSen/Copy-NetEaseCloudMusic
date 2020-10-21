@@ -30,7 +30,7 @@
 
     //  网络请求方法
     import {GetHotPlayList} from "../../http/all-api";
-    import songListCom from "./songListCom";
+    import songListCom from "./com/songListCom";
 
     export default {
         name: "officialSongList",

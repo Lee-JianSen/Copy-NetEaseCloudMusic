@@ -48,7 +48,7 @@
 <script>
     import scroll from "../../components/common/scroll";
     import {Icon, Tab, Tabs, Image as VanImage, Grid, GridItem} from 'vant';
-    import songListCom from "../../components/music-home-child/songListCom";
+    import songListCom from "../../components/music-home-child/com/songListCom";
     import {GetHotPlayList, GetHighqualityAPI} from "../../http/all-api";
     import {createAllPlayInfo} from "../../../model/dataInfo/allPlayInfo";
     import {debounce, unique} from "../../tool/utils";
