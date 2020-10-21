@@ -37,43 +37,11 @@
                         <p>多选</p>
                     </div>
                 </div>
-                <van-cell-group :border="false">
-                    <van-cell
-                            class="mc-cell"
-                            :center="true"
-                            :border="false"
-                            v-for="(value,index) in musicInfo"
-                            :key="index"
-                            label-class="ov"
-                            title-class="ov titleText"
-                            @click="getMusicId(value.id)">
-                        <!--                            :title="value.uiElement.mainTitle.title"-->
-                        <template #title>
-                            <p class="ov titleText">
-                                {{value.name}}
-                            </p>
-                        </template>
-                        <template #label>
-                            <p class="ov">
-                                <span class="mvBox" v-if="value.mvId!==0&value.mvId!==null">mv</span>
-                                {{value.singer}}—
-                                <span class="titleAlias">
-                            {{value.album}}</span>
-                            </p>
-                        </template>
-                        <template #icon>
-                            <van-image
-                                    class="leftImage"
-                                    width="50" height="50"
-                                    radius="5"
-                                    :src="value.picUrl" alt="">
-                            </van-image>
-                        </template>
-                        <template #right-icon>
-                            <van-icon @click.stop="musicDetailShow(index)" name="ellipsis" class="rightImage"/>
-                        </template>
-                    </van-cell>
-                </van-cell-group>
+                <music-info-com :music-info="musicInfo" @cellClick="getMusicId">
+                    <template #right-icon="getIndex">
+                        <van-icon @click.stop="musicDetailShow(getIndex.index1)" name="ellipsis" class="rightImage"/>
+                    </template>
+                </music-info-com>
             </div>
         </scroll>
         <active-sheet
@@ -86,10 +54,11 @@
 <script>
     import scroll from "../../../components/common/scroll";
     import musicPlay from "../../../components/common/musicPlay";
+    import musicInfoCom from "../../../components/music-home-child/com/musicInfoCom";
     import activeSheet from "../../../components/common/activeSheet";
     import {GetRecommendSongAPI} from "../../../http/all-api";
     import {createMusicInfo} from "../../../../model/dataInfo/musicInfo";
-    import {Cell, CellGroup, Image as VanImage, Icon} from 'vant';
+    import {Image as VanImage, Icon} from 'vant';
 
     export default {
         name: "dayMusic",
@@ -125,8 +94,8 @@
             }
         },
         methods: {
-            async getMusicInfo() {
-                await GetRecommendSongAPI().then(res => {
+            getMusicInfo() {
+                GetRecommendSongAPI().then(res => {
                     const result = res.data.data.dailySongs;
                     result.forEach(item => {
                         this.musicInfo.push(createMusicInfo(item));
@@ -144,7 +113,6 @@
                 this.$refs.scroll.$el.style.height = 92 + '%';
                 this.$refs.scroll.refresh();
                 this.$store.commit('changeMusicIndex', this.getLength);
-
             },
             goBack() {
                 this.$router.go(-1);
@@ -178,7 +146,6 @@
             musicDetailShow(index) {
                 this.musicDetail = this.musicInfo[index];
                 this.isShowDetail = !this.isShowDetail;
-                console.log(this.isShowDetail);
             },
 
         },
@@ -186,8 +153,7 @@
             scroll,
             musicPlay,
             activeSheet,
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup,
+            musicInfoCom,
             [VanImage.name]: VanImage,
             [Icon.name]: Icon,
 
@@ -225,7 +191,6 @@
 
         .content {
             .scrollStyle();
-            .activeSheetStyle();
         }
     }
 

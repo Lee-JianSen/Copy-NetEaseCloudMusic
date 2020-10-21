@@ -53,11 +53,15 @@
         props: {
             musicDetail: {
                 type: Object,
-                default: {}
+                default() {
+                    return {}
+                }
             },
             isShowDetail: {
                 type: Boolean,
-                default: false
+                default() {
+                    return false
+                }
             }
         },
         computed: {

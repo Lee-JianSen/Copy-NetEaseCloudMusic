@@ -1,13 +1,13 @@
 
 // 每日歌曲推荐
-class musicInfo {
+class musicInfo  {
     // id:音乐id,name:音乐名字,singer:歌手,album:专辑
     constructor({id, name, singer, album, albumId,picUrl,mvId,singerId}) {
         this.id = id;
         this.name = name;
         this.singer = singer;
         this.album = album;
-        this.albumId = albumId
+        this.albumId = albumId;
         this.picUrl = picUrl;
         this.mvId = mvId;
         this.singerId = singerId;
@@ -35,6 +35,6 @@ function filterSinger(singer) {
     }
     singer.forEach((s) => {
         ret.push(s.name)
-    })
+    });
     return ret.join('/')
 }
