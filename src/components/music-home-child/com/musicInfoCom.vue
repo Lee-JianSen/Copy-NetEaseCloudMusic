@@ -7,17 +7,15 @@
                     :border="false"
                     v-for="(value,index) in musicInfo"
                     :key="index"
-                    label-class="ov"
                     title-class="ov titleText"
                     @click="cellClick(value.id)">
-                <!--                            :title="value.uiElement.mainTitle.title"-->
                 <template #title>
                     <p class="ov titleText">
                         {{value.name}}
                     </p>
                 </template>
                 <template #label>
-                    <p class="ov">
+                    <p class="ov labelTextStyle">
                         <span class="mvBox" v-if="value.mvId!==0&value.mvId!==null">mv</span>
                         {{value.singer}}—
                         <span class="titleAlias">
@@ -56,7 +54,11 @@
         },
         methods: {
             cellClick(id) {
-                this.$emit('cellClick', id)
+                if (id !== null) {
+                    this.$emit('cellClick', id)
+                } else {
+                    this.$toast('暂无资源');
+                }
             }
         },
         components: {
@@ -69,6 +71,45 @@
 
 <style scoped lang="less">
     .musicInfo {
-        .activeSheetStyle();
+        .mc-cell {
+            width: 100vw;
+            margin: 30px 15px 0 0;
+        }
+
+        .leftImage {
+            margin-left: 30px;
+            margin-right: 30px;
+        }
+
+        .rightImage {
+            padding-right: 40px;
+        }
+
+        .titleText {
+            width: 650px;
+            font-weight: 600;
+            font-size: 38px;
+            .overTextEllipsis();
+
+
+            .titleAlias {
+                color: #a7a6a7;
+                font-size: 36px;
+            }
+
+            .mvBox {
+                display: inline-block;
+                padding: 0 8px;
+                color: #c2463a;
+                border: 1px solid #c2463a;
+                border-radius: 6px;
+            }
+        }
+
+        .labelTextStyle {
+            width: 800px;
+            font-size: 30px;
+            .overTextEllipsis();
+        }
     }
 </style>

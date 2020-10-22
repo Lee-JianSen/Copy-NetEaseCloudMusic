@@ -54,12 +54,12 @@
                 :new-music="newMusic">
 
         </new-musci-or-disc>
-<!--                <live-->
-<!--                        v-if="liveInfoList.length>0"-->
-<!--                        :live-list="liveInfoList"-->
-<!--                        :top-title="topTitle3"-->
-<!--                        :btn-more="btnMore3"-->
-<!--                ></live>-->
+        <!--                <live-->
+        <!--                        v-if="liveInfoList.length>0"-->
+        <!--                        :live-list="liveInfoList"-->
+        <!--                        :top-title="topTitle3"-->
+        <!--                        :btn-more="btnMore3"-->
+        <!--                ></live>-->
     </div>
 
 </template>
@@ -83,62 +83,8 @@
 
     export default {
         name: "recommend",
-        // beforeCreate() {
-        //     this.$toast.loading({
-        //         message: '加载中',
-        //         forbidClick: true,
-        //         duration: 0
-        //     });
-        // },
-        // async created() {
-        //     await this.getHomeData();
-        //     this.$toast.clear();
-        // },
-        // mounted() {
-        //     GetBannerAPI(1).then(res => {
-        //         if (res.data.banners.length !== 0) {
-        //             // 将接口返回时轮播图数据解构加入新数组中
-        //             this.bannerList.push(...res.data.banners);
-        //         }
-        //     }).catch(err => {
-        //         console.log('轮播图网络请求失败');
-        //         console.log(err);
-        //     });
-        //
-        // },
         data() {
-            return {
-                // bannerList: [],
-                // // 推荐歌单
-                // recommendSongList: [],
-                // // 推荐歌单详情 图片/文案
-                // songListInfoList: [],
-                // // 推荐歌曲
-                // recommendMusic: {},
-                // // 推荐歌单的标题
-                // topTitle1: '',
-                // // 推荐歌单更多按钮文案
-                // btnMore1: '',
-                // // 官方歌单
-                // officialSongList: {},
-                // officialSongInfoList: [],
-                // // 官方歌单顶部标题
-                // topTitle2: '',
-                // // 官方歌单更多按钮文案
-                // btnMore2: '',
-                // // 云村
-                // yunCun: {},
-                // // 直播
-                // liveList: {},
-                // liveInfoList: [],
-                // topTitle3: '',
-                // btnMore3: '',
-                // // 新歌，新碟
-                // newMusic: [],
-                // newDisc: []
-
-
-            }
+            return {}
         },
         props: {
             bannerList: {
@@ -160,9 +106,9 @@
                 }
             },
             recommendMusic: {
-                type: Object,
+                type: Array,
                 default() {
-                    return {}
+                    return []
                 }
             },
             topTitle1: String,

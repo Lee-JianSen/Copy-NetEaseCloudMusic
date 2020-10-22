@@ -25,7 +25,7 @@
     import HorizontalScroll from "../common/horizontalScroll";
     import {initScroll} from "../../tool/mixin";
     import BtnMore from "../common/btnMore";
-    import songListCom from "./songListCom";
+    import songListCom from "./com/songListCom";
 
     export default {
         name: "recommendedSongList",
