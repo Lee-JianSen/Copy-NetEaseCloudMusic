@@ -84,7 +84,7 @@
                                 <p
                                         v-for="(line,index) in lines"
                                         ref="lyricLine"
-                                        :key="line.time"
+                                        :key="index"
                                         :class="{'current':currentLineNum===index}"
                                         class="text">{{line.txt}}</p>
 
