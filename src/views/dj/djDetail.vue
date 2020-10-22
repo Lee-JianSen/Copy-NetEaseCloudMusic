@@ -95,9 +95,11 @@
     import {createProgramInfo} from "../../../model/dataInfo/programInfo";
     import {Cell, Icon, Image as VanImage, Tab, Tabs} from "vant";
     import {formatDate, formatDuring, unique} from "../../tool/utils";
+    import {getMusicId} from "../../tool/mixin";
 
     export default {
         name: "djDetail",
+        mixins: [getMusicId],
         beforeRouteEnter(to, from, next) {
             next(vm => {
                 vm.$toast.loading({
@@ -110,12 +112,10 @@
                 vm.$toast.clear()
             })
         },
-        created() {
-        },
         computed: {
             rid() {
                 return this.$route.query.id
-            }
+            },
         },
         data() {
             return {
@@ -161,11 +161,6 @@
             goBack() {
                 this.$router.go(-1)
             },
-            getMusicId(musicId) {
-                this.musicCheck(musicId);
-                this.$store.commit('changeMusicId', musicId);
-
-            },
             musicListScroll(position) {
                 let opacity = Math.abs(Math.round((position.y)) / 300);
                 this.$refs.topNav.style.background = `rgba(0,0,0,${opacity})`;
@@ -184,7 +179,6 @@
             [Tab.name]: Tab,
             [Tabs.name]: Tabs,
             [Icon.name]: Icon,
-
         },
         filters: {
             formatDate(time) {

@@ -61,6 +61,7 @@ npm
     import {createVideo} from "../../../model/dataInfo/videoInfo";
     import {debounce} from "../../tool/utils";
     import {createSongList} from "../../../model/songList";
+    import {createNewMusicOrDisc, createRecommendMusicInfo} from "../../../model/recommendMusicInfo";
 
     export default {
         name: 'Home',
@@ -89,7 +90,7 @@ npm
                 // 推荐歌单详情 图片/文案
                 songListInfoList: [],
                 // 推荐歌曲
-                recommendMusic: {},
+                recommendMusic: [],
                 // 推荐歌单的标题
                 topTitle1: '',
                 // 推荐歌单更多按钮文案
@@ -126,7 +127,7 @@ npm
                 // 推荐歌单详情 图片/文案
                 this.songListInfoList = [];
                 // 推荐歌曲
-                this.recommendMusic = {};
+                this.recommendMusic = [];
                 // 推荐歌单的标题
                 this.topTitle1 = '';
                 // 推荐歌单更多按钮文案
@@ -180,12 +181,13 @@ npm
                     console.log(err);
                 });
             },
-            async getHomeData() {
-                await GetHomeFindAPI().then(res => {
+            getHomeData() {
+                GetHomeFindAPI().then(res => {
                         this.initData();
                         let recommendSongList = res.data.data.blocks[0];
-                        this.recommendMusic = res.data.data.blocks[1];
+                        let recommendMusicObj = res.data.data.blocks[1];
                         let officialSongList = res.data.data.blocks[2];
+
                         this.yunCun = res.data.data.blocks[3].extInfo;
 
                         // 推荐歌单数据
@@ -193,14 +195,37 @@ npm
                             let data = createSongList(item);
                             this.songListInfoList.push((data));
                         });
+
+                        // 官方歌单数据
                         officialSongList.creatives.forEach(item => {
                             let data = createSongList(item);
                             this.officialSongInfoList.push(data);
                         });
-                        console.log(this.officialSongList);
+
+                        // 推荐音乐数据
+                        recommendMusicObj.creatives.forEach((item, index) => {
+                            this.recommendMusic.push([]);
+                            item.resources.forEach(value => {
+                                this.recommendMusic[index].push(createRecommendMusicInfo({
+                                    titleData: recommendMusicObj,
+                                    data: value
+                                }))
+                            })
+                        });
+
                         // 新歌新碟
-                        this.newMusic.push(res.data.data.blocks[3].creatives[0], res.data.data.blocks[3].creatives[1]);
-                        this.newDisc.push(res.data.data.blocks[3].creatives[2], res.data.data.blocks[3].creatives[3]);
+                        res.data.data.blocks[3].creatives.slice(0, 2).forEach((item, index) => {
+                            this.newMusic.push([]);
+                            item.resources.forEach((value) => {
+                                this.newMusic[index].push(createNewMusicOrDisc(value))
+                            })
+                        });
+                        res.data.data.blocks[3].creatives.slice(2, 4).forEach((item, index) => {
+                            this.newDisc.push([]);
+                            item.resources.forEach((value) => {
+                                this.newDisc[index].push(createNewMusicOrDisc(value))
+                            })
+                        });
 
                         // this.liveList = res.data.data.blocks[4];
                         // this.liveInfoList.push(...this.liveList.extInfo.roomInfoList);
@@ -244,7 +269,6 @@ npm
                         this.videoList.forEach(item => {
                             GetVideoDetailInfoAPI(item.vid).then(res => {
                                 let data = res.data;
-
                                 item.praisedCount = data.likedCount;
                                 item.shareCount = data.shareCount;
                                 item.commentCount = data.commentCount;

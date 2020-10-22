@@ -59,9 +59,11 @@
     import {GetRecommendSongAPI} from "../../../http/all-api";
     import {createMusicInfo} from "../../../../model/dataInfo/musicInfo";
     import {Image as VanImage, Icon} from 'vant';
+    import {getMusicId} from "../../../tool/mixin";
 
     export default {
         name: "dayMusic",
+        mixins: [getMusicId],
         beforeCreate() {
             this.$toast.loading({
                 message: '加载中',
@@ -105,15 +107,15 @@
                     console.log(err);
                 })
             },
-            getMusicId(musicId) {
-                // 音乐id
-                console.log(musicId);
-                this.$store.commit('changeMusicId', musicId);
-                this.musicCheck(musicId);
-                this.$refs.scroll.$el.style.height = 92 + '%';
-                this.$refs.scroll.refresh();
-                this.$store.commit('changeMusicIndex', this.getLength);
-            },
+            // getMusicId(musicId) {
+            //     // 音乐id
+            //     console.log(musicId);
+            //     this.$store.commit('changeMusicId', musicId);
+            //     this.musicCheck(musicId);
+            //     this.$refs.scroll.$el.style.height = 92 + '%';
+            //     this.$refs.scroll.refresh();
+            //     this.$store.commit('changeMusicIndex', this.getLength);
+            // },
             goBack() {
                 this.$router.go(-1);
             },
@@ -162,12 +164,6 @@
 </script>
 
 <style scoped lang="less">
-    .ovtext() {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-
     .dayMusic {
         width: 100vw;
 
@@ -195,7 +191,7 @@
     }
 
     .ov {
-        .ovtext();
+        .overTextEllipsis();
     }
 
     .musicTop {
