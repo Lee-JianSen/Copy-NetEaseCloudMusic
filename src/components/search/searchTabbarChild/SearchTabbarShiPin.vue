@@ -1,11 +1,10 @@
 <template>
     <div>
-        <div v-for="(item,index) in this.videos" :key="index">
+        <div v-for="(item,index) in videos" :key="index">
             <van-card @click="getVideoDetailData(item.vid, item.type)">
                 <template #thumb>
                     <img :src="item.coverUrl" style="width: 130px;height: auto" />
-                    <span style="position: absolute;left: 85px;color: white"
-                    >{{
+                    <span style="position: absolute;left: 85px;color: white">{{
               Math.round((item.playTime / 10000) * Math.pow(10, 1)) / Math.pow(10, 1)}}万</span>
                 </template>
                 <template #title>
@@ -18,7 +17,7 @@
                 <template #tags>
                     <span style="margin-left: 46px;">{{item.durationms | formatDuring}}</span>
                     <span> by </span>
-                    <span v-for="(creator,indey)in item.creator" :key="indey">{{ creator.userName }}</span>
+                    <span v-for="creator in item.creator" :key="creator.userName">{{ creator.userName }}</span>
                 </template>
             </van-card>
         </div>
@@ -84,5 +83,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

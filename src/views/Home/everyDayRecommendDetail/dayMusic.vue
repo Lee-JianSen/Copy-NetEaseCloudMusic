@@ -20,8 +20,7 @@
                 :probe-type="3"
                 :pull-up-load="true"
                 :bounce="false"
-                @scroll="musicListScroll"
-        >
+                @scroll="musicListScroll">
             <div>
                 <van-image height="200" cover :src="musicInfo[1].picUrl" alt="">
                 </van-image>
@@ -75,8 +74,10 @@ export default {
   async created () {
     await this.getMusicInfo()
     this.$toast.clear()
-    if (this.isMusicPlay) this.$refs.scroll.$el.style.height = 92 + '%'
-    this.$refs.scroll.refresh()
+    if (this.isMusicPlay) {
+      this.$refs.scroll.$el.style.height = 92 + '%'
+      this.$refs.scroll.refresh()
+    }
   },
   computed: {
     isMusicPlay () {
@@ -187,10 +188,6 @@ export default {
         .content {
             .scrollStyle();
         }
-    }
-
-    .ov {
-        .overTextEllipsis();
     }
 
     .musicTop {

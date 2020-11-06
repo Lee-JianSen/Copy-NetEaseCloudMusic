@@ -19,9 +19,7 @@
                     <p class="ov labelTextStyle">
             <span
                     class="mvBox"
-                    v-if="(value.mvId !== 0) & (value.mvId !== null)"
-            >mv</span
-            >
+                    v-if="(value.mvId !== 0) & (value.mvId !== null)">mv</span>
                         {{ value.singer }}—
                         <span class="titleAlias"> {{ value.album }}</span>
                     </p>
@@ -33,8 +31,7 @@
                             height="50"
                             radius="5"
                             :src="value.picUrl"
-                            alt=""
-                    >
+                            alt="">
                     </van-image>
                 </template>
                 <template #right-icon>
@@ -80,11 +77,10 @@ export default {
     .musicInfo {
         .mc-cell {
             width: 100vw;
-            margin: 30px 15px 0 0;
+            padding: 20px 15px 20px 30px;
         }
 
         .leftImage {
-            margin-left: 30px;
             margin-right: 30px;
         }
 
@@ -93,10 +89,9 @@ export default {
         }
 
         .titleText {
-            width: 650px;
             font-weight: 600;
             font-size: 38px;
-            .overTextEllipsis();
+            .overTextEllipsis(@width: 60vw);
 
             .titleAlias {
                 color: #a7a6a7;
@@ -115,7 +110,7 @@ export default {
         .labelTextStyle {
             width: 800px;
             font-size: 30px;
-            .overTextEllipsis();
+            .overTextEllipsis(@width: 60vw);
         }
     }
 </style>

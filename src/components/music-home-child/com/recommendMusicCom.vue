@@ -9,11 +9,7 @@
                         v-for="(value, indey) in item"
                         :key="indey"
                         :label="labelText(value)"
-                        :label-class="{
-            ov: true,
-            labelTextStyle: isLabelColor,
-            labelColor: value.subTitlesType === 'songRcmdTag'
-          }"
+                        :label-class="{labelTextStyle: isLabelColor,labelColor: value.subTitlesType === 'songRcmdTag'}"
                         title-class="ov titleText"
                         @click="playMusicClick(value.id)"
                 >
@@ -94,10 +90,9 @@ export default {
 
         .box4 {
             display: flex;
-            margin-right: 50px;
 
             .mc-cell {
-                margin: 30px 15px 30px 0;
+                padding: 20px 10px;
             }
 
             .leftImage {

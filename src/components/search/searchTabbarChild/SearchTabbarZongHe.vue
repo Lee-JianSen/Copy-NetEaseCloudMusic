@@ -19,15 +19,16 @@
                     />
                     <span style="color: black">播放全部</span></van-button>
             </div>
-            <div v-for="(item,index) in $store.state.searchResultList.song.songs" :key="index">
+            <div v-for="(item,index) in $store.state.searchResultList.song.songs"
+                 :key="item.id">
                 <van-cell
+                        class="my-cell"
                         @click="getMusicId(item.id)"
                         label-class="labelStyle"
                         title-class="titleStyle">
                     <template #title>
                         <span>{{ item.name }}</span>
-                        <span class="titleSecond" v-if="item.alia.length !== 0">({{ item.alia[0] }})</span
-                        >
+                        <span class="titleSecond" v-if="item.alia.length !== 0">({{ item.alia[0] }})</span>
                     </template>
                     <template #label>
             <span v-for="(value, indey) in item.ar" :key="indey">
@@ -48,9 +49,7 @@
             </div>
             <div v-for="item in $store.state.searchResultList.playList.playLists" :key="item.id">
                 <van-card @click="getSongListData(item.id)">
-                    <template #thumb
-                    ><img :src="item.coverImgUrl" style="width: 80px;height: 80px"
-                    /></template>
+                    <template #thumb><img :src="item.coverImgUrl" style="width: 80px;height: 80px" /></template>
                     <template #desc>
                         <div style="margin-top: 4px">
               <span>
@@ -93,7 +92,8 @@
             <div style="height: 30px;">
                 <span style="margin-left: 18px;font-weight: bold;">视频</span>
             </div>
-            <div v-for="(item ,index)in $store.state.searchResultList.video.videos" :key="index">
+            <div v-for="(item,index) in $store.state.searchResultList.video.videos"
+                 :key="index.playTime">
                 <van-card @click="getVideoDetailData(item.vid)">
                     <template #thumb>
                         <img :src="item.coverUrl" style="width: 130px;height: auto" />
@@ -134,7 +134,8 @@
             <div style="height: 30px;margin-top: 10px">
                 <span style="margin-left: 18px;font-weight: bold;">歌手</span>
             </div>
-            <div v-for="(item,index)in $store.state.searchResultList.artist.artists" :key="index">
+            <div v-for="item in $store.state.searchResultList.artist.artists"
+                 :key="item.name">
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #icon><img :src="item.img1v1Url" class="getgold_top_head_img" /></template>
@@ -152,7 +153,7 @@
             <div style="height: 30px;margin-top: 10px">
                 <span style="margin-left: 18px;font-weight: bold;">专辑</span>
             </div>
-            <div v-for="(item,index) in $store.state.searchResultList.album.albums" :key="index">
+            <div v-for="(item,index) in $store.state.searchResultList.album.albums" :key="index+20">
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #icon>
@@ -253,7 +254,15 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
+    .searchResultList {
+        margin: 30px 50px;
+    }
+
+    .my-cell {
+        padding: 30px;
+    }
+
     .titleStyle {
         overflow: hidden;
         text-overflow: ellipsis;

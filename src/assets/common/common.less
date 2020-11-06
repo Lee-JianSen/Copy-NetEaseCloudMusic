@@ -4,8 +4,31 @@
 //  padding: 0;
 //}
 //
-body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, pre,
-form, fieldset, legend, button, input, textarea, th, td, .van-cell {
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+p,
+blockquote,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+pre,
+form,
+fieldset,
+legend,
+button,
+input,
+textarea,
+th,
+td {
   margin: 0;
   padding: 0;
   font-size: 100%;
@@ -15,7 +38,12 @@ form, fieldset, legend, button, input, textarea, th, td, .van-cell {
   padding: 16px 4px;
 }
 
-.overTextEllipsis() {
+.van-cell {
+  padding: 0;
+}
+
+.overTextEllipsis(@width:100vw) {
+  width: @width;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -139,7 +167,6 @@ form, fieldset, legend, button, input, textarea, th, td, .van-cell {
     p {
       width: 700px;
       white-space: pre-wrap;
-
     }
   }
   .labelTextStyle {

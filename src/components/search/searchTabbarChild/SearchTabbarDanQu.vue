@@ -11,20 +11,18 @@
                     size="mini"
                     style="width:80px;height: 24px;float: right;margin-right: 10px;display: inline-block;vertical-align: middle">
                 <van-icon name="play-circle-o" color="black" style="margin-top: 2px" />
-                <span style="color: black">播放全部</span></van-button
-            >
+                <span style="color: black">播放全部</span></van-button>
         </div>
         <div v-for="item in songsList" :key="item.id">
             <van-cell
+                    class="my-cell"
                     @click="getMusicId(item.id)"
                     title-class="titleStyle"
-                    label-class="labelStyle"
-            >
+                    label-class="labelStyle">
                 <template #title>
                     <span>{{ item.name }}</span>
                     <span class="titleSecond" v-if="item.alias.length !== 0">
-            ({{ item.alias[0] }})</span
-                    >
+            ({{ item.alias[0] }})</span>
                 </template>
                 <template #label>
           <span v-for="(val, index) in item.artists" :key="index">
@@ -84,9 +82,14 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
     .titleStyle {
         font-size: 44px;
+        .overTextEllipsis();
+    }
+
+    .my-cell {
+        padding: 30px;
     }
 
     .labelStyle {

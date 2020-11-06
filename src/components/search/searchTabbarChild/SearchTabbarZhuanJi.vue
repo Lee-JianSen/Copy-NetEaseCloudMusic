@@ -1,23 +1,25 @@
 <template>
     <div>
-        <div v-for="item in zhuanjis" :key="item.id">
-            <van-cell @click="pushAlbum(item.id)">
+        <div>
+            <van-cell class="my-cell"
+                      v-for="item in zhuanjis"
+                      :key="item.id"
+                      @click="pushAlbum(item.id)">
                 <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                 <template #icon>
                     <img :src="item.picUrl" style="width: 60px;height: auto;" />
                 </template>
                 <template #title>
                     <div>
-                        <div style="position: relative;top: 10px;left: 14px">
-                            <span>{{ item.name }}</span>
-                            <span v-for="(name,index) in item.alia" :key="index">{{ name }}</span>
-                        </div>
+                        <p class="title">{{ item.name }}</p>
+                        <span v-for="(name,index) in item.alia" :key="index">{{ name }}</span>
                     </div>
                 </template>
                 <template #label>
-                    <div style="position: relative;top: 5px;left: 14px">
-                        <span>{{ item.artist.name }} </span>
-                        <span> {{ item.publishTime | formatDate }}</span>
+                    <div>
+                        <p class="label"> {{ item.artist.name }}
+                            <span> {{ item.publishTime | formatDate }}</span>
+                        </p>
                     </div>
                 </template>
             </van-cell>
@@ -75,4 +77,18 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+    .my-cell {
+        padding: 30px;
+    }
+
+    .title {
+        font-size: 42px;
+        padding: 0 30px;
+        .overTextEllipsis(@width: 75vw);
+    }
+    .label{
+        font-size: 40px;
+        padding: 0 30px;
+    }
+</style>

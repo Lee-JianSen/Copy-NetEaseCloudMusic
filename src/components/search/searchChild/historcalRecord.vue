@@ -1,7 +1,7 @@
 <template>
     <div>
         <div v-if="$store.state.historyList.length !== 0">
-            <van-cell title="历史记录" style="padding-top: 0" title-class="title">
+            <van-cell title="历史记录" style="padding-top: 0;padding-left: 15px" title-class="title">
                 <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                 <template #right-icon>
                     <van-icon
@@ -33,9 +33,6 @@ import { GetSearchApi } from '../../../http/all-api'
 
 export default {
   name: 'historcalRecord',
-  data () {
-    return {}
-  },
   methods: {
     deleteIcon () {
       Dialog.confirm({

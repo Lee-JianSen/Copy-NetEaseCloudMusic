@@ -34,16 +34,13 @@ export default {
   },
   mounted () {
     this.$nextTick(() => {
-      this.itemWidth = 53
-      this.itemMargin = 8
-      setTimeout(() => {
-        this.initPics()
-        this.$refs.hScroll.refresh()
-      }, 600)
+      this.itemWidth = 55
+      this.itemMargin = 2
+      this.initPics()
+      this.$refs.hScroll.refresh()
     })
   },
 
-  computed: {},
   methods: {
     allPlayBtn () {
       let allId = []
@@ -75,7 +72,6 @@ export default {
         .topTitle {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 30px;
             text-align: center;
         }
     }

@@ -195,8 +195,8 @@ export default {
     }
   },
   methods: {
-    async getSongListData (id) {
-      await GetSongListAPI(id)
+    getSongListData (id) {
+      GetSongListAPI(id)
         .then(res => {
           this.songListData = createSongListInfo(res.data.playlist)
           // console.log(this.songListData);
@@ -269,11 +269,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-    .ovtext() {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
 
     .songList {
         width: 100vw;
@@ -414,7 +409,7 @@ export default {
     }
 
     .ov {
-        .ovtext();
+        .overTextEllipsis();
         font-size: 28px;
     }
 

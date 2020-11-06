@@ -1,12 +1,20 @@
 <template>
     <div>
-        <div v-for="item in songsList" :key="item.id">
-            <van-card @click="getSongListData(item.id)">
-                <template #thumb
-                ><img :src="item.coverImgUrl" style="width: 70px;height: auto"
-                /></template>
-                <template #desc>
-                    <div style="margin-top: 4px">
+        <van-cell
+                v-for="item in songsList"
+                :key="item.id"
+                class="my-cell"
+                @click="getSongListData(item.id)">
+            <template #icon>
+                <van-image
+                        width="70"
+                        height="70"
+                        radius="5"
+                        cover
+                        :src="item.coverImgUrl" />
+            </template>
+            <template #label>
+                <div class="label">
             <span>
               {{
                 item.trackCount +
@@ -18,21 +26,19 @@
                   Math.round((item.playCount / 10000) * Math.pow(10, 1)) /
                     Math.pow(10, 1) +
                   '万次'
-              }}</span
-            >
-                    </div>
-                </template>
-                <template #title>
-                    <div style="font-size: 16px">{{ item.name }}</div>
-                </template>
-            </van-card>
-        </div>
+              }}</span>
+                </div>
+            </template>
+            <template #title>
+                <p class="title">{{ item.name }}</p>
+            </template>
+        </van-cell>
     </div>
 </template>
 
 <script>
 import { GetSearchApi } from '../../../http/all-api'
-import { Button, Card, Cell, CellGroup, Icon, Tag } from 'vant'
+import { Button, Cell, CellGroup, Icon, Tag, Image as VanImage } from 'vant'
 
 export default {
   name: 'SearchTabbarGeDan',
@@ -44,10 +50,10 @@ export default {
   components: {
     [Icon.name]: Icon,
     [Button.name]: Button,
-    [Card.name]: Card,
     [Tag.name]: Tag,
     [Cell.name]: Cell,
-    [CellGroup.name]: CellGroup
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage
   },
   created () {
     GetSearchApi(this.$store.state.addWord, '1000')
@@ -72,4 +78,19 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+    .my-cell {
+        padding: 30px;
+    }
+
+    .title {
+        font-size: 40px;
+        padding: 0 30px;
+        .overTextEllipsis(@width:70vw)
+    }
+
+    .label {
+        font-size: 36px;
+        padding: 0 30px;
+    }
+</style>

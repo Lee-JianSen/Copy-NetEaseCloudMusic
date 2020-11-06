@@ -1,32 +1,37 @@
 <template>
-    <div>
-        <div v-for="(item,index) in diantais" :key="index">
-            <van-cell @click="pushDianTai(item.id)">
-                <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-                <template #icon>
-                    <img :src="item.picUrl" style="width: 50px;height: auto;" />
-                </template>
-                <template #title>
-                    <div>
-                        <div style="position: relative;top: 4px;left: 14px">
-                            <span>{{ item.name }}</span>
-                            <span v-for="(name,indey) in item.alia" :key="indey+10">{{ name }}</span>
-                        </div>
+    <div class="Dj">
+        <van-cell
+                v-for="(item,index) in diantais"
+                :key="index"
+                class="my-cell"
+                @click="pushDianTai(item.id)">
+            <template #icon>
+                <van-image width="70"
+                           height="70"
+                           radius="5"
+                           cover
+                           :src="item.picUrl" />
+            </template>
+            <template #title>
+                <div>
+                    <div class="title">
+                        <span>{{ item.name }}</span>
+                        <span v-for="(name,indey) in item.alia" :key="indey+10">{{ name }}</span>
                     </div>
-                </template>
-                <template #label>
-                    <div style="position: relative;left: 14px">
-                        <span>{{ item.dj.nickname }} </span>
-                    </div>
-                </template>
-            </van-cell>
-        </div>
+                </div>
+            </template>
+            <template #label>
+                <div style="position: relative;left: 14px">
+                    <span>{{ item.dj.nickname }} </span>
+                </div>
+            </template>
+        </van-cell>
     </div>
 </template>
 
 <script>
 import { GetSearchApi } from '../../../http/all-api'
-import { Icon, Button, Card, Tag, Cell, CellGroup } from 'vant'
+import { Icon, Button, Tag, Cell, CellGroup, Image as VanImage } from 'vant'
 
 export default {
   name: 'SearchTabbarDianTai',
@@ -38,10 +43,10 @@ export default {
   components: {
     [Icon.name]: Icon,
     [Button.name]: Button,
-    [Card.name]: Card,
     [Tag.name]: Tag,
     [Cell.name]: Cell,
-    [CellGroup.name]: CellGroup
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage
   },
   created () {
     GetSearchApi(this.$store.state.addWord, '1009')
@@ -66,4 +71,18 @@ export default {
 }
 </script>
 
-<style scoped></style>
+<style scoped lang="less">
+    .Dj {
+        margin: 20px 30px;
+
+        .title {
+            padding-left: 30px;
+            .overTextEllipsis(@width: 70vw);
+        }
+
+        .my-cell {
+            padding: 20px 0;
+        }
+    }
+
+</style>

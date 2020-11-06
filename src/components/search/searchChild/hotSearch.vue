@@ -1,37 +1,20 @@
 <template>
-    <div>
-        <p
-                style="font-weight: bold;font-size: 16px;margin-left: 16px;margin-top: 6px">
-            热搜榜
-        </p>
-        <div v-for="(item, index) in hots" :key="index">
+    <div class="hotSearch">
+        <p class="title">热搜榜</p>
+        <div class="hotSearch" v-for="(item, index) in hots" :key="index">
             <van-cell-group>
                 <van-cell
-                        :title-style="{
-            fontWeight: index + 1 < 4 ? 'Bold' : 'normal',
-            fontSize: '15px'
-          }"
+                        class="my-cell"
+                        :title-style="{fontWeight: index < 3 ? 'Bold' : 'normal', fontSize: '15px'}"
                         :title="item.searchWord"
                         @click="getHotSearch(item.searchWord)"
                         :value="item.score"
                         :label="item.content"
                         value-class="rightText"
                         label-class="labelText"
-                        :border="false"
-                >
-                    <template #icon
-                    ><p
-                            :style="{
-                color: index + 1 < 4 ? '#F1494C' : '#9D9D9D',
-                fontWeight: index + 1 < 4 ? 'Bold' : 'normal',
-                fontSize: '16px',
-                marginTop: '10px',
-                marginRight: '10px'
-              }"
-                    >
-                        {{ index + 1 }}
-                    </p></template
-                    >
+                        :border="false">
+                    <template #icon><p class="indexIcon" :class="{redText:index<3}">{{ index + 1 }}</p>
+                    </template>
                 </van-cell>
             </van-cell-group>
         </div>
@@ -90,17 +73,38 @@ export default {
 }
 </script>
 
-<style scoped>
-    .rightText {
-        font-size: 10px;
-        color: #cecece;
-        width: 0px;
-        height: 80px;
-    }
+<style scoped lang="less">
+    .hotSearch {
+        margin: 50px 30px;
 
-    .labelText {
-        font-size: 10px;
-        font-weight: normal;
-        color: #979797;
+        .title {
+            font-weight: bold;
+            font-size: 45px;
+            margin-left: 16px;
+            margin-top: 6px;
+            margin-bottom: 30px;
+        }
+
+        .rightText {
+            font-size: 10px;
+            color: #cecece;
+            width: 0;
+            height: 80px;
+        }
+
+        .labelText {
+            font-size: 10px;
+            font-weight: normal;
+            color: #979797;
+        }
+
+        .indexIcon {
+            text-align: center;
+            padding: 30px 40px 20px 20px;
+        }
+
+        .redText {
+            color: #c2463a;
+        }
     }
 </style>
