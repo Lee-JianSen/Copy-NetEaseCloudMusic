@@ -126,7 +126,8 @@
                         </template>
                         <template #label>
                             <p class="ov">
-                                {{ value.singer }} -- <span class="titleAlias"> {{ value.album }}</span>
+                                {{ value.singer }} --
+                                <span class="titleAlias"> {{ value.album }}</span>
                             </p>
                         </template>
                         <template #icon>
@@ -166,19 +167,14 @@ import { Icon, Cell, CellGroup, Image as VanImage, Button } from 'vant'
 import { GetSongListAPI, GetMusicDetail } from '../../../http/all-api'
 import { createSongListInfo } from '../../../../model/dataInfo/songListInfo'
 import { createMusicInfo } from '../../../../model/dataInfo/musicInfo'
+import { getMusicId } from '../../../tool/mixin'
 
 export default {
   name: 'daySongList',
-  beforeCreate () {
-    this.$toast.loading({
-      message: '加载中',
-      forbidClick: true,
-      duration: 0
-    })
-  },
-  async created () {
-    await this.getSongListData(this.$route.query.id)
-    this.$toast.clear()
+  mixins: [getMusicId],
+
+  created () {
+    this.getSongListData(this.$route.query.id)
   },
   data () {
     return {
@@ -186,10 +182,20 @@ export default {
       musicInfo: [],
       musicDetail: {},
       isShowTop: false,
-      isShowDetail: false
+      isShowDetail: false,
+      test: false
     }
   },
+  updated () {
+    this.$nextTick(() => {
+      if (this.isMusicPlay) {
+        this.$refs.scroll.$el.style.height = 92 + '%'
+        this.$refs.scroll.refresh()
+      }
+    })
+  },
   computed: {
+
     songListPic () {
       return this.songListData.picUrl + '?param=120y120'
     }
@@ -224,14 +230,15 @@ export default {
     goBack () {
       this.$router.go(-1)
     },
-    getMusicId (musicId) {
-      // 音乐id
-      console.log(musicId)
-      this.$store.commit('changeMusicId', musicId)
-      this.musicCheck(musicId)
-      this.$refs.scroll.$el.style.height = 92 + '%'
-      this.$refs.scroll.refresh()
-    },
+    // getMusicId (musicId) {
+    //   // 音乐id
+    //   console.log(musicId)
+    //   this.$store.commit('changeMusicId', musicId)
+    //   this.musicCheck(musicId)
+    //   this.$refs.scroll.$el.style.height = 92 + '%'
+    //   this.$refs.scroll.refresh()
+    //   this.$forceUpdate()
+    // },
     musicListScroll (position) {
       const opacity = Math.abs(Math.round(position.y) / 100)
       this.$refs.topNav.style.background = `rgba(114,114,114,${opacity})`
@@ -269,7 +276,6 @@ export default {
 </script>
 
 <style scoped lang="less">
-
     .songList {
         width: 100vw;
 

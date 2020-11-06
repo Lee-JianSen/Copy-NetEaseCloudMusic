@@ -25,16 +25,18 @@ export const getMusicId = {
       get () {
         return this.$store.state.playList.length + 1
       }
+    },
+    isMusicPlay () {
+      return this.$store.state.musicId !== null
     }
   },
   methods: {
     getMusicId (musicId) {
       // 音乐id
       console.log(musicId)
-      this.$store.commit('changeMusicId', musicId)
-      this.$refs.scroll.$el.style.height = 92 + '%'
-      this.$refs.scroll.refresh()
+      this.$store.commit('changeMusicId', parseInt(musicId))
       this.$store.commit('changeMusicIndex', this.getLength)
+      this.$forceUpdate()
       this.musicCheck(musicId)
     }
   }

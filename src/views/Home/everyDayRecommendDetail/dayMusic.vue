@@ -64,30 +64,17 @@ import { getMusicId } from '../../../tool/mixin'
 export default {
   name: 'dayMusic',
   mixins: [getMusicId],
-  beforeCreate () {
-    this.$toast.loading({
-      message: '加载中',
-      forbidClick: true,
-      duration: 0
-    })
+
+  created () {
+    this.getMusicInfo()
   },
-  async created () {
-    await this.getMusicInfo()
-    this.$toast.clear()
-    if (this.isMusicPlay) {
-      this.$refs.scroll.$el.style.height = 92 + '%'
-      this.$refs.scroll.refresh()
-    }
-  },
-  computed: {
-    isMusicPlay () {
-      return this.$store.state.musicId !== null
-    },
-    getLength: {
-      get () {
-        return this.$store.state.playList.length + 1
+  updated () {
+    this.$nextTick(() => {
+      if (this.isMusicPlay) {
+        this.$refs.scroll.$el.style.height = 92 + '%'
+        this.$refs.scroll.refresh()
       }
-    }
+    })
   },
   data () {
     return {
@@ -111,15 +98,6 @@ export default {
           console.log(err)
         })
     },
-    // getMusicId(musicId) {
-    //     // 音乐id
-    //     console.log(musicId);
-    //     this.$store.commit('changeMusicId', musicId);
-    //     this.musicCheck(musicId);
-    //     this.$refs.scroll.$el.style.height = 92 + '%';
-    //     this.$refs.scroll.refresh();
-    //     this.$store.commit('changeMusicIndex', this.getLength);
-    // },
     goBack () {
       this.$router.go(-1)
     },

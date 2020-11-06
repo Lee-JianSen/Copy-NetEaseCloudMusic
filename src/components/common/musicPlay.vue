@@ -14,21 +14,18 @@
                         name="play-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"
-                />
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()" />
                 <van-icon
                         v-show="!changeIcons"
                         name="pause-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"
-                />
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()" />
                 <img
                         src="../../assets/more.png"
                         height="28"
                         width="28"
-                        @click.stop="more"
-                />
+                        @click.stop="more" />
             </div>
         </div>
         <!--        大播放器-->
@@ -40,8 +37,7 @@
           'background-image': `url(${musicInfo.picUrl})`,
           'animation-play-state': animationShow
         }"
-                    class="audio-com-box-max"
-            >
+                    class="audio-com-box-max">
                 <div class="musicContent">
                     <div class="nav">
                         <van-cell
@@ -51,15 +47,13 @@
                                 :title="musicInfo.name === '' ? '正在播放电台' : musicInfo.name"
                                 :label="musicInfo.singer"
                                 title-class="titleText"
-                                label-class="labelText"
-                        >
+                                label-class="labelText">
                             <template #icon>
                                 <van-icon
                                         @click="minOrMax"
                                         color="#fff"
                                         size="24"
-                                        name="arrow-down"
-                                />
+                                        name="arrow-down" />
                             </template>
                         </van-cell>
                     </div>
@@ -67,15 +61,13 @@
                             class="albumPic isrotate"
                             v-show="!isShowLrc"
                             @click="showLrc"
-                            :style="{ 'animation-play-state': animationShow }"
-                    >
+                            :style="{ 'animation-play-state': animationShow }">
                         <van-image
                                 class="pic"
                                 round
                                 width="12rem"
                                 height="12rem"
-                                :src="musicInfo.picUrl"
-                        />
+                                :src="musicInfo.picUrl" />
                     </div>
                     <div class="lrcBox" v-show="isShowLrc" @click="showLrc">
                         <scroll class="contentLrc" ref="lyricList" :probe-type="3">
@@ -85,8 +77,7 @@
                                         ref="lyricLine"
                                         :key="index"
                                         :class="{ current: currentLineNum === index }"
-                                        class="text"
-                                >
+                                        class="text">
                                     {{ line.txt }}
                                 </p>
                             </div>
@@ -95,8 +86,7 @@
                                         v-for="(line) in lines"
                                         ref="lyricLine"
                                         :key="line.time"
-                                        class="text"
-                                >
+                                        class="text">
                                     {{ line.txt }}
                                 </p>
                             </div>
@@ -109,8 +99,7 @@
                                     name="comment-o"
                                     size="32px"
                                     color="#bfbfbf"
-                                    @click="commentBtn"
-                            />
+                                    @click="commentBtn" />
                             <!--                            // !!!!!!/-->
                             <van-icon name="like-o" size="32px" color="#bfbfbf" />
                         </div>
@@ -121,8 +110,7 @@
                                     v-model="currentTime2"
                                     :max="getMaxTime"
                                     @change="onChangeTime"
-                                    @input="onChanging"
-                            >
+                                    @input="onChanging">
                                 <template #button>
                                     <div class="custom-button"></div>
                                 </template>
@@ -135,58 +123,50 @@
                                     @click="changePlayType"
                                     src="../../assets/cycle_list.png"
                                     height="32"
-                                    width="32"
-                            />
+                                    width="32" alt="" />
                             <img
                                     v-show="playType === 2"
                                     @click="changePlayType"
                                     src="../../assets/random.png"
                                     height="32"
-                                    width="32"
-                            />
+                                    width="32" alt="" />
                             <img
                                     v-show="playType === 3"
                                     @click="changePlayType"
                                     src="../../assets/loop.png"
                                     height="32"
-                                    width="32"
-                            />
+                                    width="32" alt="" />
 
                             <img
                                     src="../../assets/previous.png"
                                     height="32"
                                     width="32"
-                                    @click="previousMusic"
-                            />
+                                    @click="previousMusic" alt="" />
 
                             <van-icon
                                     v-show="changeIcons"
                                     name="play-circle-o"
                                     size="32px"
                                     color="#bfbfbf"
-                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()"
-                            />
+                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()" />
                             <van-icon
                                     v-show="!changeIcons"
                                     name="pause-circle-o"
                                     size="32px"
                                     color="#bfbfbf"
-                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()"
-                            />
+                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()" />
                             <img
                                     src="../../assets/next.png"
                                     alt=""
                                     height="32"
                                     width="32"
-                                    @click="nextMusic"
-                            />
+                                    @click="nextMusic" />
                             <img
                                     src="../../assets/more.png"
                                     alt=""
                                     height="32"
                                     width="32"
-                                    @click="more"
-                            />
+                                    @click="more" />
                         </div>
                     </div>
                 </div>
@@ -240,8 +220,10 @@ export default {
   name: 'musicPlay',
   props: {
     musicId: {
-      type: Number || String,
-      default: null
+      type: Number,
+      default () {
+        return null
+      }
     }
   },
   mounted () {
@@ -276,8 +258,6 @@ export default {
     musicId: {
       deep: true,
       handler (nv, ov) {
-        console.log('执行监听musicId')
-        console.log(ov + '监听' + nv)
         this.$toast.loading({
           message: '加载中',
           forbidClick: true,

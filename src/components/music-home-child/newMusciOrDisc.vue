@@ -58,19 +58,13 @@ export default {
       }, 600)
     })
   },
+
   data () {
     return {
       isShowMusic: true
     }
   },
   methods: {
-    // getMusicId(musicId) {
-    //     // 音乐id
-    //     console.log(musicId);
-    //     this.$store.commit('changeMusicId', musicId);
-    //
-    //     this.musicCheck(musicId);
-    // },
     showNewMusic () {
       this.isShowMusic = !this.isShowMusic
     }

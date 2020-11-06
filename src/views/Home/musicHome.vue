@@ -75,20 +75,11 @@ import {
 
 export default {
   name: 'Home',
-  beforeCreate () {
-    // console.log(this.$store.state.token);
-    this.$toast.loading({
-      message: '加载中',
-      forbidClick: true,
-      duration: 0
-    })
-  },
-  async created () {
-    await this.getBannerData()
-    await this.getHomeData()
-    this.$toast.clear()
-  },
 
+  created () {
+    this.getBannerData()
+    this.getHomeData()
+  },
   data () {
     return {
       active: 0,
@@ -177,7 +168,7 @@ export default {
         this.$refs.scroll.$el.style.height = 80 + 'vh'
         this.$refs.scroll.refresh()
       }
-    }, 250),
+    }, 100),
 
     async getBannerData () {
       this.bannerList = []
@@ -314,13 +305,13 @@ export default {
         this.playerOptions.push(arr)
       }
     },
-    async pullingDown () {
+    pullingDown () {
       this.isLoading = true
       if (this.currentType === 'recommend') {
-        await this.getBannerData()
-        await this.getHomeData()
+        this.getBannerData()
+        this.getHomeData()
       } else {
-        await this.getVideoData()
+        this.getVideoData()
       }
       this.$refs.scroll.finishPullDown()
       this.$refs.scroll.refresh()
