@@ -187,7 +187,18 @@ export default {
   created () {
     this.getCommentData(this.musicId, this.hotLimit)
   },
+  updated () {
+    this.$nextTick(() => {
+      if (this.isMusicPlay) {
+        this.$refs.scroll.$el.style.height = 88 + '%'
+        this.$refs.scroll.refresh()
+      }
+    })
+  },
   computed: {
+    isMusicPlay () {
+      return this.$store.state.musicId !== null
+    },
     musicId () {
       return this.$route.query.id
     },

@@ -114,7 +114,6 @@ export default {
     },
     allPlayBtn () {
       let allId = []
-
       this.musicInfo.forEach(item => {
         allId.push(item.id)
       })

@@ -71,8 +71,8 @@ export default {
       get () {
         return this.isShowDetail
       },
-      set (nv, ov) {
-        return (this.showDetail = nv)
+      set (ov, nv) {
+        return (this.$parent.isShowDetail = nv)
       }
     }
   },
@@ -106,7 +106,7 @@ export default {
     },
     musicDetailClick (index) {
       // eslint-disable-next-line vue/no-mutating-props
-      this.isShowDetail = !this.isShowDetail
+      this.$parent.isShowDetail = !this.$parent.isShowDetail
       switch (index) {
         case 0:
           this.$router.push({

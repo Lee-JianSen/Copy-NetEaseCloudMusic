@@ -230,15 +230,6 @@ export default {
     goBack () {
       this.$router.go(-1)
     },
-    // getMusicId (musicId) {
-    //   // 音乐id
-    //   console.log(musicId)
-    //   this.$store.commit('changeMusicId', musicId)
-    //   this.musicCheck(musicId)
-    //   this.$refs.scroll.$el.style.height = 92 + '%'
-    //   this.$refs.scroll.refresh()
-    //   this.$forceUpdate()
-    // },
     musicListScroll (position) {
       const opacity = Math.abs(Math.round(position.y) / 100)
       this.$refs.topNav.style.background = `rgba(114,114,114,${opacity})`
