@@ -2,30 +2,20 @@
 <template>
     <div class="live">
         <div class="topTitle">
-            <h4 @click="TopClick">{{topTitle}}</h4>
-            <btn-more :title="btnMore" @click.native="TopClick"></btn-more>
+            <h4 @click="TopClick">{{ topTitle }}</h4>
+            <btn-more :title="btnMore" @click.native="TopClick"/>
         </div>
         <horizontal-scroll ref="hScroll">
             <div ref="list" class="list">
-                <div
-                        v-for="(item,index) in liveList"
-                        :key="index"
-                        class="gridItem">
-
+                <div v-for="(item, index) in liveList" :key="index" class="gridItem">
                     <div class="playCount">
-                        <van-icon name="fire" color="#c2463a"/>
-                        {{item.popularity | playCount}}·{{item.privateTag}}
+                        <van-icon name="fire" color="#c2463a" />
+                        {{ item.popularity | playCount }}·{{ item.privateTag }}
                     </div>
 
-                    <div class="songListInfo"
-                         @click="SongListClick(item.liveId)"
-                    >
-                        <van-image
-                                fit="cover"
-                                radius="5px"
-                                :src="imageUrlSize(item)"/>
-                        <div class="text">{{item.title}}</div>
-
+                    <div class="songListInfo" @click="SongListClick(item.liveId)">
+                        <van-image fit="cover" radius="5px" :src="imageUrlSize(item)" />
+                        <div class="text">{{ item.title }}</div>
                     </div>
                 </div>
             </div>
@@ -34,73 +24,70 @@
 </template>
 
 <script>
-    // 横向滚动组件
-    import HorizontalScroll from "../common/horizontalScroll";
-    import {initScroll} from "../../tool/mixin";
-    import BtnMore from "../common/btnMore";
-    //引入vant组件 Grid宫格布局
-    import {Image as VanImage, Icon} from 'vant';
+// 横向滚动组件
+import HorizontalScroll from '../common/horizontalScroll'
+import { initScroll } from '../../tool/mixin'
+import BtnMore from '../common/btnMore'
+// 引入vant组件 Grid宫格布局
+import { Image as VanImage, Icon } from 'vant'
 
-    export default {
-        name: "live",
-        mixins: [initScroll],
-        props: {
-            liveList: {
-                type: Array,
-                default: []
-            },
-            topTitle: String,
-            btnMore: String
-        },
-        
-        mounted() {
-            this.$nextTick(() => {
-                setTimeout(() => {
-                    this.itemWidth = 28;
-                    this.itemMargin = 5;
-                    this.initPics();
-                    this.$refs.hScroll.refresh()
-                }, 600);
+export default {
+  name: 'live',
+  mixins: [initScroll],
+  props: {
+    liveList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    topTitle: String,
+    btnMore: String
+  },
 
-            })
-        },
-        computed: {
-            imageUrlSize() {
-                return function (item) {
-                    return item.verticalCover + '?param=120y120'
-                }
-            }
-
-        },
-        methods: {
-            TopClick() {
-                console.log('更多直播');
-
-            },
-            SongListClick(id) {
-                // todo 跳转歌单详情
-                console.log('歌单点击跳转');
-                console.log(id);
-            }
-        },
-        components: {
-
-            [VanImage.name]: VanImage,
-            [Icon.name]: Icon,
-            HorizontalScroll,
-            BtnMore
-        },
-        filters: {
-            playCount(num) {
-                if (num >= 100000000) {
-                    num = Math.round(num / 10000000) / 10 + '亿'
-                } else if (num >= 10000) {
-                    num = Math.round(num / 1000) / 10 + '万'
-                }
-                return num;
-            }
-        }
+  mounted () {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.itemWidth = 28
+        this.itemMargin = 5
+        this.initPics()
+        this.$refs.hScroll.refresh()
+      }, 600)
+    })
+  },
+  computed: {
+    imageUrlSize () {
+      return function (item) {
+        return item.verticalCover + '?param=120y120'
+      }
     }
+  },
+  methods: {
+    TopClick () {
+      console.log('更多直播')
+    },
+    SongListClick (id) {
+      console.log('歌单点击跳转')
+      console.log(id)
+    }
+  },
+  components: {
+    [VanImage.name]: VanImage,
+    [Icon.name]: Icon,
+    HorizontalScroll,
+    BtnMore
+  },
+  filters: {
+    playCount (num) {
+      if (num >= 100000000) {
+        num = Math.round(num / 10000000) / 10 + '亿'
+      } else if (num >= 10000) {
+        num = Math.round(num / 1000) / 10 + '万'
+      }
+      return num
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -111,7 +98,6 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 30px;
-
         }
 
         h4 {
@@ -122,7 +108,6 @@
             display: flex;
             justify-content: space-around;
         }
-
 
         .text {
             width: 300px;

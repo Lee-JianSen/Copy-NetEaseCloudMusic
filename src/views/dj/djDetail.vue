@@ -1,7 +1,7 @@
 <template>
     <div class="djDetail">
         <div ref="topNav" class="topNav">
-            <van-icon size="24" @click="goBack" name="arrow-left"/>
+            <van-icon size="24" @click="goBack" name="arrow-left" />
             <p class="navTitle">电台</p>
         </div>
         <scroll
@@ -11,21 +11,24 @@
                 :bounce="false"
                 :pull-up-load="true"
                 @scroll="musicListScroll"
-                @pullingUp="pullingUp">
+                @pullingUp="pullingUp"
+        >
             <div>
                 <div class="topInfo">
                     <van-image
                             cover
                             width="100vw"
                             height="20rem"
-                            :src="djDetail.picUrl"/>
+                            :src="djDetail.picUrl"
+                    />
                     <van-cell
                             class="myCell"
                             center
                             :title="djDetail.name"
                             :label="`${djDetail.subCount}已订阅`"
                             title-class="djName"
-                            label-class="djLabel">
+                            label-class="djLabel"
+                    >
                     </van-cell>
                 </div>
                 <div class="bottomInfo">
@@ -33,7 +36,8 @@
                             animated
                             v-model="active"
                             swipeable
-                            title-active-color="#c2463a">
+                            title-active-color="#c2463a"
+                    >
                         <van-tab title="详情" name="xq">
                             <p class="avatarTitle">主播</p>
                             <van-cell :center="true">
@@ -43,40 +47,44 @@
                                             class="leftImage"
                                             width="45"
                                             height="45"
-                                            :src="djDetail.avatarUrl">
+                                            :src="djDetail.avatarUrl"
+                                    >
                                     </van-image>
                                 </template>
                                 <template #title>
-                                    <span class="custom-title">{{djDetail.nickname}}</span>
+                                    <span class="custom-title">{{ djDetail.nickname }}</span>
                                 </template>
                                 <template #label>
-                                    <p class="labelText">{{djDetail.signature}}</p>
+                                    <p class="labelText">{{ djDetail.signature }}</p>
                                 </template>
                             </van-cell>
                             <p class="djDetailInfo">电台内容简介</p>
-                            <p class="categoryP">分类:<span class="category">{{djDetail.category}}</span></p>
-                            <p class="desc">{{djDetail.desc}}</p>
+                            <p class="categoryP">
+                                分类:<span class="category">{{ djDetail.category }}</span>
+                            </p>
+                            <p class="desc">{{ djDetail.desc }}</p>
                         </van-tab>
                         <van-tab :title="`节目${programCount}`" name="jm">
                             <van-cell
                                     @click="getMusicId(item.id)"
-                                    v-for="(item,index) in djPrograms"
+                                    v-for="(item, index) in djPrograms"
                                     :key="index"
-                                    :center="true">
+                                    :center="true"
+                            >
                                 <template #title>
-                                    <p>{{item.name}}</p>
+                                    <p>{{ item.name }}</p>
                                 </template>
                                 <template #label>
                                     <p>
-                                        {{item.createTime|formatDate}}
+                                        {{ item.createTime | formatDate }}
                                         <span v-html="'&#8195;'"></span>
-                                        播放次数:{{item.listenerCount}}
+                                        播放次数:{{ item.listenerCount }}
                                         <span v-html="'&#8195;'"></span>
-                                        时长:{{item.duration|formatDuring}}
+                                        时长:{{ item.duration | formatDuring }}
                                     </p>
                                 </template>
                                 <template #icon>
-                                    <p class="iconIndex">{{index+1}}</p>
+                                    <p class="iconIndex">{{ index + 1 }}</p>
                                 </template>
                             </van-cell>
                         </van-tab>
@@ -88,108 +96,118 @@
 </template>
 
 <script>
-    import commNav from "../../components/nav/commNav";
-    import scroll from "../../components/common/scroll";
-    import {GetDjDetailAPI, GetDjProgramAPI} from "../../http/all-api";
-    import {createDjDetailInfo} from "../../../model/dataInfo/djDetailInfo";
-    import {createProgramInfo} from "../../../model/dataInfo/programInfo";
-    import {Cell, Icon, Image as VanImage, Tab, Tabs} from "vant";
-    import {formatDate, formatDuring, unique} from "../../tool/utils";
-    import {getMusicId} from "../../tool/mixin";
+import scroll from '../../components/common/scroll'
+import { GetDjDetailAPI, GetDjProgramAPI } from '../../http/all-api'
+import { createDjDetailInfo } from '../../../model/dataInfo/djDetailInfo'
+import { createProgramInfo } from '../../../model/dataInfo/programInfo'
+import { Cell, Icon, Image as VanImage, Tab, Tabs } from 'vant'
+import { formatDate, formatDuring, unique } from '../../tool/utils'
+import { getMusicId } from '../../tool/mixin'
 
-    export default {
-        name: "djDetail",
-        mixins: [getMusicId],
-        beforeRouteEnter(to, from, next) {
-            next(vm => {
-                vm.$toast.loading({
-                    message: '加载中',
-                    forbidClick: true,
-                    duration: 0
-                });
-                vm.getDjDetailData(vm.rid);
-                vm.getDjProgramsData(vm.rid, {limit: vm.limit, asc: false});
-                vm.$toast.clear()
-            })
-        },
-        computed: {
-            rid() {
-                return this.$route.query.id
-            },
-        },
-        data() {
-            return {
-                djDetail: {},
-                active: 'jm',
-                limit: 30,
-                programCount: 0,
-                djPrograms: [],
-            }
-        },
-        methods: {
-            getDjDetailData(id) {
-                GetDjDetailAPI(id).then(res => {
-                    this.djDetail = createDjDetailInfo(res.data.djRadio);
-                    console.log(this.djDetail);
-                }).catch(error => {
-                    console.log('获取电台详情失败');
-                    console.log(error);
-                })
-            },
-            getDjProgramsData(id, {limit, asc}) {
-                GetDjProgramAPI(id, {limit: limit, asc: asc}).then(res => {
-                    let result = res.data.programs;
-                    this.programCount = res.data.count;
-                    result.forEach(item => {
-                        this.djPrograms.push(createProgramInfo(item))
-                    });
-                    if (this.djPrograms.length > 30) {
-                        this.djPrograms = unique(this.djPrograms);
-                        if (this.djPrograms.length < this.programCount) {
-                            this.$refs.scroll.finishPullUp();
-                            this.$refs.scroll.refresh();
-                        } else {
-                            this.$toast('没用更多节目了')
-                        }
-
-                    }
-                }).catch(error => {
-                    console.log('获取电台节目失败');
-                    console.log(error);
-                })
-            },
-            goBack() {
-                this.$router.go(-1)
-            },
-            musicListScroll(position) {
-                let opacity = Math.abs(Math.round((position.y)) / 300);
-                this.$refs.topNav.style.background = `rgba(0,0,0,${opacity})`;
-            },
-            pullingUp() {
-                this.limit += 10;
-                this.getDjProgramsData(this.rid, {limit: this.limit, asc: false})
-                console.log('不等');
-            }
-        },
-        components: {
-            commNav,
-            scroll,
-            [VanImage.name]: VanImage,
-            [Cell.name]: Cell,
-            [Tab.name]: Tab,
-            [Tabs.name]: Tabs,
-            [Icon.name]: Icon,
-        },
-        filters: {
-            formatDate(time) {
-                let times = new Date(time);
-                return formatDate(times, 'MM-dd')
-            },
-            formatDuring(time) {
-                return formatDuring(time)
-            }
-        }
+export default {
+  name: 'djDetail',
+  mixins: [getMusicId],
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$toast.loading({
+        message: '加载中',
+        forbidClick: true,
+        duration: 0
+      })
+      vm.getDjDetailData(vm.rid)
+      vm.getDjProgramsData(vm.rid, {
+        limit: vm.limit,
+        asc: false
+      })
+      vm.$toast.clear()
+    })
+  },
+  computed: {
+    rid () {
+      return this.$route.query.id
     }
+  },
+  data () {
+    return {
+      djDetail: {},
+      active: 'jm',
+      limit: 30,
+      programCount: 0,
+      djPrograms: []
+    }
+  },
+  methods: {
+    getDjDetailData (id) {
+      GetDjDetailAPI(id)
+        .then(res => {
+          this.djDetail = createDjDetailInfo(res.data.djRadio)
+          console.log(this.djDetail)
+        })
+        .catch(error => {
+          console.log('获取电台详情失败')
+          console.log(error)
+        })
+    },
+    getDjProgramsData (id, { limit, asc }) {
+      GetDjProgramAPI(id, {
+        limit: limit,
+        asc: asc
+      })
+        .then(res => {
+          const result = res.data.programs
+          this.programCount = res.data.count
+          result.forEach(item => {
+            this.djPrograms.push(createProgramInfo(item))
+          })
+          if (this.djPrograms.length > 30) {
+            this.djPrograms = unique(this.djPrograms)
+            if (this.djPrograms.length < this.programCount) {
+              this.$refs.scroll.finishPullUp()
+              this.$refs.scroll.refresh()
+            } else {
+              this.$toast('没用更多节目了')
+            }
+          }
+        })
+        .catch(error => {
+          console.log('获取电台节目失败')
+          console.log(error)
+        })
+    },
+    goBack () {
+      this.$router.go(-1)
+    },
+    musicListScroll (position) {
+      const opacity = Math.abs(Math.round(position.y) / 300)
+      this.$refs.topNav.style.background = `rgba(0,0,0,${opacity})`
+    },
+    pullingUp () {
+      this.limit += 10
+      this.getDjProgramsData(this.rid, {
+        limit: this.limit,
+        asc: false
+      })
+      console.log('不等')
+    }
+  },
+  components: {
+    scroll,
+    [VanImage.name]: VanImage,
+    [Cell.name]: Cell,
+    [Tab.name]: Tab,
+    [Tabs.name]: Tabs,
+    [Icon.name]: Icon
+  },
+  filters: {
+    formatDate (time) {
+      const times = new Date(time)
+      return formatDate(times, 'MM-dd')
+    },
+    formatDuring (time) {
+      return formatDuring(time)
+    }
+  }
+}
 </script>
 
 <style lang="less">
@@ -217,7 +235,7 @@
                 position: relative;
 
                 .myCell {
-                    background-color: rgba(0, 0, 0, .1);
+                    background-color: rgba(0, 0, 0, 0.1);
                     width: 100vw;
                     height: 100%;
                     padding-left: 30px;
@@ -238,7 +256,6 @@
                         font-weight: lighter;
                     }
                 }
-
             }
 
             .bottomInfo {
@@ -256,7 +273,6 @@
                 .avatarTitle {
                     padding: 30px;
                     font-weight: bold;
-
                 }
 
                 .leftImage {
@@ -273,7 +289,6 @@
                     overflow: hidden;
                     text-overflow: ellipsis;
                 }
-
 
                 .djDetailInfo {
                     padding: 30px;
@@ -312,7 +327,6 @@
                     font-weight: bold;
                 }
             }
-
         }
     }
 </style>

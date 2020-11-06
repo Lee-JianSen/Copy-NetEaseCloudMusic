@@ -1,21 +1,20 @@
 <template>
     <div class="btnMore">
-        {{title}}
+        {{ title }}
         <slot name="icon"></slot>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "btnMore",
-        props: {
-            title: String
-        }
-    }
+export default {
+  name: 'btnMore',
+  props: {
+    title: String
+  }
+}
 </script>
 
 <style scoped lang="less">
-
     .btnMore {
         line-height: 55px;
         font-size: 30px;
@@ -23,5 +22,4 @@
         border-radius: 50px;
         padding: 0 15px;
     }
-
 </style>

@@ -2,70 +2,69 @@
 <template>
     <div class="songList">
         <div class="topTitle">
-            <h4 @click="TopClick">{{topTitle}}</h4>
-            <btn-more :title="btnMore" @click.native="TopClick"/>
+            <h4 @click="TopClick">{{ topTitle }}</h4>
+            <btn-more :title="btnMore" @click.native="TopClick" />
         </div>
 
         <horizontal-scroll ref="hScroll">
             <div ref="list" class="list">
                 <div class="songListCom">
                     <song-list-com
-                            v-for="(item,index) in recommendSongList"
+                            v-for="item in recommendSongList"
                             :key="item.id"
-                            :songListData="item"/>
+                            :songListData="item"
+                    />
                 </div>
             </div>
         </horizontal-scroll>
-
     </div>
 </template>
 
 <script>
-    // 横向滚动组件
-    import HorizontalScroll from "../common/horizontalScroll";
-    import {initScroll} from "../../tool/mixin";
-    import BtnMore from "../common/btnMore";
-    import songListCom from "./com/songListCom";
+// 横向滚动组件
+import HorizontalScroll from '../common/horizontalScroll'
+import { initScroll } from '../../tool/mixin'
+import BtnMore from '../common/btnMore'
+import songListCom from './com/songListCom'
 
-    export default {
-        name: "recommendedSongList",
-        mixins: [initScroll],
-        props: {
-            recommendSongList: {
-                type: Array,
-                default: []
-            },
-            topTitle: String,
-            btnMore: String
-        },
+export default {
+  name: 'recommendedSongList',
+  mixins: [initScroll],
+  props: {
+    recommendSongList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    topTitle: String,
+    btnMore: String
+  },
 
-        mounted() {
-            this.$nextTick(() => {
-                setTimeout(() => {
-                    this.itemWidth = 28;
-                    this.itemMargin = 5;
-                    this.initPics();
-                    this.$refs.hScroll.refresh()
-                }, 600);
-
-            })
-        },
-        methods: {
-            TopClick() {
-                console.log('更多歌单');
-                this.$router.push({
-                    path: '/allPlayList'
-                })
-            },
-
-        },
-        components: {
-            HorizontalScroll,
-            BtnMore,
-            songListCom
-        },
-
+  mounted () {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.itemWidth = 28
+        this.itemMargin = 5
+        this.initPics()
+        this.$refs.hScroll.refresh()
+      }, 600)
+    })
+  },
+  methods: {
+    TopClick () {
+      console.log('更多歌单')
+      this.$router.push({
+        path: '/allPlayList'
+      })
     }
+  },
+  components: {
+    HorizontalScroll,
+    BtnMore,
+    songListCom
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -87,6 +86,4 @@
             justify-content: space-around;
         }
     }
-
-
 </style>

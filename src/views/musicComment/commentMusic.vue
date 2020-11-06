@@ -1,16 +1,16 @@
 <template>
     <div class="commentMusic">
-        <comm-nav :title="`评论(${totalCount})`"/>
+        <comm-nav :title="`评论(${totalCount})`" />
         <div v-show="showTop" class="ceilingNav">
             <van-cell
-
                     center
                     title="评论区"
                     title-class="titleText"
-                    value-class="commentTypeText">
+                    value-class="commentTypeText"
+            >
                 <template #default>
-                    <p :class="{'current':!isHot}" @click="isHot = false">最热</p>
-                    <p :class="{'current':isHot}" @click="isHot = true">最新</p>
+                    <p :class="{ current: !isHot }" @click="isHot = false">最热</p>
+                    <p :class="{ current: isHot }" @click="isHot = true">最新</p>
                 </template>
             </van-cell>
         </div>
@@ -20,7 +20,8 @@
                 :probe-type="3"
                 :pull-up-load="true"
                 @pullingUp="pullingUp"
-                @scroll="commentScroll">
+                @scroll="commentScroll"
+        >
             <div>
                 <div class="topBox">
                     <van-cell
@@ -28,28 +29,30 @@
                             :center="true"
                             :border="false"
                             label-class="ov"
-                            title-class="ov titleText">
+                            title-class="ov titleText"
+                    >
                         <!--                            :title="value.uiElement.mainTitle.title"-->
                         <template #title>
                             <p>
-                                {{musicName}}
+                                {{ musicName }}
                             </p>
                         </template>
                         <template #label>
-                            <p>
-                                歌手：{{singer}}
-                            </p>
+                            <p>歌手：{{ singer }}</p>
                         </template>
                         <template #icon>
                             <van-image
                                     class="leftImage"
-                                    width="5rem" height="5rem"
+                                    width="5rem"
+                                    height="5rem"
                                     radius="5"
-                                    :src="musicPic" alt="">
+                                    :src="musicPic"
+                                    alt=""
+                            >
                             </van-image>
                         </template>
                         <template #right-icon>
-                            <van-icon size="20" name="arrow" class="rightImage"/>
+                            <van-icon size="20" name="arrow" class="rightImage" />
                         </template>
                     </van-cell>
                 </div>
@@ -59,33 +62,30 @@
                             center
                             title="评论区"
                             title-class="titleText"
-                            value-class="commentTypeText">
+                            value-class="commentTypeText"
+                    >
                         <template #default>
-                            <p :class="{'current':!isHot}" @click="hotClick">最热</p>
-                            <p :class="{'current':isHot}" @click="newClick">最新</p>
+                            <p :class="{ current: !isHot }" @click="hotClick">最热</p>
+                            <p :class="{ current: isHot }" @click="newClick">最新</p>
                         </template>
                     </van-cell>
                 </div>
                 <div v-show="!isHot" class="hot">
-                    <van-skeleton
-                            title avatar
-                            :row="3"
-                            :loading="loading">
+                    <van-skeleton title avatar :row="3" :loading="loading">
                         <div>
-                            <div
-                                    v-for="(item,index) in hotComment"
-                                    :key="index">
+                            <div v-for="(item, index) in hotComment" :key="index">
                                 <van-cell
                                         :border="false"
                                         center
                                         title-class="titleText"
                                         value-class="likeCountText"
-                                        label-class="timeText">
+                                        label-class="timeText"
+                                >
                                     <template #title>
-                                        <p>{{item.nickname}}</p>
+                                        <p>{{ item.nickname }}</p>
                                     </template>
                                     <template #label>
-                                        <p>{{item.time|formatDate}}</p>
+                                        <p>{{ item.time | formatDate }}</p>
                                     </template>
                                     <template #icon>
                                         <van-image
@@ -93,46 +93,45 @@
                                                 round
                                                 width="2.3rem"
                                                 height="2.3rem"
-                                                :src="item.avatarUrl">
+                                                :src="item.avatarUrl"
+                                        >
                                         </van-image>
                                     </template>
                                     <template #default>
-                                        <div class="valueText" :class="{'like':item.isLike}" @click="goodClick(index)">
-                                            <p>{{likeCount(item.likedCount)}}</p>
-                                            <van-icon size="20" name="good-job-o"/>
+                                        <div
+                                                class="valueText"
+                                                :class="{ like: item.isLike }"
+                                                @click="goodClick(index)"
+                                        >
+                                            <p>{{ likeCount(item.likedCount) }}</p>
+                                            <van-icon size="20" name="good-job-o" />
                                         </div>
                                     </template>
                                 </van-cell>
                                 <div class="contentText">
-                                    <p>{{item.content}}</p>
+                                    <p>{{ item.content }}</p>
                                 </div>
-                                <van-divider/>
+                                <van-divider />
                             </div>
                         </div>
                     </van-skeleton>
-
-
                 </div>
                 <div v-show="isHot" class="new">
-                    <van-skeleton
-                            title avatar
-                            :row="3"
-                            :loading="loading">
+                    <van-skeleton title avatar :row="3" :loading="loading">
                         <div>
-                            <div
-                                    v-for="(item,index) in newComment"
-                                    :key="index">
+                            <div v-for="(item, index) in newComment" :key="index">
                                 <van-cell
                                         :border="false"
                                         center
                                         title-class="titleText"
                                         value-class="likeCountText"
-                                        label-class="timeText">
+                                        label-class="timeText"
+                                >
                                     <template #title>
-                                        <p>{{item.nickname}}</p>
+                                        <p>{{ item.nickname }}</p>
                                     </template>
                                     <template #label>
-                                        <p>{{item.time|formatDate}}</p>
+                                        <p>{{ item.time | formatDate }}</p>
                                     </template>
                                     <template #icon>
                                         <van-image
@@ -140,204 +139,215 @@
                                                 round
                                                 width="2.3rem"
                                                 height="2.3rem"
-                                                :src="item.avatarUrl">
+                                                :src="item.avatarUrl"
+                                        >
                                         </van-image>
                                     </template>
                                     <template #default>
-                                        <div class="valueText" :class="{'like':item.isLike}" @click="goodClick(index)">
-                                            <p>{{likeCount(item.likedCount)}}</p>
-                                            <van-icon size="20" name="good-job-o"/>
+                                        <div
+                                                class="valueText"
+                                                :class="{ like: item.isLike }"
+                                                @click="goodClick(index)"
+                                        >
+                                            <p>{{ likeCount(item.likedCount) }}</p>
+                                            <van-icon size="20" name="good-job-o" />
                                         </div>
                                     </template>
                                 </van-cell>
                                 <div class="contentText">
-                                    <p>{{item.content}}</p>
+                                    <p>{{ item.content }}</p>
                                 </div>
-                                <van-divider/>
+                                <van-divider />
                             </div>
                         </div>
                     </van-skeleton>
-
                 </div>
             </div>
         </scroll>
-
-
     </div>
 </template>
 
 <script>
-    import CommNav from "../../components/nav/commNav";
-    import Scroll from "../../components/common/scroll";
-    import {Cell, CellGroup, Icon, Image as VanImage, Divider, Skeleton} from "vant";
-    import {GetMusicCommentAPI, GetLikeAPI} from "../../http/all-api";
-    import {createCommentHotInfo} from "../../../model/dataInfo/commentInfo";
-    import {formatDate, unique} from "../../tool/utils";
+import CommNav from '../../components/nav/commNav'
+import Scroll from '../../components/common/scroll'
+import {
+  Cell,
+  CellGroup,
+  Icon,
+  Image as VanImage,
+  Divider,
+  Skeleton
+} from 'vant'
+import { GetMusicCommentAPI, GetLikeAPI } from '../../http/all-api'
+import { createCommentHotInfo } from '../../../model/dataInfo/commentInfo'
+import { formatDate, unique } from '../../tool/utils'
 
-    export default {
-        name: "commentMusic",
-        created() {
-            this.getCommentData(this.musicId, this.hotLimit)
-        },
-        computed: {
-            musicId() {
-                return this.$route.query.id
-            },
-            musicName() {
-                return this.$route.query.musicName
-            },
-            singer() {
-                return this.$route.query.singer
-            },
-            musicPic() {
-                return this.$route.query.musicPic
-            },
-            totalCount() {
-                return this.playCount(this.total)
-            },
-            likeCount() {
-                return function (time) {
-                    return this.playCount(time)
-                }
-            }
-        },
-        data() {
-            return {
-                total: 0,
-                isHot: false,
-                hotComment: [],
-                newComment: [],
-                showTop: false,
-                loading: true,
-                hotLimit: 15,
-                newLimit: 20,
-            }
-        },
-        methods: {
-            getCommentData(id, limit) {
-                GetMusicCommentAPI(id, {limit: limit}).then(res => {
-                    this.total = res.data.total;
-                    console.log(res.data.hotComments);
-                    let resultHot = res.data.hotComments;
-                    let resultNew = res.data.comments;
-                    this.$store.commit('changeCommentCount', this.total);
-                    if (!this.isHot) resultHot.forEach(item => {
-                        this.hotComment.push(createCommentHotInfo(item))
-                    });
-                    console.log(this.isHot);
-                    if (this.isHot) {
-                        resultNew.forEach(item => {
-                            this.newComment.push(createCommentHotInfo(item))
-                        });
-                        if (this.newComment.length !== 0) this.newComment = unique(this.newComment);
-                    }
-                    this.$refs.scroll.refresh();
-                    this.loading = false;
-                })
-            },
-            playCount(num) {
-                if (num >= 100000000) {
-                    num = Math.round(num / 10000000) / 10 + '亿'
-                } else if (num >= 10000) {
-                    num = Math.round(num / 1000) / 10 + '万'
-                }
-                return num;
-            },
-            commentScroll(position) {
-                this.showTop = position.y < -123;
-            },
-            async pullingUp() {
-                if (this.isHot) {
-                    this.newLimit += 20;
-                    this.$toast.loading({
-                        message: '加载中',
-                        forbidClick: true,
-                        duration: 0
-                    });
-                    await this.getCommentData(this.musicId, this.newLimit);
-                    this.$toast.clear();
-                    setTimeout(() => {
-                        this.$refs.scroll.finishPullUp();
-                    }, 1000);
-                } else {
-                    this.$toast({
-                        message: '没有更多热门评论',
-
-                    });
-                    this.$refs.scroll.finishPullUp();
-                }
-
-            },
-            hotClick() {
-                this.isHot = false;
-            },
-            newClick() {
-                this.isHot = true;
-                console.log(this.newComment.length);
-                if (this.newComment.length < 20) {
-                    console.log('真就');
-                    this.getCommentData(this.musicId, this.newLimit)
-                }
-            },
-            goodClick(index) {
-                let cid = this.isHot ? this.newComment[index].id : this.hotComment[index].id;
-                let t;
-                let typeC;
-                if (this.isHot) {
-                    if (this.newComment[index].isLike) {
-                        // 取消点赞
-                        t = 0
-                    } else {
-                        // 未点赞
-                        t = 1
-                    }
-                    typeC = this.newComment[index];
-                } else {
-                    if (this.hotComment[index].isLike) {
-                        // 取消点赞
-                        t = 0
-                    } else {
-                        // 未点赞
-                        t = 1
-                    }
-                    typeC = this.hotComment[index];
-
-                }
-                GetLikeAPI({id: this.musicId, cid: cid, t: t, type: 0}).then(res => {
-                    t === 1 ? typeC.isLike = true : typeC.isLike = false;
-                    console.log(typeC);
-                    console.log('点赞成功');
-                }).catch(error => {
-                    console.log('点赞失败');
-                    console.log(error)
-                })
-            }
-        }
-        ,
-        components: {
-            CommNav,
-            Scroll,
-            [Cell.name]:
-            Cell,
-            [CellGroup.name]:
-            CellGroup,
-            [VanImage.name]:
-            VanImage,
-            [Icon.name]:
-            Icon,
-            [Divider.name]:
-            Divider,
-            [Skeleton.name]:
-            Skeleton
-        }
-        ,
-        filters: {
-            formatDate(time) {
-                let date = new Date(time);
-                return formatDate(date, 'yyyy年MM月dd日')
-            }
-        }
+export default {
+  name: 'commentMusic',
+  created () {
+    this.getCommentData(this.musicId, this.hotLimit)
+  },
+  computed: {
+    musicId () {
+      return this.$route.query.id
+    },
+    musicName () {
+      return this.$route.query.musicName
+    },
+    singer () {
+      return this.$route.query.singer
+    },
+    musicPic () {
+      return this.$route.query.musicPic
+    },
+    totalCount () {
+      return this.playCount(this.total)
+    },
+    likeCount () {
+      return function (time) {
+        return this.playCount(time)
+      }
     }
+  },
+  data () {
+    return {
+      total: 0,
+      isHot: false,
+      hotComment: [],
+      newComment: [],
+      showTop: false,
+      loading: true,
+      hotLimit: 15,
+      newLimit: 20
+    }
+  },
+  methods: {
+    getCommentData (id, limit) {
+      GetMusicCommentAPI(id, { limit: limit }).then(res => {
+        this.total = res.data.total
+        console.log(res.data.hotComments)
+        const resultHot = res.data.hotComments
+        const resultNew = res.data.comments
+        this.$store.commit('changeCommentCount', this.total)
+        if (!this.isHot) {
+          resultHot.forEach(item => {
+            this.hotComment.push(createCommentHotInfo(item))
+          })
+        }
+        console.log(this.isHot)
+        if (this.isHot) {
+          resultNew.forEach(item => {
+            this.newComment.push(createCommentHotInfo(item))
+          })
+          if (this.newComment.length !== 0) {
+            this.newComment = unique(this.newComment)
+          }
+        }
+        this.$refs.scroll.refresh()
+        this.loading = false
+      })
+    },
+    playCount (num) {
+      if (num >= 100000000) {
+        num = Math.round(num / 10000000) / 10 + '亿'
+      } else if (num >= 10000) {
+        num = Math.round(num / 1000) / 10 + '万'
+      }
+      return num
+    },
+    commentScroll (position) {
+      this.showTop = position.y < -123
+    },
+    async pullingUp () {
+      if (this.isHot) {
+        this.newLimit += 20
+        this.$toast.loading({
+          message: '加载中',
+          forbidClick: true,
+          duration: 0
+        })
+        await this.getCommentData(this.musicId, this.newLimit)
+        this.$toast.clear()
+        setTimeout(() => {
+          this.$refs.scroll.finishPullUp()
+        }, 1000)
+      } else {
+        this.$toast({
+          message: '没有更多热门评论'
+        })
+        this.$refs.scroll.finishPullUp()
+      }
+    },
+    hotClick () {
+      this.isHot = false
+    },
+    newClick () {
+      this.isHot = true
+      console.log(this.newComment.length)
+      if (this.newComment.length < 20) {
+        console.log('真就')
+        this.getCommentData(this.musicId, this.newLimit)
+      }
+    },
+    goodClick (index) {
+      const cid = this.isHot
+        ? this.newComment[index].id
+        : this.hotComment[index].id
+      let t
+      let typeC
+      if (this.isHot) {
+        if (this.newComment[index].isLike) {
+          // 取消点赞
+          t = 0
+        } else {
+          // 未点赞
+          t = 1
+        }
+        typeC = this.newComment[index]
+      } else {
+        if (this.hotComment[index].isLike) {
+          // 取消点赞
+          t = 0
+        } else {
+          // 未点赞
+          t = 1
+        }
+        typeC = this.hotComment[index]
+      }
+      GetLikeAPI({
+        id: this.musicId,
+        cid: cid,
+        t: t,
+        type: 0
+      })
+        .then(res => {
+          t === 1 ? (typeC.isLike = true) : (typeC.isLike = false)
+          console.log(typeC)
+          console.log('点赞成功')
+        })
+        .catch(error => {
+          console.log('点赞失败')
+          console.log(error)
+        })
+    }
+  },
+  components: {
+    CommNav,
+    Scroll,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage,
+    [Icon.name]: Icon,
+    [Divider.name]: Divider,
+    [Skeleton.name]: Skeleton
+  },
+  filters: {
+    formatDate (time) {
+      const date = new Date(time)
+      return formatDate(date, 'yyyy年MM月dd日')
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -373,7 +383,6 @@
         }
     }
 
-
     .commentMusic {
         .ceilingNav {
             position: relative;
@@ -407,9 +416,8 @@
         .content {
             .scrollStyle(120px);
 
-
             .topBox {
-                .comm()
+                .comm();
             }
 
             .dividerBox {
@@ -452,7 +460,6 @@
 
         .new {
             .commentStyle();
-
         }
     }
 </style>

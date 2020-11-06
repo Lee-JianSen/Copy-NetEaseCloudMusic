@@ -4,7 +4,7 @@
         <horizontal-scroll>
             <div ref="list" class="list">
                 <div
-                        v-for="(item,index) in icons"
+                        v-for="(item, index) in icons"
                         class="musicSort-item"
                         :key="index"
                         @click="MusicSortClick(index)"
@@ -26,72 +26,72 @@
                             :src="item.iconUrl"
                             class="img2"
                     />
-                    <div>{{item.name}}</div>
+                    <div>{{ item.name }}</div>
                 </div>
             </div>
-
         </horizontal-scroll>
     </div>
 </template>
 
 <script>
-    // 混入横向滚动方法，动态改变横向可滚动距离
-    import {initScroll} from "../../tool/mixin";
+// 混入横向滚动方法，动态改变横向可滚动距离
+import { initScroll } from '../../tool/mixin'
 
-    import {Image as VanImage} from 'vant';
-    // 引入网络请求方法
-    import {GetHomeIconAPI, GetFmAPI} from "../../http/all-api";
+import { Image as VanImage } from 'vant'
+// 引入网络请求方法
+import { GetHomeIconAPI } from '../../http/all-api'
 
-    import horizontalScroll from "../common/horizontalScroll";
+import horizontalScroll from '../common/horizontalScroll'
 
-    export default {
-        name: "musicSort",
-        mixins: [initScroll],
-        mounted() {
-            GetHomeIconAPI().then(res => {
-                this.icons.push(...res.data.data);
-            }).catch(error => {
-                console.log('获取首页圆形图标出错');
-                console.dir(error);
-            });
-            this.$nextTick(() => {
-                this.itemWidth = 25;
-                this.itemMargin = 2;
-                this.initPics();
-            });
-        },
-        data() {
-            return {
-                icons: [],
-            }
-        },
-        methods: {
-            MusicSortClick(index) {
-                if (index === 0) {
-                    this.$router.push({
-                        path:'/dayMusic'
-                    })
-                } else if (index === 1) {
-                    this.$router.push({
-                        path:'/allPlayList'
-                    })
-                } else if (index === 2) {
-                    this.$router.push({
-                        path:'/rank'
-                    });
-                } else if (index === 3) {
-                   this.$router.push({
-                       path:'/DJ'
-                   })
-                }
-            },
-
-        },
-        components: {
-            [VanImage.name]: VanImage,
-            horizontalScroll
-        }
+export default {
+  name: 'musicSort',
+  mixins: [initScroll],
+  mounted () {
+    GetHomeIconAPI()
+      .then(res => {
+        this.icons.push(...res.data.data)
+      })
+      .catch(error => {
+        console.log('获取首页圆形图标出错')
+        console.dir(error)
+      })
+    this.$nextTick(() => {
+      this.itemWidth = 25
+      this.itemMargin = 2
+      this.initPics()
+    })
+  },
+  data () {
+    return {
+      icons: []
     }
+  },
+  methods: {
+    MusicSortClick (index) {
+      if (index === 0) {
+        this.$router.push({
+          path: '/dayMusic'
+        })
+      } else if (index === 1) {
+        this.$router.push({
+          path: '/allPlayList'
+        })
+      } else if (index === 2) {
+        this.$router.push({
+          path: '/rank'
+        })
+      } else if (index === 3) {
+        this.$router.push({
+          path: '/DJ'
+        })
+      }
+    }
+  },
+  components: {
+    [VanImage.name]: VanImage,
+    horizontalScroll
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -129,6 +129,4 @@
             font-size: 30px;
         }
     }
-
-
 </style>

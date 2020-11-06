@@ -7,13 +7,13 @@
                         ref="scroll"
                         :probe-type="3"
                         :pull-up-load="true"
-                        @scroll="drawerScroll">
-
+                        @scroll="drawerScroll"
+                >
                     <transition
                             enter-active-class="animate__fadeIn"
                             leave-active-class="animate__fadeIn"
-                            :duration="{enter: 200, leave: 400}">
-
+                            :duration="{ enter: 200, leave: 400 }"
+                    >
                     </transition>
                     <div class="content1">
                         <div v-if="!isLogin" class="topContent">
@@ -24,7 +24,8 @@
                                     class="loginBtn"
                                     color="#c2463a"
                                     round
-                                    type="info">立即登录
+                                    type="info"
+                            >立即登录
                             </van-button>
                         </div>
                         <div v-if="isLogin" class="topContent">
@@ -35,11 +36,13 @@
                                             class="leftImage"
                                             width="35"
                                             height="35"
-                                            :src="userInfo.avatarUrl" alt="">
+                                            :src="userInfo.avatarUrl"
+                                            alt=""
+                                    >
                                     </van-image>
                                 </template>
                                 <template #title>
-                                    <span class="custom-title">{{userInfo.userName}}</span>
+                                    <span class="custom-title">{{ userInfo.userName }}</span>
                                 </template>
                                 <template #right-icon>
                                     <van-button
@@ -49,28 +52,44 @@
                                             round
                                             class="qdBtn"
                                             size="mini "
-                                            type="primary">
-                                        {{isSignIn?'已签到':'签到'}}
+                                            type="primary"
+                                    >
+                                        {{ isSignIn ? '已签到' : '签到' }}
                                     </van-button>
                                 </template>
                             </van-cell>
                         </div>
                         <div class="mineFun">
                             <van-grid>
-                                <van-grid-item @click="mineFunClick" icon="envelop-o" text="我的消息"/>
-                                <van-grid-item @click="mineFunClick" icon="friends-o" text="我的好友"/>
-                                <van-grid-item @click="mineFunClick" icon="wap-home-o" text="个人主页"/>
-                                <van-grid-item @click="mineFunClick" icon="shop-collect-o" text="个性装扮"/>
+                                <van-grid-item
+                                        @click="mineFunClick"
+                                        icon="envelop-o"
+                                        text="我的消息"
+                                />
+                                <van-grid-item
+                                        @click="mineFunClick"
+                                        icon="friends-o"
+                                        text="我的好友"
+                                />
+                                <van-grid-item
+                                        @click="mineFunClick"
+                                        icon="wap-home-o"
+                                        text="个人主页"
+                                />
+                                <van-grid-item
+                                        @click="mineFunClick"
+                                        icon="shop-collect-o"
+                                        text="个性装扮"
+                                />
                             </van-grid>
                         </div>
                         <div class="bottomContent">
                             <van-cell-group>
                                 <van-cell
-
                                         class="cellItem"
                                         size="large"
                                         :center="true"
-                                        v-for="(item,index) in cellItem1"
+                                        v-for="(item, index) in cellItem1"
                                         :icon="item.icon"
                                         :value="item.title"
                                         :key="index"
@@ -79,14 +98,14 @@
                                 />
                             </van-cell-group>
                             <div style="margin: 30px 0">
-                                <van-divider/>
+                                <van-divider />
                             </div>
                             <van-cell-group>
                                 <van-cell
                                         class="cellItem"
                                         size="large"
                                         :center="true"
-                                        v-for="(item,index) in cellItem2"
+                                        v-for="(item, index) in cellItem2"
                                         :icon="item.icon"
                                         :value="item.title"
                                         :key="index"
@@ -98,158 +117,174 @@
                 </scroll>
             </div>
             <div slot="content">
-                <home-nav v-if="$route.meta.isShow"/>
+                <home-nav v-if="$route.meta.isShow" />
                 <keep-alive>
-                    <router-view v-if="$route.meta.keep"/>
+                    <router-view v-if="$route.meta.keep" />
                 </keep-alive>
-                <router-view v-if="!$route.meta.keep"/>
-                <music-play v-if="isMusicPlay" :music-id.sync="$store.state.musicId"/>
+                <router-view v-if="!$route.meta.keep" />
+                <music-play v-if="isMusicPlay" :music-id.sync="$store.state.musicId" />
                 <!--                <router-view v-if="$route.meta.isShow"></router-view>-->
             </div>
         </drawer>
     </div>
-
 </template>
 
 <script>
-    import scroll from "./scroll";
-    import homeNav from '../nav/home-nav';
-    import drawer from "./drawer";
-    import {Divider, Button, Grid, GridItem, Cell, CellGroup, Image as VanImage} from 'vant'
-    import {LoginStatusAPI, SignInAPI} from "../../http/all-api";
-    import {userInfoModel} from "../../../model/dataInfo/userInfo";
-    import musicPlay from "./musicPlay";
+import scroll from './scroll'
+import homeNav from '../nav/home-nav'
+import drawer from './drawer'
+import {
+  Divider,
+  Button,
+  Grid,
+  GridItem,
+  Cell,
+  CellGroup,
+  Image as VanImage
+} from 'vant'
+import { LoginStatusAPI, SignInAPI } from '../../http/all-api'
+import { UserInfoModel } from '../../../model/dataInfo/userInfo'
+import musicPlay from './musicPlay'
 
-    export default {
-        name: "appCom",
-        created() {
-            LoginStatusAPI().then(res => {
-                console.log(res);
-                this.$store.state.userInfo = new userInfoModel(res.data.profile);
-                console.log(this.$store.state.userInfo);
-            }).catch(error => {
-                console.log(error);
-                // if (error.status === 301) {
-                this.$toast('请先登录')
-
-            })
-        },
-        computed: {
-            isLogin: {
-                get() {
-                    return this.$store.state.isLogin
-                },
-                set(nv) {
-                    return this.$store.state.isLogin = nv
-                }
-            },
-            isMusicPlay() {
-                return this.$store.state.musicId !== null
-            },
-            userInfo: {
-                get() {
-                    return this.$store.state.userInfo
-                }
-            }
-        },
-        data() {
-            return {
-                isSignIn: false,
-                cellItem1: [
-                    {
-                        icon: 'setting-o',
-                        title: '设置'
-                    }, {
-                        icon: 'hot-sale',
-                        title: '演出'
-                    }, {
-                        icon: 'cart-o',
-                        title: '商城'
-                    }, {
-                        icon: 'location-o',
-                        title: '附近的人'
-                    }, {
-                        icon: 'volume-o',
-                        title: '口袋彩铃'
-                    }
-                ],
-                cellItem2: [
-                    {
-                        icon: 'balance-list-o',
-                        title: '我的订单'
-                    }, {
-                        icon: 'underway-o',
-                        title: '定时停止播放'
-                    }, {
-                        icon: 'scan',
-                        title: '扫一扫'
-                    }, {
-                        icon: 'bulb-o',
-                        title: '音乐闹钟'
-                    }
-                ]
-            }
-        },
-        methods: {
-            loginBtnClick() {
-                this.$store.commit('toggleDrawer');
-            },
-            mineFunClick() {
-                this.$store.commit('toggleDrawer');
-                if (this.$store.state.isLogin) {
-                    console.log('已经登录，跳转到xxx页面');
-                } else {
-                    this.$toast('请先登录');
-                    setTimeout(() => {
-                        this.$router.push({
-                            path: '/login'
-                        })
-                    }, 300)
-                }
-            },
-            drawerScroll(position) {
-                this.$refs.drawer1.moveX = 0;
-            },
-            cellItemClick(index) {
-                switch (index) {
-                    case 0:
-                        this.$router.push({
-                            path: '/setting'
-                        });
-                        this.$store.commit('toggleDrawer');
-                        break;
-                    case 1:
-                        console.log('打印1');
-                }
-            },
-            SignBtn() {
-                SignInAPI().then(res => {
-                    console.log(res);
-                    this.$toast.success({
-                        message: '签到成功'
-                    });
-                    this.isSignIn = true;
-                }).catch(error => {
-                    console.log('签到失败');
-                    error.loginBtnClick()
-                })
-            }
-        },
-        components: {
-            scroll,
-            homeNav,
-            drawer,
-            musicPlay,
-            [Divider.name]: Divider,
-            [Button.name]: Button,
-            [Grid.name]: Grid,
-            [GridItem.name]: GridItem,
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup,
-            [VanImage.name]: VanImage,
-
-        }
+export default {
+  name: 'appCom',
+  created () {
+    LoginStatusAPI()
+      .then(res => {
+        console.log(res)
+        this.$store.state.userInfo = new UserInfoModel(res.data.profile)
+        console.log(this.$store.state.userInfo)
+      })
+      .catch(error => {
+        console.log(error)
+        // if (error.status === 301) {
+        this.$toast('请先登录')
+      })
+  },
+  computed: {
+    isLogin: {
+      get () {
+        return this.$store.state.isLogin
+      },
+      set (nv) {
+        return (this.$store.state.isLogin = nv)
+      }
+    },
+    isMusicPlay () {
+      return this.$store.state.musicId !== null
+    },
+    userInfo: {
+      get () {
+        return this.$store.state.userInfo
+      }
     }
+  },
+  data () {
+    return {
+      isSignIn: false,
+      cellItem1: [
+        {
+          icon: 'setting-o',
+          title: '设置'
+        },
+        {
+          icon: 'hot-sale',
+          title: '演出'
+        },
+        {
+          icon: 'cart-o',
+          title: '商城'
+        },
+        {
+          icon: 'location-o',
+          title: '附近的人'
+        },
+        {
+          icon: 'volume-o',
+          title: '口袋彩铃'
+        }
+      ],
+      cellItem2: [
+        {
+          icon: 'balance-list-o',
+          title: '我的订单'
+        },
+        {
+          icon: 'underway-o',
+          title: '定时停止播放'
+        },
+        {
+          icon: 'scan',
+          title: '扫一扫'
+        },
+        {
+          icon: 'bulb-o',
+          title: '音乐闹钟'
+        }
+      ]
+    }
+  },
+  methods: {
+    loginBtnClick () {
+      this.$store.commit('toggleDrawer')
+    },
+    mineFunClick () {
+      this.$store.commit('toggleDrawer')
+      if (this.$store.state.isLogin) {
+        console.log('已经登录，跳转到xxx页面')
+      } else {
+        this.$toast('请先登录')
+        setTimeout(() => {
+          this.$router.push({
+            path: '/login'
+          })
+        }, 300)
+      }
+    },
+    drawerScroll (position) {
+      this.$refs.drawer1.moveX = 0
+    },
+    cellItemClick (index) {
+      switch (index) {
+        case 0:
+          this.$router.push({
+            path: '/setting'
+          })
+          this.$store.commit('toggleDrawer')
+          break
+        case 1:
+          console.log('打印1')
+      }
+    },
+    SignBtn () {
+      SignInAPI()
+        .then(res => {
+          console.log(res)
+          this.$toast.success({
+            message: '签到成功'
+          })
+          this.isSignIn = true
+        })
+        .catch(error => {
+          console.log('签到失败')
+          error.loginBtnClick()
+        })
+    }
+  },
+  components: {
+    scroll,
+    homeNav,
+    drawer,
+    musicPlay,
+    [Divider.name]: Divider,
+    [Button.name]: Button,
+    [Grid.name]: Grid,
+    [GridItem.name]: GridItem,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage
+  }
+}
 </script>
 
 <style scoped lang="less">

@@ -1,32 +1,37 @@
 <template>
-    <div v-if="recommendMusic.length!==0" class="recommendMusicCom">
-        <div v-for="(item,index) in recommendMusic" class="box4">
+    <div v-if="recommendMusic.length !== 0" class="recommendMusicCom">
+        <div v-for="(item,index) in recommendMusic" :key="index" class="box4">
             <van-cell-group :border="false">
                 <van-cell
                         class="mc-cell"
                         :center="true"
                         :border="false"
-                        v-for="(value,indey) in item"
+                        v-for="(value, indey) in item"
                         :key="indey"
                         :label="labelText(value)"
                         :label-class="{
-                                 'ov':true,
-                                'labelTextStyle':isLabelColor,
-                                'labelColor':value.subTitlesType === 'songRcmdTag'}"
+            ov: true,
+            labelTextStyle: isLabelColor,
+            labelColor: value.subTitlesType === 'songRcmdTag'
+          }"
                         title-class="ov titleText"
-                        @click="playMusicClick(value.id)">
+                        @click="playMusicClick(value.id)"
+                >
                     <template #title>
                         <p class="ov titleText">
-                            {{value.titles}}
-                            <span class="titleTextName">-&nbsp{{value.singer}}</span>
+                            {{ value.titles }}
+                            <span class="titleTextName">- {{ value.singer }}</span>
                         </p>
                     </template>
                     <template #icon>
                         <van-image
                                 class="leftImage"
-                                width="50" height="50"
+                                width="50"
+                                height="50"
                                 radius="5"
-                                :src="value.imageUrl" alt="">
+                                :src="value.imageUrl"
+                                alt=""
+                        >
                         </van-image>
                     </template>
                 </van-cell>
@@ -36,49 +41,50 @@
 </template>
 
 <script>
-    import {Cell, CellGroup, Image as VanImage} from "vant";
+import { Cell, CellGroup, Image as VanImage } from 'vant'
 
-    export default {
-        name: "recommendMusicCom",
-        props: {
-            recommendMusic: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            }
-        },
-        data() {
-            return {
-                isLabelColor: true,
-            }
-        },
-        computed: {
-            labelText() {
-                return function (value) {
-                    if (value.subTitles !== null) {
-                        return value.subTitles
-                    } else {
-                        return ''
-                    }
-                }
-            },
-        },
-        methods: {
-            playMusicClick(id) {
-                if (id !== null) {
-                    this.$emit('playMusicClick', id)
-                } else {
-                    this.$toast('暂无资源');
-                }
-            }
-        },
-        components: {
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup,
-            [VanImage.name]: VanImage,
-        }
+export default {
+  name: 'recommendMusicCom',
+  props: {
+    recommendMusic: {
+      type: Array,
+      default () {
+        return []
+      }
     }
+  },
+  data () {
+    return {
+      isLabelColor: true
+    }
+  },
+  computed: {
+    labelText () {
+      return function (value) {
+        if (value.subTitles !== null) {
+          return value.subTitles
+        } else {
+          return ''
+        }
+      }
+    }
+  },
+  methods: {
+    playMusicClick (id) {
+      if (id !== null) {
+        // eslint-disable-next-line vue/custom-event-name-casing
+        this.$emit('playMusicClick', id)
+      } else {
+        this.$toast('暂无资源')
+      }
+    }
+  },
+  components: {
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage
+  }
+}
 </script>
 
 <style scoped lang="less">

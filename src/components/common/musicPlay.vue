@@ -1,39 +1,34 @@
 <template>
     <div class="musicPlay">
-        <audio-com
-                ref="audio"
-                :audio-src="changeMusicUrls">
-
-        </audio-com>
+        <audio-com ref="audio" :audio-src="changeMusicUrls"></audio-com>
         <!--        迷你播放器-->
         <div @click.stop="minOrMax" v-show="!isMinOrMax" class="audio-com-box-min">
-            <van-image
-                    round
-                    width="30px"
-                    height="30px"
-                    :src="musicInfo.picUrl"
-            />
+            <van-image round width="30px" height="30px" :src="musicInfo.picUrl" />
             <div class="musicName">
-                <p>{{musicInfo.name===''?'正在播放电台':musicInfo.name}}</p>
+                <p>{{ musicInfo.name === '' ? '正在播放电台' : musicInfo.name }}</p>
                 <p class="tip">左右滑动可切换上下首</p>
             </div>
             <div class="musicIcon">
                 <van-icon
-                        v-show='changeIcons'
+                        v-show="changeIcons"
                         name="play-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1),ChangeIcon()"
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"
                 />
                 <van-icon
-                        v-show='!changeIcons'
+                        v-show="!changeIcons"
                         name="pause-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1),ChangeIcon()"
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"
                 />
-                <img src="../../assets/more.png" height="28" width="28" @click.stop="more"/>
-
+                <img
+                        src="../../assets/more.png"
+                        height="28"
+                        width="28"
+                        @click.stop="more"
+                />
             </div>
         </div>
         <!--        大播放器-->
@@ -41,28 +36,39 @@
             <div
                     ref="bigPlayer"
                     v-show="isMinOrMax"
-                    :style="{'background-image':`url(${musicInfo.picUrl})`,
-                    'animation-play-state':animationShow}"
-                    class="audio-com-box-max">
+                    :style="{
+          'background-image': `url(${musicInfo.picUrl})`,
+          'animation-play-state': animationShow
+        }"
+                    class="audio-com-box-max"
+            >
                 <div class="musicContent">
                     <div class="nav">
                         <van-cell
                                 class="mc-cell"
                                 :center="true"
                                 :border="false"
-                                :title="musicInfo.name===''?'正在播放电台':musicInfo.name"
+                                :title="musicInfo.name === '' ? '正在播放电台' : musicInfo.name"
                                 :label="musicInfo.singer"
                                 title-class="titleText"
-                                label-class="labelText">
+                                label-class="labelText"
+                        >
                             <template #icon>
-                                <van-icon @click="minOrMax" color="#fff" size="24" name="arrow-down"/>
+                                <van-icon
+                                        @click="minOrMax"
+                                        color="#fff"
+                                        size="24"
+                                        name="arrow-down"
+                                />
                             </template>
                         </van-cell>
                     </div>
-                    <div class="albumPic isrotate"
-                         v-show="!isShowLrc"
-                         @click="showLrc"
-                         :style="{'animation-play-state':animationShow}">
+                    <div
+                            class="albumPic isrotate"
+                            v-show="!isShowLrc"
+                            @click="showLrc"
+                            :style="{ 'animation-play-state': animationShow }"
+                    >
                         <van-image
                                 class="pic"
                                 round
@@ -71,86 +77,116 @@
                                 :src="musicInfo.picUrl"
                         />
                     </div>
-                    <div
-                            class="lrcBox"
-                            v-show="isShowLrc"
-                            @click="showLrc">
-                        <scroll
-                                class="contentLrc"
-                                ref="lyricList"
-                                :probe-type="3">
-                            <div v-if="JSON.stringify(currentLyric)!=='{}'"
-                                 class="lyric">
+                    <div class="lrcBox" v-show="isShowLrc" @click="showLrc">
+                        <scroll class="contentLrc" ref="lyricList" :probe-type="3">
+                            <div v-if="JSON.stringify(currentLyric) !== '{}'" class="lyric">
                                 <p
-                                        v-for="(line,index) in lines"
+                                        v-for="(line, index) in lines"
                                         ref="lyricLine"
                                         :key="index"
-                                        :class="{'current':currentLineNum===index}"
-                                        class="text">{{line.txt}}</p>
-
+                                        :class="{ current: currentLineNum === index }"
+                                        class="text"
+                                >
+                                    {{ line.txt }}
+                                </p>
                             </div>
-                            <div v-else
-                                 class="lyric">
+                            <div v-else class="lyric">
                                 <p
-                                        v-for="(line,index) in lines"
+                                        v-for="(line) in lines"
                                         ref="lyricLine"
                                         :key="line.time"
-                                        class="text">{{line.txt}}</p>
-
+                                        class="text"
+                                >
+                                    {{ line.txt }}
+                                </p>
                             </div>
-
                         </scroll>
                     </div>
                     <div class="musicController">
                         <div class="musicTopBtn">
                             <van-icon
-                                    :badge="commentCount===0?'99+':commentCount"
+                                    :badge="commentCount === 0 ? '99+' : commentCount"
                                     name="comment-o"
                                     size="32px"
                                     color="#bfbfbf"
                                     @click="commentBtn"
                             />
                             <!--                            // !!!!!!/-->
-                            <van-icon name="like-o" size="32px" color="#bfbfbf"/>
+                            <van-icon name="like-o" size="32px" color="#bfbfbf" />
                         </div>
                         <div class="musicSlider">
-                            <p class="currentTime">{{getCurrentTime|formatSecond}}</p>
+                            <p class="currentTime">{{ getCurrentTime | formatSecond }}</p>
                             <van-slider
                                     active-color="#c2463a"
                                     v-model="currentTime2"
                                     :max="getMaxTime"
                                     @change="onChangeTime"
-                                    @input="onChanging">
+                                    @input="onChanging"
+                            >
                                 <template #button>
                                     <div class="custom-button"></div>
                                 </template>
                             </van-slider>
-                            <p class="maxTime">{{getMaxTime|formatSecond}}</p>
+                            <p class="maxTime">{{ getMaxTime | formatSecond }}</p>
                         </div>
                         <div class="musicAllBtn">
-                            <img v-show="playType===1" @click="changePlayType" src="../../assets/cycle_list.png"
-                                 height="32" width="32"/>
-                            <img v-show="playType===2" @click="changePlayType" src="../../assets/random.png" height="32"
-                                 width="32"/>
-                            <img v-show="playType===3" @click="changePlayType" src="../../assets/loop.png" height="32"
-                                 width="32"/>
+                            <img
+                                    v-show="playType === 1"
+                                    @click="changePlayType"
+                                    src="../../assets/cycle_list.png"
+                                    height="32"
+                                    width="32"
+                            />
+                            <img
+                                    v-show="playType === 2"
+                                    @click="changePlayType"
+                                    src="../../assets/random.png"
+                                    height="32"
+                                    width="32"
+                            />
+                            <img
+                                    v-show="playType === 3"
+                                    @click="changePlayType"
+                                    src="../../assets/loop.png"
+                                    height="32"
+                                    width="32"
+                            />
 
-                            <img src="../../assets/previous.png" height="32" width="32" @click="previousMusic"/>
+                            <img
+                                    src="../../assets/previous.png"
+                                    height="32"
+                                    width="32"
+                                    @click="previousMusic"
+                            />
 
                             <van-icon
-                                    v-show='changeIcons'
+                                    v-show="changeIcons"
                                     name="play-circle-o"
                                     size="32px"
                                     color="#bfbfbf"
-                                    @click.stop="$refs.audio.startPlayOrPause(),ChangeIcon()"/>
+                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()"
+                            />
                             <van-icon
-                                    v-show='!changeIcons'
+                                    v-show="!changeIcons"
                                     name="pause-circle-o"
                                     size="32px"
                                     color="#bfbfbf"
-                                    @click.stop="$refs.audio.startPlayOrPause(),ChangeIcon()"/>
-                            <img src="../../assets/next.png" alt="" height="32" width="32" @click="nextMusic"/>
-                            <img src="../../assets/more.png" alt="" height="32" width="32" @click="more"/>
+                                    @click.stop="$refs.audio.startPlayOrPause(), ChangeIcon()"
+                            />
+                            <img
+                                    src="../../assets/next.png"
+                                    alt=""
+                                    height="32"
+                                    width="32"
+                                    @click="nextMusic"
+                            />
+                            <img
+                                    src="../../assets/more.png"
+                                    alt=""
+                                    height="32"
+                                    width="32"
+                                    @click="more"
+                            />
                         </div>
                     </div>
                 </div>
@@ -160,25 +196,26 @@
         <transition name="move2">
             <div class="moreBox" v-show="show">
                 <div class="musicList">
-                    <van-cell value-class="title1" :value='title1'/>
-                    <scroll
-                            class="content"
-                            ref="scroll"
-                            :probe-type="3">
+                    <van-cell value-class="title1" :value="title1" />
+                    <scroll class="content" ref="scroll" :probe-type="3">
                         <div>
                             <van-cell
-                                    class='cellItem'
+                                    class="cellItem"
                                     size="large"
                                     :center="true"
-                                    v-for="(item,index) in playList"
+                                    v-for="(item, index) in playList"
                                     :key="item.id"
-                                    :value-class="{'cellText':true,'selectColor':item.isColor}"
-                                    @click="musicDetailClick(item,index)">
+                                    :value-class="{ cellText: true, selectColor: item.isColor }"
+                                    @click="musicDetailClick(item, index)"
+                            >
                                 <template #default>
-                                    <p>{{musicInfo.name===''?'电台音频':item.name}}<span>—{{item.singer}}</span></p>
+                                    <p>
+                                        {{ musicInfo.name === '' ? '电台音频' : item.name
+                                        }}<span>—{{ item.singer }}</span>
+                                    </p>
                                 </template>
                                 <template #right-icon>
-                                    <van-icon name="cross" @click.stop="removeBtn(index,item)"/>
+                                    <van-icon name="cross" @click.stop="removeBtn(index, item)" />
                                 </template>
                             </van-cell>
                         </div>
@@ -191,332 +228,333 @@
 </template>
 
 <script>
-    // 格式化音乐时间
-    import {realFormatSecond} from '../../tool/utils'
-    import {Icon, Image as VanImage, Slider, Cell} from 'vant';
-    import AudioCom from "./audioCom";
-    import scroll from "./scroll";
-    import Lyric from 'lyric-parser';
-    import {GetMusicLyricAPI} from "../../http/all-api";
+// 格式化音乐时间
+import { realFormatSecond } from '../../tool/utils'
+import { Icon, Image as VanImage, Slider, Cell } from 'vant'
+import AudioCom from './audioCom'
+import scroll from './scroll'
+import Lyric from 'lyric-parser'
+import { GetMusicLyricAPI } from '../../http/all-api'
 
-    export default {
-        name: "musicPlay",
-        props: {
-            musicId: {
-                type: String | Number,
-                default: null
-            }
-        },
-        mounted() {
-            // 请求音乐播放地址，音乐信息，歌词
-            this.$store.dispatch('getMusicUrl', this.musicId);
-            this.$store.dispatch('getMusicDetail', this.musicId);
-            this.Lyric(this.musicId);
-        },
-        data() {
-            return {
-                sliderTime: 0,
-                // musicInfo: {},
-                isMinOrMax: false, // 展示迷你播放器还是大播放器
-                MusicCurrentTime: 0,
-                currentTime2: 0,
-                changeTime: false,
-                animationShow: 'running',
-                show: false,
-                selectColor: false,
-                nextId: 0,
-                lrc: '',
-                currentLyric: {},
-                currentLineNum: 0,
-                isShowLrc: false,
-                playType: 1,
-                lines: []
-            }
-        },
-
-        watch: {
-            // 监听音乐id的变化
-            musicId: {
-                deep: true,
-                handler(nv, ov) {
-                    console.log('执行监听musicId');
-                    console.log(ov + '监听' + nv);
-                    this.$toast.loading({
-                        message: '加载中',
-                        forbidClick: true,
-                        duration: 0
-                    });
-                    this.$store.dispatch('getMusicUrl', nv);
-                    this.$store.dispatch('getMusicDetail', nv);
-                    if (Object.keys(this.currentLyric).length !== 0) {
-                        this.currentLyric.stop();
-                        this.currentLyric = {};
-                        this.lines = [];
-                    }
-                    this.Lyric(nv);
-                    this.$nextTick(() => {
-                        this.$toast.clear();
-                        if (Object.keys(this.currentLyric).length !== 0) this.currentLyric.play();
-                    });
-                    this.$store.commit('NotPlaying');
-
-                }
-            }
-        },
-        computed: {
-            // 需要使用到vuex数据并且随时修改vuex数据时
-            // 使用get/set 获取和修改
-            changeIcons: {
-                get() {
-                    return this.$store.state.changeIcon
-                },
-                set(nv) {
-                    return this.$store.state.changeIcon = nv
-                }
-            },
-            changeMusicUrls: {
-                get() {
-                    return this.$store.state.musicUrl;
-                },
-                set(nv) {
-                    return this.$store.state.musicUrl = nv;
-                }
-            },
-            getCurrentTime: {
-                get() {
-                    if (!this.changeTime) this.currentTime2 = this.$store.state.currentTimer;
-                    return this.$store.state.currentTimer
-                },
-                set(nv) {
-                    return this.$store.state.currentTimer = nv
-                }
-            },
-            getMaxTime: {
-                get() {
-                    return this.$store.state.maxTimer
-                },
-                set(nv) {
-                    return this.$store.state.maxTimer = nv
-                }
-            },
-            musicInfo: {
-                get() {
-                    return this.$store.state.musicAllDetail;
-                },
-                set(nv) {
-                    return this.$store.state.musicAllDetail = nv;
-                }
-            },
-            playList: {
-                get() {
-                    return this.$store.state.playList;
-                },
-                set(nv) {
-                    return this.$store.state.playList = nv;
-                }
-            },
-            title1() {
-                return '当前播放(' + this.$store.state.playList.length + ')'
-            },
-            musicIndex1: {
-                get() {
-                    return this.$store.state.musicIndex
-                },
-                set(nv) {
-                    return this.$store.state.musicIndex = nv
-                }
-            },
-            playing1: {
-                get() {
-                    return this.$store.state.isPlay
-                },
-                set(nv) {
-                    return this.$store.state.isPlay = nv
-                }
-            },
-            commentCount: {
-                get() {
-                    if (this.$store.state.commentCount >= 999) return '99+';
-                    return this.$store.state.commentCount
-                },
-                set(nv) {
-                    return this.$store.state.commentCount = nv
-                }
-            },
-        },
-        methods: {
-            ChangeIcon() {
-                this.animationShow = this.$store.state.changeIcon ? 'running' : 'paused'
-                this.$store.commit('showIcon');
-                if (Object.keys(this.currentLyric).length !== 0) {
-                    this.currentLyric.togglePlay();
-                }
-            },
-            minOrMax() {
-                this.isShowLrc = false;
-                this.isMinOrMax = !this.isMinOrMax;
-                if (this.isMinOrMax && Object.keys(this.currentLyric).length !== 0) {
-                    this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000);
-                }
-
-            },
-            changePlayType() {
-                this.playType = this.playType + 1 > 3 ? 1 : this.playType + 1;
-            },
-            commentBtn() {
-                this.isMinOrMax = !this.isMinOrMax;
-                this.$router.push({
-                    path: '/commentMusic',
-                    query: {
-                        musicName: this.musicInfo.name,
-                        singer: this.musicInfo.singer,
-                        musicPic: this.musicInfo.picUrl,
-                        id: this.musicId
-                    }
-                })
-            },
-            // 拖动过程中，不改变滑块的值，才不会在拖动时滑块闪烁
-            onChanging() {
-                this.changeTime = true;
-            },
-            onChangeTime(time) {
-                this.currentTime2 = time;
-                this.changeTime = false;
-                this.$refs.audio.changeCurrentTime(time);
-                if (Object.keys(this.currentLyric).length !== 0) this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000);
-
-            },
-            nextMusic() {
-                switch (this.playType) {
-                    case 1:
-                        console.log('执行列表循环下一首');
-                        this.$refs.audio.listLoop(0);
-                        break;
-                    case 2:
-                        console.log('执行随机播放下一首');
-                        this.$refs.audio.randomPlay(0);
-                        break;
-                    case 3:
-                        console.log('单曲下一首');
-                        this.$refs.audio.listLoop(0);
-                        break;
-
-                }
-            },
-            previousMusic() {
-                if (this.playType === 1 || this.playType === 3) {
-                    // 单曲和列表循环的上一首
-                    this.$refs.audio.listLoop(-1);
-                } else {
-                    // 随机上一首
-                    this.$refs.audio.randomPlay(-1);
-                }
-            },
-            more() {
-                this.show = !this.show;
-                this.openSheet();
-            },
-            musicDetailClick(item, index) {
-                this.isShowDetail = !this.isShowDetail;
-                this.$store.commit('changeMusicId', item.id);
-                this.$store.commit('changeMusicIndex', index);
-
-                this.playList.forEach(value => {
-                    value.isColor = false;
-                });
-                item.isColor = true;
-            },
-            // 打开面板查找是否有相同的url，有就显示播放中的颜色
-            openSheet() {
-                // 排它
-                this.playList.forEach(item => {
-                    item.isColor = false;
-                });
-                let index = this.playList.findIndex(value => {
-                    return value.id === parseInt(this.musicId);
-                });
-                this.playList[index].isColor = true;
-            },
-            removeBtn(index, item) {
-                this.$delete(this.playList, index);
-                if (this.$store.state.musicId === item.id) {
-                    this.$store.commit('changeMusicIndex', index - 1);
-                    this.nextMusic();
-                    this.playList.forEach(item => {
-                        item.isColor = false;
-                    });
-                    setTimeout(() => {
-                        let index1 = this.playList.findIndex(value => {
-                            return value.id === parseInt(this.musicId);
-                        });
-                        this.playList[index1].isColor = true;
-                    }, 1000)
-
-
-                }
-            },
-            Lyric(id) {
-                this.lines = [];
-                GetMusicLyricAPI(id).then(res => {
-                    if (res.data.lrc !== undefined) {
-                        this.lrc = res.data.lrc.lyric;
-                        this.currentLyric = new Lyric(this.lrc, this.handleLyric);
-                        this.lines.push(...this.currentLyric.lines);
-                    } else {
-                        this.lines.push({
-                            time: 0,
-                            txt: '暂无歌词'
-                        });
-                    }
-                    console.log(this.lines);
-                }).catch(error => {
-                    console.log('获取歌词失败');
-                    console.log(error);
-                })
-            },
-            handleLyric({lineNum, txt}) {
-                this.currentLineNum = lineNum;
-                // 若当前行大于3,开始滚动
-                if (lineNum > 3) {
-                    let lineEl = this.$refs.lyricLine[lineNum - 1];
-                    // 过了第3句歌词开始滚动歌词
-                    this.$refs.lyricList.scrollToElement(lineEl, 1000)
-                } else {
-                    this.$refs.lyricList.scrollTo(0, 0, 1000)
-                }
-            },
-            showLrc() {
-                console.log(this.currentLineNum);
-                this.isShowLrc = !this.isShowLrc;
-                if (this.isShowLrc && Object.keys(this.currentLyric).length !== 0) {
-                    if (!this.$store.state.changeIcon) {
-                        console.log('开始');
-                        this.currentLyric.play();
-                        this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000);
-                    } else {
-                        console.log('暂停');
-                        this.currentLyric.stop();
-                    }
-
-                }
-
-            }
-        },
-        components: {
-            scroll,
-            [Slider.name]: Slider,
-            [Icon.name]: Icon,
-            [VanImage.name]: VanImage,
-            AudioCom,
-            [Cell.name]: Cell,
-        },
-        filters: {
-            // 将整数转化成分秒
-            formatSecond(second = 0) {
-                return realFormatSecond(second)
-            }
-        }
+export default {
+  name: 'musicPlay',
+  props: {
+    musicId: {
+      type: Number || String,
+      default: null
     }
+  },
+  mounted () {
+    // 请求音乐播放地址，音乐信息，歌词
+    this.$store.dispatch('getMusicUrl', this.musicId)
+    this.$store.dispatch('getMusicDetail', this.musicId)
+    this.Lyric(this.musicId)
+  },
+  data () {
+    return {
+      sliderTime: 0,
+      // musicInfo: {},
+      isMinOrMax: false, // 展示迷你播放器还是大播放器
+      MusicCurrentTime: 0,
+      currentTime2: 0,
+      changeTime: false,
+      animationShow: 'running',
+      show: false,
+      selectColor: false,
+      nextId: 0,
+      lrc: '',
+      currentLyric: {},
+      currentLineNum: 0,
+      isShowLrc: false,
+      playType: 1,
+      lines: []
+    }
+  },
+
+  watch: {
+    // 监听音乐id的变化
+    musicId: {
+      deep: true,
+      handler (nv, ov) {
+        console.log('执行监听musicId')
+        console.log(ov + '监听' + nv)
+        this.$toast.loading({
+          message: '加载中',
+          forbidClick: true,
+          duration: 0
+        })
+        this.$store.dispatch('getMusicUrl', nv)
+        this.$store.dispatch('getMusicDetail', nv)
+        if (Object.keys(this.currentLyric).length !== 0) {
+          this.currentLyric.stop()
+          this.currentLyric = {}
+          this.lines = []
+        }
+        this.Lyric(nv)
+        this.$nextTick(() => {
+          this.$toast.clear()
+          if (Object.keys(this.currentLyric).length !== 0) {
+            this.currentLyric.play()
+          }
+        })
+        this.$store.commit('NotPlaying')
+      }
+    }
+  },
+  computed: {
+    // 需要使用到vuex数据并且随时修改vuex数据时
+    // 使用get/set 获取和修改
+    changeIcons: {
+      get () {
+        return this.$store.state.changeIcon
+      },
+      set (nv) {
+        return (this.$store.state.changeIcon = nv)
+      }
+    },
+    changeMusicUrls: {
+      get () {
+        return this.$store.state.musicUrl
+      },
+      set (nv) {
+        return (this.$store.state.musicUrl = nv)
+      }
+    },
+    getCurrentTime: {
+      get () {
+        if (!this.changeTime) {
+          // eslint-disable-next-line vue/no-side-effects-in-computed-properties
+          this.currentTime2 = this.$store.state.currentTimer
+        }
+        return this.$store.state.currentTimer
+      },
+      set (nv) {
+        return (this.$store.state.currentTimer = nv)
+      }
+    },
+    getMaxTime: {
+      get () {
+        return this.$store.state.maxTimer
+      },
+      set (nv) {
+        return (this.$store.state.maxTimer = nv)
+      }
+    },
+    musicInfo: {
+      get () {
+        return this.$store.state.musicAllDetail
+      },
+      set (nv) {
+        return (this.$store.state.musicAllDetail = nv)
+      }
+    },
+    playList: {
+      get () {
+        return this.$store.state.playList
+      },
+      set (nv) {
+        return (this.$store.state.playList = nv)
+      }
+    },
+    title1 () {
+      return '当前播放(' + this.$store.state.playList.length + ')'
+    },
+    musicIndex1: {
+      get () {
+        return this.$store.state.musicIndex
+      },
+      set (nv) {
+        return (this.$store.state.musicIndex = nv)
+      }
+    },
+    playing1: {
+      get () {
+        return this.$store.state.isPlay
+      },
+      set (nv) {
+        return (this.$store.state.isPlay = nv)
+      }
+    },
+    commentCount: {
+      get () {
+        if (this.$store.state.commentCount >= 999) return '99+'
+        return this.$store.state.commentCount
+      },
+      set (nv) {
+        return (this.$store.state.commentCount = nv)
+      }
+    }
+  },
+  methods: {
+    ChangeIcon () {
+      this.animationShow = this.$store.state.changeIcon ? 'running' : 'paused'
+      this.$store.commit('showIcon')
+      if (Object.keys(this.currentLyric).length !== 0) {
+        this.currentLyric.togglePlay()
+      }
+    },
+    minOrMax () {
+      this.isShowLrc = false
+      this.isMinOrMax = !this.isMinOrMax
+      if (this.isMinOrMax && Object.keys(this.currentLyric).length !== 0) {
+        this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000)
+      }
+    },
+    changePlayType () {
+      this.playType = this.playType + 1 > 3 ? 1 : this.playType + 1
+    },
+    commentBtn () {
+      this.isMinOrMax = !this.isMinOrMax
+      this.$router.push({
+        path: '/commentMusic',
+        query: {
+          musicName: this.musicInfo.name,
+          singer: this.musicInfo.singer,
+          musicPic: this.musicInfo.picUrl,
+          id: this.musicId
+        }
+      })
+    },
+    // 拖动过程中，不改变滑块的值，才不会在拖动时滑块闪烁
+    onChanging () {
+      this.changeTime = true
+    },
+    onChangeTime (time) {
+      this.currentTime2 = time
+      this.changeTime = false
+      this.$refs.audio.changeCurrentTime(time)
+      if (Object.keys(this.currentLyric).length !== 0) {
+        this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000)
+      }
+    },
+    nextMusic () {
+      switch (this.playType) {
+        case 1:
+          console.log('执行列表循环下一首')
+          this.$refs.audio.listLoop(0)
+          break
+        case 2:
+          console.log('执行随机播放下一首')
+          this.$refs.audio.randomPlay(0)
+          break
+        case 3:
+          console.log('单曲下一首')
+          this.$refs.audio.listLoop(0)
+          break
+      }
+    },
+    previousMusic () {
+      if (this.playType === 1 || this.playType === 3) {
+        // 单曲和列表循环的上一首
+        this.$refs.audio.listLoop(-1)
+      } else {
+        // 随机上一首
+        this.$refs.audio.randomPlay(-1)
+      }
+    },
+    more () {
+      this.show = !this.show
+      this.openSheet()
+    },
+    musicDetailClick (item, index) {
+      this.isShowDetail = !this.isShowDetail
+      this.$store.commit('changeMusicId', item.id)
+      this.$store.commit('changeMusicIndex', index)
+
+      this.playList.forEach(value => {
+        value.isColor = false
+      })
+      item.isColor = true
+    },
+    // 打开面板查找是否有相同的url，有就显示播放中的颜色
+    openSheet () {
+      // 排它
+      this.playList.forEach(item => {
+        item.isColor = false
+      })
+      const index = this.playList.findIndex(value => {
+        return value.id === parseInt(this.musicId)
+      })
+      this.playList[index].isColor = true
+    },
+    removeBtn (index, item) {
+      this.$delete(this.playList, index)
+      if (this.$store.state.musicId === item.id) {
+        this.$store.commit('changeMusicIndex', index - 1)
+        this.nextMusic()
+        this.playList.forEach(item => {
+          item.isColor = false
+        })
+        setTimeout(() => {
+          const index1 = this.playList.findIndex(value => {
+            return value.id === parseInt(this.musicId)
+          })
+          this.playList[index1].isColor = true
+        }, 1000)
+      }
+    },
+    Lyric (id) {
+      this.lines = []
+      GetMusicLyricAPI(id)
+        .then(res => {
+          if (res.data.lrc !== undefined) {
+            this.lrc = res.data.lrc.lyric
+            this.currentLyric = new Lyric(this.lrc, this.handleLyric)
+            this.lines.push(...this.currentLyric.lines)
+          } else {
+            this.lines.push({
+              time: 0,
+              txt: '暂无歌词'
+            })
+          }
+          console.log(this.lines)
+        })
+        .catch(error => {
+          console.log('获取歌词失败')
+          console.log(error)
+        })
+    },
+    handleLyric ({ lineNum, txt }) {
+      this.currentLineNum = lineNum
+      // 若当前行大于3,开始滚动
+      if (lineNum > 3) {
+        const lineEl = this.$refs.lyricLine[lineNum - 1]
+        // 过了第3句歌词开始滚动歌词
+        this.$refs.lyricList.scrollToElement(lineEl, 1000)
+      } else {
+        this.$refs.lyricList.scrollTo(0, 0, 1000)
+      }
+    },
+    showLrc () {
+      console.log(this.currentLineNum)
+      this.isShowLrc = !this.isShowLrc
+      if (this.isShowLrc && Object.keys(this.currentLyric).length !== 0) {
+        if (!this.$store.state.changeIcon) {
+          console.log('开始')
+          this.currentLyric.play()
+          this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000)
+        } else {
+          console.log('暂停')
+          this.currentLyric.stop()
+        }
+      }
+    }
+  },
+  components: {
+    scroll,
+    [Slider.name]: Slider,
+    [Icon.name]: Icon,
+    [VanImage.name]: VanImage,
+    AudioCom,
+    [Cell.name]: Cell
+  },
+  filters: {
+    // 将整数转化成分秒
+    formatSecond (second = 0) {
+      return realFormatSecond(second)
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -529,15 +567,16 @@
         }
     }
 
-    .move2-enter-active, .move2-leave-active {
+    .move2-enter-active,
+    .move2-leave-active {
         transition: all 0.7s;
     }
 
     /* 显示前或隐藏后的效果 */
-    .move2-enter, .move2-leave-to {
+    .move2-enter,
+    .move2-leave-to {
         transform: translateY(200%);
     }
-
 
     .musicPlay {
         position: absolute;
@@ -546,7 +585,7 @@
 
         .audio-com-box-min {
             width: 94.9vw;
-            border: 1px solid #E5E5E5;
+            border: 1px solid #e5e5e5;
             border-radius: 10px;
             padding: 15px 25px;
             display: flex;
@@ -582,7 +621,6 @@
                     margin-top: 15px;
                     margin-left: 50px;
                 }
-
             }
         }
 
@@ -609,7 +647,6 @@
             backdrop-filter: blur(50px);
 
             .lrcBox {
-
                 text-align: center;
 
                 .contentLrc {
@@ -622,7 +659,6 @@
                     bottom: 0;
 
                     .lyric {
-
                         color: white;
 
                         .text {
@@ -639,7 +675,6 @@
                             /*transition: font-size 0.5s;*/
                             font-size: 50px;
                             color: #c2463a;
-
                         }
                     }
                 }
@@ -735,7 +770,6 @@
             }
         }
 
-
         .moreBox {
             position: relative;
             z-index: 2048;
@@ -799,18 +833,16 @@
                 }
             }
         }
-
-
     }
 
-    .move-enter-active, .move-leave-active {
+    .move-enter-active,
+    .move-leave-active {
         transition: all 0.7s;
     }
 
     /* 显示前或隐藏后的效果 */
-    .move-enter, .move-leave-to {
+    .move-enter,
+    .move-leave-to {
         transform: translateY(200%);
     }
-
-
 </style>

@@ -6,53 +6,48 @@
                 :autoplay="3000"
                 indicator-color="#c2463a"
                 :stop-propagation="false">
-            <van-swipe-item
-                    v-for="(item,index) in bannerList"
-                    :key="index">
+            <van-swipe-item v-for="(item, index) in bannerList" :key="index">
                 <div class="bannerBox">
-                    <span class="text"
-                          :style="{'color':'white',
-                            'background-color':'#c2463a'}">
-                        {{item.typeTitle}}
-                    </span>
-                    <img class="bannerImg"
-                         :src="item.pic"
-                         @click="BannerImgClick(item)"
-                         alt="">
+          <span
+                  class="text"
+                  :style="{ color: 'white', 'background-color': '#c2463a' }">
+            {{ item.typeTitle }}</span>
+                    <img
+                            class="bannerImg"
+                            :src="item.pic"
+                            @click="BannerImgClick(item)"
+                            alt="" />
                 </div>
-
             </van-swipe-item>
-
         </van-swipe>
         <!--        轮播图下面的推荐-->
-        <music-sort/>
+        <music-sort />
         <!--        推荐歌单-->
         <recommended-song-list
-                v-if="songListInfoList.length>0"
+                v-if="songListInfoList.length > 0"
                 :recommend-song-list="songListInfoList"
                 :top-title="topTitle1"
-                :btn-more="btnMore1"/>
+                :btn-more="btnMore1"
+        />
         <!--        推荐音乐-->
         <recommend-music
-                v-if="Object.keys(recommendMusic).length>0"
-                :recommend-music="recommendMusic"/>
+                v-if="Object.keys(recommendMusic).length > 0"
+                :recommend-music="recommendMusic"
+        />
         <!--   官方歌单-->
         <official-song-list
-                v-if="officialSongInfoList.length>0"
+                v-if="officialSongInfoList.length > 0"
                 :official-song-list="officialSongInfoList"
                 :top-title="topTitle2"
-                :btn-more="btnMore2">
+                :btn-more="btnMore2"
+        >
         </official-song-list>
-        <yun-cun
-                v-if="Object.keys(yunCun).length>0"
-                :yun-cun="yunCun">
-
-        </yun-cun>
+        <yun-cun v-if="Object.keys(yunCun).length > 0" :yun-cun="yunCun"></yun-cun>
         <new-musci-or-disc
-                v-if="newMusic.length>0 && newDisc.length>0"
+                v-if="newMusic.length > 0 && newDisc.length > 0"
                 :new-disc="newDisc"
-                :new-music="newMusic">
-
+                :new-music="newMusic"
+        >
         </new-musci-or-disc>
         <!--                <live-->
         <!--                        v-if="liveInfoList.length>0"-->
@@ -61,175 +56,166 @@
         <!--                        :btn-more="btnMore3"-->
         <!--                ></live>-->
     </div>
-
 </template>
 
 <script>
-    // 引入vant组件的轮播图
-    import {Swipe, SwipeItem, Loading} from 'vant';
-    // 引入网络请求方法
-    import {GetBannerAPI, GetHomeFindAPI} from "../../http/all-api";
+// 引入vant组件的轮播图
+import { Swipe, SwipeItem, Loading } from 'vant'
 
-    // 引入组件
-    import MusicSort from "./musicSort";
-    import RecommendedSongList from './recommendedSongList';
-    import Scroll from '../common/scroll'
-    import HorizontalScroll from '../common/horizontalScroll'
-    import RecommendMusic from "./recommendMusic";
-    import OfficialSongList from "./officialSongList";
-    import YunCun from "./yunCun";
-    import NewMusciOrDisc from "./newMusciOrDisc";
-    import Live from "./live";
+// 引入组件
+import MusicSort from './musicSort'
+import RecommendedSongList from './recommendedSongList'
+import RecommendMusic from './recommendMusic'
+import OfficialSongList from './officialSongList'
+import YunCun from './yunCun'
+import NewMusciOrDisc from './newMusciOrDisc'
 
-    export default {
-        name: "recommend",
-        data() {
-            return {}
-        },
-        props: {
-            bannerList: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            recommendSongList: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            songListInfoList: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            recommendMusic: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            topTitle1: String,
-            btnMore1: String,
+export default {
+  name: 'recommend',
+  data () {
+    return {}
+  },
+  props: {
+    bannerList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    recommendSongList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    songListInfoList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    recommendMusic: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    topTitle1: String,
+    btnMore1: String,
 
-            officialSongList: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            },
-            officialSongInfoList: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            topTitle2: String,
-            btnMore2: String,
+    officialSongList: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    officialSongInfoList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    topTitle2: String,
+    btnMore2: String,
 
-            yunCun: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            },
+    yunCun: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
 
-            liveList: {
-                type: Object,
-                default() {
-                    return {}
-                }
-            },
-            liveInfoList: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
+    liveList: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    liveInfoList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
 
-            topTitle3: String,
-            btnMore3: String,
+    topTitle3: String,
+    btnMore3: String,
 
-            newMusic: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-            newDisc: {
-                type: Array,
-                default() {
-                    return []
-                }
-            },
-        },
-        methods: {
-            BannerImgClick(item) {
-                if (item.url !== null) {
-                    window.location.href = item.url
-                } else {
-                    this.$toast('暂无数据');
-                }
-            },
-            // async getHomeData() {
-            //     await GetHomeFindAPI().then(res => {
-            //         this.recommendSongList = res.data.data.blocks[0];
-            //         this.recommendMusic = res.data.data.blocks[1];
-            //         this.officialSongList = res.data.data.blocks[2];
-            //         this.yunCun = res.data.data.blocks[3].extInfo;
-            //         this.songListInfoList.push(...this.recommendSongList.creatives);
-            //         this.officialSongInfoList.push(...this.officialSongList.creatives);
-            //         // 新歌新碟
-            //         this.newMusic.push(res.data.data.blocks[4].creatives[0], res.data.data.blocks[4].creatives[1]);
-            //         this.newDisc.push(res.data.data.blocks[4].creatives[2], res.data.data.blocks[4].creatives[3]);
-            //
-            //         // this.liveList = res.data.data.blocks[4];
-            //         // this.liveInfoList.push(...this.liveList.creatives);
-            //
-            //         if (this.recommendSongList.uiElement !== undefined) {
-            //             this.topTitle1 = this.recommendSongList.uiElement.subTitle.title;
-            //             this.btnMore1 = this.recommendSongList.uiElement.button.text;
-            //         } else {
-            //             return ''
-            //         }
-            //         if (this.officialSongList.uiElement !== undefined) {
-            //             this.topTitle2 = this.officialSongList.uiElement.subTitle.title;
-            //             this.btnMore2 = this.officialSongList.uiElement.button.text;
-            //         } else {
-            //             return ''
-            //         }
-            //         // 直播
-            //         // if (this.liveList.uiElement !== undefined) {
-            //         //     this.topTitle3 = this.liveList.uiElement.mainTitle.title;
-            //         //     // this.btnMore3 = this.liveList.uiElement.button.text;
-            //         // } else {
-            //         //     return ''
-            //         // }
-            //
-            //         return res;
-            //     }).catch(error => {
-            //         console.log('首页-发现出错');
-            //         console.dir(error);
-            //     });
-            // }
-        },
-        components: {
-            [Swipe.name]: Swipe,
-            [SwipeItem.name]: SwipeItem,
-            [Loading.name]: Loading,
-            MusicSort,
-            RecommendedSongList,
-            Scroll,
-            HorizontalScroll,
-            RecommendMusic,
-            OfficialSongList,
-            YunCun,
-            NewMusciOrDisc,
-            Live,
-        }
+    newMusic: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    newDisc: {
+      type: Array,
+      default () {
+        return []
+      }
     }
+  },
+  methods: {
+    BannerImgClick (item) {
+      if (item.url !== null) {
+        window.location.href = item.url
+      } else {
+        this.$toast('暂无数据')
+      }
+    }
+    // async getHomeData() {
+    //     await GetHomeFindAPI().then(res => {
+    //         this.recommendSongList = res.data.data.blocks[0];
+    //         this.recommendMusic = res.data.data.blocks[1];
+    //         this.officialSongList = res.data.data.blocks[2];
+    //         this.yunCun = res.data.data.blocks[3].extInfo;
+    //         this.songListInfoList.push(...this.recommendSongList.creatives);
+    //         this.officialSongInfoList.push(...this.officialSongList.creatives);
+    //         // 新歌新碟
+    //         this.newMusic.push(res.data.data.blocks[4].creatives[0], res.data.data.blocks[4].creatives[1]);
+    //         this.newDisc.push(res.data.data.blocks[4].creatives[2], res.data.data.blocks[4].creatives[3]);
+    //
+    //         // this.liveList = res.data.data.blocks[4];
+    //         // this.liveInfoList.push(...this.liveList.creatives);
+    //
+    //         if (this.recommendSongList.uiElement !== undefined) {
+    //             this.topTitle1 = this.recommendSongList.uiElement.subTitle.title;
+    //             this.btnMore1 = this.recommendSongList.uiElement.button.text;
+    //         } else {
+    //             return ''
+    //         }
+    //         if (this.officialSongList.uiElement !== undefined) {
+    //             this.topTitle2 = this.officialSongList.uiElement.subTitle.title;
+    //             this.btnMore2 = this.officialSongList.uiElement.button.text;
+    //         } else {
+    //             return ''
+    //         }
+    //         // 直播
+    //         // if (this.liveList.uiElement !== undefined) {
+    //         //     this.topTitle3 = this.liveList.uiElement.mainTitle.title;
+    //         //     // this.btnMore3 = this.liveList.uiElement.button.text;
+    //         // } else {
+    //         //     return ''
+    //         // }
+    //
+    //         return res;
+    //     }).catch(error => {
+    //         console.log('首页-发现出错');
+    //         console.dir(error);
+    //     });
+    // }
+  },
+  components: {
+    [Swipe.name]: Swipe,
+    [SwipeItem.name]: SwipeItem,
+    [Loading.name]: Loading,
+    MusicSort,
+    RecommendedSongList,
+    RecommendMusic,
+    OfficialSongList,
+    YunCun,
+    NewMusciOrDisc
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -267,14 +253,14 @@
         white-space: nowrap;
         font-size: 12px;
         text-align: center;
-        padding-right: .24rem;
+        padding-right: 0.24rem;
 
         .cont-item {
             position: relative;
             display: inline-block;
-            padding: .06rem 0 .2rem;
+            padding: 0.06rem 0 0.2rem;
             width: 600px;
-            margin: 0 .1rem;
+            margin: 0 0.1rem;
 
             .cont-img {
                 overflow: hidden;
@@ -286,8 +272,6 @@
                     width: 100%;
                 }
             }
-
         }
     }
-
 </style>

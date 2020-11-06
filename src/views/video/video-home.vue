@@ -1,41 +1,45 @@
 <template>
     <div class="videoHome">
-        <ul>
-            <li class="videoLi"
-                v-if="videoList.length !== 0 && playerOptions.length!==0"
-                v-for="(item,index) in videoList"
-                :key="index">
+        <ul v-if="videoList.length !== 0 && playerOptions.length !== 0">
+            <li
+                    class="videoLi"
+                    v-for="(item, index) in videoList"
+                    :key="index">
                 <vue-mini-player
                         ref="vueMiniPlayer"
                         :video="playerOptions[index]"
                         :mutex="true"
-                        @fullscreen="handleFullscreen"/>
+                        @fullscreen="handleFullscreen"
+                />
 
                 <div class="videoInfo" @click="ToDetail(index)">
-                    <p class="videoTitle">{{videoList[index].title}}</p>
-                    <p class="platTimeText">{{playCount(videoList[index].playTime)}}播放</p>
+                    <p class="videoTitle">{{ videoList[index].title }}</p>
+                    <p class="platTimeText">
+                        {{ playCount(videoList[index].playTime) }}播放
+                    </p>
                     <van-cell
                             class="myCell"
                             center
                             :title="videoList[index].nickname"
-                            value-class="valueText">
+                            value-class="valueText"
+                    >
                         <template #icon>
                             <van-image
                                     class="avatarPic"
                                     width="2rem"
                                     height="2rem"
                                     round
-                                    :src="videoList[index].avatarUrl">
-
+                                    :src="videoList[index].avatarUrl"
+                            >
                             </van-image>
                         </template>
                         <template #default>
-                            <p @click.stop="goodClick(index)" :class="{'like':item.isLike}">
-                                {{item.isLike?`已点赞(${playCount(videoList[index].praisedCount)})`
-                                : `点赞(${playCount(videoList[index].praisedCount)})`}}
-
+                            <p @click.stop="goodClick(index)" :class="{ like: item.isLike }">
+                                {{item.isLike
+                                ? `已点赞(${playCount(videoList[index].praisedCount)})`
+                                : `点赞(${playCount(videoList[index].praisedCount)})` }}
                             </p>
-                            <p>评论({{videoList[index].commentCount}})</p>
+                            <p>评论({{ videoList[index].commentCount }})</p>
                         </template>
                     </van-cell>
                 </div>
@@ -45,107 +49,105 @@
 </template>
 
 <script>
-    import {GetResourceLikeAPI, GetVideoAPI, GetVideoDetailInfoAPI} from "../../http/all-api";
-    import {createVideo} from "../../../model/dataInfo/videoInfo";
-    import {Cell, Image as VanImage} from "vant";
+import { GetResourceLikeAPI } from '../../http/all-api'
+import { Cell, Image as VanImage } from 'vant'
 
-    export default {
-        name: "videoHome",
-        created() {
-            if (this.$store.state.audioEl) {
-                this.$store.state.audioEl.pause();
-                if (!this.$store.state.changeIcon) this.$store.commit('showIcon');
-
-            }
-        },
-        mounted() {
-            let video1 = document.getElementsByTagName('video');
-            video1.forEach(item => {
-                item.autoplay = false;
-            })
-        },
-        props: {
-            videoList: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            },
-            playerOptions: {
-                type: Array,
-                default() {
-                    return [];
-                }
-            },
-
-
-        },
-        computed: {
-            $video() {
-                return this.$refs.vueMiniPlayer.$video;
-            }
-        },
-        data() {
-            return {}
-        },
-        methods: {
-            handleFullscreen() {
-            },
-            onVideoPlay() {
-                console.log('播放了');
-            },
-            goodClick(index) {
-                let vid = this.videoList[index].vid;
-                let t;
-                let typeC = this.videoList[index];
-                if (this.videoList[index].isLike) {
-                    // 取消点赞
-                    t = 0
-                } else {
-                    // 点赞
-                    t = 1
-                }
-                GetResourceLikeAPI({id: vid, t: t, type: 5}).then(res => {
-                    console.log(res);
-                    if (t === 1) {
-                        this.videoList[index].praisedCount++;
-                        typeC.isLike = true
-                    } else {
-                        typeC.isLike = false;
-                        this.videoList[index].praisedCount--
-
-                    }
-                    console.log(typeC);
-                    console.log('点赞成功');
-                }).catch(error => {
-                    console.log('点赞失败');
-                    console.log(error)
-                })
-            },
-            playCount(num) {
-                let numInt = parseInt(num);
-                if (numInt >= 100000000) {
-                    numInt = Math.round(numInt / 10000000) / 10 + '亿'
-                } else if (numInt >= 10000) {
-                    numInt = Math.round(numInt / 1000) / 10 + '万'
-                }
-                return numInt;
-            },
-            ToDetail(index) {
-                console.log('跳转');
-                this.$router.push({
-                    path: '/videoDetail',
-                    query: {
-                        vid: this.videoList[index].vid,
-                    }
-                })
-            }
-        },
-        components: {
-            [Cell.name]: Cell,
-            [VanImage.name]: VanImage,
-        },
+export default {
+  name: 'videoHome',
+  created () {
+    if (this.$store.state.audioEl) {
+      this.$store.state.audioEl.pause()
+      if (!this.$store.state.changeIcon) this.$store.commit('showIcon')
     }
+  },
+  mounted () {
+    const video1 = document.getElementsByTagName('video')
+    video1.forEach(item => {
+      item.autoplay = false
+    })
+  },
+  props: {
+    videoList: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
+    playerOptions: {
+      type: Array,
+      default () {
+        return []
+      }
+    }
+  },
+  computed: {
+    $video () {
+      return this.$refs.vueMiniPlayer.$video
+    }
+  },
+  methods: {
+    handleFullscreen () {
+    },
+    onVideoPlay () {
+      console.log('播放了')
+    },
+    goodClick (index) {
+      const vid = this.videoList[index].vid
+      let t
+      const typeC = this.videoList[index]
+      if (this.videoList[index].isLike) {
+        // 取消点赞
+        t = 0
+      } else {
+        // 点赞
+        t = 1
+      }
+      GetResourceLikeAPI({
+        id: vid,
+        t: t,
+        type: 5
+      })
+        .then(res => {
+          console.log(res)
+          if (t === 1) {
+            this.$parent.videoList[index].praisedCount++
+            typeC.isLike = true
+          } else {
+            typeC.isLike = false
+            this.$parent.videoList[index].praisedCount--
+          }
+          console.log(typeC)
+          console.log('点赞成功')
+        })
+        .catch(error => {
+          console.log('点赞失败')
+          console.log(error)
+        })
+    },
+    playCount (num) {
+      let numInt = parseInt(num)
+      if (numInt >= 100000000) {
+        numInt = Math.round(numInt / 10000000) / 10 + '亿'
+      } else if (numInt >= 10000) {
+        numInt = Math.round(numInt / 1000) / 10 + '万'
+      }
+      return numInt
+    },
+    ToDetail (index) {
+      console.log('跳转')
+      this.$router.push({
+        path: '/videoDetail',
+        query: {
+          vid: this.videoList[index].vid
+        }
+      })
+    }
+  },
+  components: {
+    [Cell.name]: Cell,
+    [VanImage.name]: VanImage
+  }
+}
 </script>
 
 <style lang="less">
@@ -209,9 +211,7 @@
                         color: #c2463a;
                     }
                 }
-
             }
-
         }
     }
 </style>

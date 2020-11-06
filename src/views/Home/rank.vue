@@ -6,13 +6,16 @@
                 ref="scroll"
                 :probe-type="3"
                 :pull-up-load="true"
-                :bounce="false">
+                :bounce="false"
+        >
             <div class="rankContent">
                 <h4>官方榜</h4>
-                <div @click="rankClick(item.id)"
-                     class="officialBox"
-                     v-for="(item,index) in rankInfo.slice(0,4)"
-                     :key="index">
+                <div
+                        @click="rankClick(item.id)"
+                        class="officialBox"
+                        v-for="(item, index) in rankInfo.slice(0, 4)"
+                        :key="index"
+                >
                     <div class="rankPic">
                         <van-image
                                 width="6rem"
@@ -21,29 +24,31 @@
                                 radius="5"
                                 :src="item.coverImgUrl"
                         />
-                        <p class="updateTime">{{item.updateTime}}</p>
+                        <p class="updateTime">{{ item.updateTime }}</p>
                     </div>
                     <div class="rankInfo">
-                        <p v-for="(value,indey) in item.tracks">
-                            {{indey+1}}.{{value.first}}—{{value.second}}
+                        <p v-for="(value, indey) in item.tracks" :key="indey">
+                            {{ indey + 1 }}.{{ value.first }}—{{ value.second }}
                         </p>
                     </div>
                 </div>
                 <div class="recommendRank">
                     <h4>推荐榜</h4>
                     <van-grid :border="false" column-num="3">
-                        <van-grid-item class="rankPic"
-                                       v-for="(item,index) in rankInfo.slice(4,33)"
-                                       @click="rankClick(item.id)"
-                                       :key="index">
+                        <van-grid-item
+                                class="rankPic"
+                                v-for="(item, index) in rankInfo.slice(4, 33)"
+                                @click="rankClick(item.id)"
+                                :key="index"
+                        >
                             <div>
                                 <van-image
                                         fit="cover"
                                         radius="5"
                                         :src="picUrl(item.coverImgUrl)"
                                 />
-                                <p class="updateTime">{{item.updateTime}}</p>
-                                <p class="rankName">{{item.name}}</p>
+                                <p class="updateTime">{{ item.updateTime }}</p>
+                                <p class="rankName">{{ item.name }}</p>
                             </div>
                         </van-grid-item>
                     </van-grid>
@@ -54,65 +59,67 @@
 </template>
 
 <script>
-    import scroll from "../../components/common/scroll";
-    import CommNav from "../../components/nav/commNav";
-    import {GetTopListAPI} from "../../http/all-api";
-    import {createRankInfo} from "../../../model/dataInfo/rankInfo";
-    import {Grid, GridItem, Image as VanImage, Icon, ActionSheet} from 'vant';
+import scroll from '../../components/common/scroll'
+import CommNav from '../../components/nav/commNav'
+import { GetTopListAPI } from '../../http/all-api'
+import { createRankInfo } from '../../../model/dataInfo/rankInfo'
+import { Grid, GridItem, Image as VanImage, Icon, ActionSheet } from 'vant'
 
-    export default {
-        name: "rank",
-        beforeCreate() {
-            this.$toast.loading({
-                message: '加载中',
-                forbidClick: true,
-                duration: 0
-            });
-        },
-        created() {
-            GetTopListAPI().then(res => {
-                let list = res.data.list;
-                list.forEach(item => {
-                    this.rankInfo.push(createRankInfo(item))
-                    this.$toast.clear();
-                });
-            }).catch(err => {
-                console.log(err);
-            })
-        },
-        data() {
-            return {
-                rankInfo: [],
-            }
-        },
-        computed: {
-            picUrl() {
-                return function (data) {
-                    return data + '?param=150y150'
-                }
-            }
-        },
-        methods: {
-            goBack() {
-                this.$router.go(-1);
-            },
-            rankClick(id) {
-                this.$router.push({
-                    path: '/daySongList',
-                    query: {id}
-                })
-            }
-        },
-        components: {
-            scroll,
-            CommNav,
-            [Grid.name]: Grid,
-            [GridItem.name]: GridItem,
-            [VanImage.name]: VanImage,
-            [Icon.name]: Icon,
-            [ActionSheet.name]: ActionSheet,
-        }
+export default {
+  name: 'rank',
+  beforeCreate () {
+    this.$toast.loading({
+      message: '加载中',
+      forbidClick: true,
+      duration: 0
+    })
+  },
+  created () {
+    GetTopListAPI()
+      .then(res => {
+        const list = res.data.list
+        list.forEach(item => {
+          this.rankInfo.push(createRankInfo(item))
+          this.$toast.clear()
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  },
+  data () {
+    return {
+      rankInfo: []
     }
+  },
+  computed: {
+    picUrl () {
+      return function (data) {
+        return data + '?param=150y150'
+      }
+    }
+  },
+  methods: {
+    goBack () {
+      this.$router.go(-1)
+    },
+    rankClick (id) {
+      this.$router.push({
+        path: '/daySongList',
+        query: { id }
+      })
+    }
+  },
+  components: {
+    scroll,
+    CommNav,
+    [Grid.name]: Grid,
+    [GridItem.name]: GridItem,
+    [VanImage.name]: VanImage,
+    [Icon.name]: Icon,
+    [ActionSheet.name]: ActionSheet
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -160,7 +167,6 @@
             }
 
             .recommendRank {
-
                 h4 {
                     font-size: 50px;
                     margin-top: 30px;
@@ -188,6 +194,5 @@
                 }
             }
         }
-
     }
 </style>

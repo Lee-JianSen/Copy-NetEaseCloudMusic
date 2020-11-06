@@ -1,37 +1,40 @@
 <template>
     <div class="tab-control">
-        <div class="tab-control-item"
-             v-for="(item,index) in title"
-             :class="{active:currentIndex === index}"
-             @click="itemClick(index)">
-            <span>{{item}}</span>
+        <div
+                class="tab-control-item"
+                v-for="(item, index) in title"
+                :key="index"
+                :class="{ active: currentIndex === index }"
+                @click="itemClick(index)">
+            <span>{{ item }}</span>
         </div>
     </div>
 </template>
 
 <script>
-    export default {
-        name: "TabControl",
-        props: {
-            title: {
-                type: Array,
-                default() {
-                    return []
-                }
-            }
-        },
-        data() {
-            return {
-                currentIndex: 0
-            }
-        },
-        methods:{
-            itemClick(index){
-                this.currentIndex = index;
-                this.$emit('tabClick',index)
-            }
-        }
+export default {
+  name: 'TabControl',
+  props: {
+    title: {
+      type: Array,
+      default () {
+        return []
+      }
     }
+  },
+  data () {
+    return {
+      currentIndex: 0
+    }
+  },
+  methods: {
+    itemClick (index) {
+      this.currentIndex = index
+      // eslint-disable-next-line vue/custom-event-name-casing
+      this.$emit('tabClick', index)
+    }
+  }
+}
 </script>
 
 <style scoped>
@@ -48,13 +51,13 @@
     .tab-control-item {
         flex: 1;
         font-size: 40px;
-
     }
 
-    .active{
+    .active {
         color: #c2463a;
     }
-    .active span{
+
+    .active span {
         padding: 5px;
         border-bottom: 10px solid #c2463a;
         border-radius: 5px;

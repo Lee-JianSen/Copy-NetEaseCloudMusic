@@ -2,88 +2,87 @@
 <template>
     <div class="yunCun">
         <div class="topTitle">
-            <h4 @click="TopClick">{{yunCun.moduleName}}</h4>
+            <h4 @click="TopClick">{{ yunCun.moduleName }}</h4>
             <btn-more title="查看更多" @click.native="TopClick"></btn-more>
         </div>
 
         <horizontal-scroll ref="hScroll">
             <div ref="list" class="list">
                 <div
-                        v-for="(item,index) in yunCun.squareFeedViewDTOList"
+                        v-for="(item, index) in yunCun.squareFeedViewDTOList"
                         :key="index"
                         class="gridItem">
                     <div class="playCount">
-                        {{item.resource.mlogExt.likedCount|playCount}}赞
+                        {{ item.resource.mlogExt.likedCount | playCount }}赞
                     </div>
-                    <div class="songListInfo"
-                         @click="SongListClick(item.id)">
+                    <div class="songListInfo" @click="SongListClick(item.id)">
                         <van-image
                                 fit="fill"
                                 radius="5px"
                                 height="120px"
-                                :src="item.resource.mlogBaseData.coverUrl"/>
-                        <p class="text"> {{item.resource.mlogBaseData.text}}</p>
-
+                                :src="item.resource.mlogBaseData.coverUrl"
+                        />
+                        <p class="text">{{ item.resource.mlogBaseData.text }}</p>
                     </div>
                 </div>
             </div>
         </horizontal-scroll>
-
     </div>
 </template>
 
 <script>
-    import HorizontalScroll from "../common/horizontalScroll";
-    import {initScroll} from "../../tool/mixin";
-    import BtnMore from "../common/btnMore";
-    import {Icon, Image as VanImage} from "vant";
+import HorizontalScroll from '../common/horizontalScroll'
+import { initScroll } from '../../tool/mixin'
+import BtnMore from '../common/btnMore'
+import { Icon, Image as VanImage } from 'vant'
 
-    export default {
-        name: "yuncun",
-        mixins: [initScroll],
-        props: {
-            yunCun: {
-                type: Object,
-                default: {}
-            }
-        },
-        mounted() {
-            this.$nextTick(() => {
-                setTimeout(() => {
-                    this.itemWidth = 20;
-                    this.itemMargin = 2;
-                    this.initPics();
-                    this.$refs.hScroll.refresh()
-                }, 600);
-            });
-        },
-        methods: {
-            TopClick() {
-                this.$toast('暂无云村')
-            },
-            SongListClick(id) {
-                // todo 跳转歌单详情
-                console.log('歌单点击跳转');
-                console.log(id);
-            }
-        },
-        components: {
-            [VanImage.name]: VanImage,
-            [Icon.name]: Icon,
-            HorizontalScroll,
-            BtnMore
-        },
-        filters: {
-            playCount(num) {
-                if (num >= 100000000) {
-                    num = Math.round(num / 10000000) / 10 + '亿'
-                } else if (num >= 10000) {
-                    num = Math.round(num / 1000) / 10 + '万'
-                }
-                return num;
-            }
-        }
+export default {
+  name: 'yuncun',
+  mixins: [initScroll],
+  props: {
+    yunCun: {
+      type: Object,
+      default () {
+        return {}
+      }
     }
+  },
+  mounted () {
+    this.$nextTick(() => {
+      setTimeout(() => {
+        this.itemWidth = 20
+        this.itemMargin = 2
+        this.initPics()
+        this.$refs.hScroll.refresh()
+      }, 600)
+    })
+  },
+  methods: {
+    TopClick () {
+      this.$toast('暂无云村')
+    },
+    SongListClick (id) {
+      console.log('歌单点击跳转')
+      console.log(id)
+    }
+  },
+  components: {
+    [VanImage.name]: VanImage,
+    [Icon.name]: Icon,
+    HorizontalScroll,
+    BtnMore
+  },
+  filters: {
+    playCount (num) {
+      if (num >= 100000000) {
+        num = Math.round(num / 10000000) / 10 + '亿'
+      } else if (num >= 10000) {
+        num = Math.round(num / 1000) / 10 + '万'
+      }
+      return num
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -94,7 +93,6 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 30px;
-
         }
 
         h4 {
@@ -137,6 +135,5 @@
         z-index: 999;
         font-size: 36px;
         color: white;
-
     }
 </style>

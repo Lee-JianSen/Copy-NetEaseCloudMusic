@@ -3,49 +3,51 @@
         <div class="father" v-if="$store.state.searchResultShow">
             <van-cell-group>
                 <van-cell
-                        v-for="(item,index) in $store.state.searchResult"
+                        v-for="(item, index) in $store.state.searchResult"
                         :title="item.keyword"
                         :key="index"
                         icon="search"
-                        @click="searchsuggest(item.keyword)"/>
+                        @click="searchsuggest(item.keyword)"
+                />
             </van-cell-group>
         </div>
     </div>
 </template>
 
 <script>
-    import {GetSearchApi} from "../../../http/all-api";
-    import {Cell, CellGroup} from 'vant';
+import { GetSearchApi } from '../../../http/all-api'
+import { Cell, CellGroup } from 'vant'
 
-    export default {
-        name: "searchSuggest",
-        components: {
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup
-        },
-        methods: {
-            searchsuggest(val) {
+export default {
+  name: 'searchSuggest',
+  components: {
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup
+  },
+  methods: {
+    searchsuggest (val) {
+      GetSearchApi(val, '1018')
+        .then(res => {
+          const lists = res.data.result
+          // eslint-disable-next-line vue/custom-event-name-casing
+          this.$emit('isSearchResultFunc', true)
+          this.$store.commit('searchResultList', lists)
+          const IsShow = false
+          this.$store.commit('searchResultShow', IsShow)
+          this.$store.commit('addWord', val)
 
-                GetSearchApi(val, '1018').then(res => {
-                    let lists = res.data.result;
-                    this.$emit("isSearchResultFunc", true);
-                    this.$store.commit("searchResultList", lists);
-                    let IsShow = false;
-                    this.$store.commit('searchResultShow', IsShow);
-                    this.$store.commit('addWord', val);
-
-                    this.$store.state.historyList.unshift(val);
-                    let hisList = this.$store.state.historyList;
-                    let newarr = Array.from(new Set(hisList));
-                    this.$store.commit('historyBianLiList', newarr);
-                    this.$toast.clear()
-                }).catch(error => {
-                    console.log(error);
-                });
-
-            }
-        }
+          this.$store.state.historyList.unshift(val)
+          const hisList = this.$store.state.historyList
+          const newarr = Array.from(new Set(hisList))
+          this.$store.commit('historyBianLiList', newarr)
+          this.$toast.clear()
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
+  }
+}
 </script>
 
 <style scoped>

@@ -1,14 +1,17 @@
 <template>
     <div>
-        <div v-for="item in artists">
+        <div v-for="(item,index) in artists" :key="index">
             <van-cell @click="pushSinger(item.id)">
                 <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-                <template #icon><img :src="item.img1v1Url" class="getgold_top_head_img"></template>
+                <template #icon
+                ><img :src="item.img1v1Url" class="getgold_top_head_img"
+                /></template>
                 <template #title>
                     <div>
                         <div style="position: relative;top: 20px;left: 14px">
-                            <span>{{item.name}}</span>
-                            <span v-for="name in item.alia"> ({{name}})</span></div>
+                            <span>{{ item.name }}</span>
+                            <span v-for="(name,indey) in item.alia" :key="indey"> ({{ name }})</span>
+                        </div>
                     </div>
                 </template>
             </van-cell>
@@ -17,50 +20,46 @@
 </template>
 
 <script>
-    import {GetSearchApi} from "../../../http/all-api";
-    import {Icon} from "vant";
-    import {Button} from 'vant';
-    import {Card} from 'vant';
-    import {Tag} from 'vant';
-    import {Cell, CellGroup} from 'vant';
+import { GetSearchApi } from '../../../http/all-api'
+import { Icon, Button, Card, Tag, Cell, CellGroup } from 'vant'
 
-
-    export default {
-        name: "SearchTabbarGeShou",
-        components: {
-            [Icon.name]: Icon,
-            [Button.name]: Button,
-            [Card.name]: Card,
-            [Tag.name]: Tag,
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup,
-        },
-        data() {
-            return {
-                artists: []
-            }
-        },
-        created() {
-            GetSearchApi(this.$store.state.addWord, '100').then(res => {
-                this.artists = res.data.result.artists;
-                console.log(this.artists);
-
-            }).catch(error => {
-                console.log(error);
-            });
-        },
-        methods: {
-            pushSinger(id) {
-                console.log('跳转歌手' + id);
-                // this.$router.push({
-                //     path: '/singer',
-                //     query: {
-                //         id: id
-                //     }
-                // })
-            }
-        }
+export default {
+  name: 'SearchTabbarGeShou',
+  components: {
+    [Icon.name]: Icon,
+    [Button.name]: Button,
+    [Card.name]: Card,
+    [Tag.name]: Tag,
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup
+  },
+  data () {
+    return {
+      artists: []
     }
+  },
+  created () {
+    GetSearchApi(this.$store.state.addWord, '100')
+      .then(res => {
+        this.artists = res.data.result.artists
+        console.log(this.artists)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+  },
+  methods: {
+    pushSinger (id) {
+      console.log('跳转歌手' + id)
+      // this.$router.push({
+      //     path: '/singer',
+      //     query: {
+      //         id: id
+      //     }
+      // })
+    }
+  }
+}
 </script>
 
 <style scoped>

@@ -1,13 +1,15 @@
 <template>
     <div v-if="Object.keys(songListData).length !== 0" class="songList">
         <div ref="topNav" class="topNav">
-            <van-icon size="24" @click="goBack" color="#fff" name="arrow-left"/>
+            <van-icon size="24" @click="goBack" color="#fff" name="arrow-left" />
             <p class="navTitle">歌单</p>
         </div>
         <div v-show="isShowTop" class="musicTop">
             <div class="leftBox">
-                <van-icon size="24" name="play-circle-o"/>
-                <p class="musicTopTitle">全部播放<span>(共{{musicInfo.length}}首)</span></p>
+                <van-icon size="24" name="play-circle-o" />
+                <p class="musicTopTitle">
+                    全部播放<span>(共{{ musicInfo.length }}首)</span>
+                </p>
             </div>
             <div class="rightBox">
                 <van-button
@@ -15,7 +17,8 @@
                         round
                         type="danger"
                         color="rgb(253,59,59)"
-                > + 收藏 ({{songListData.subscribedCount|playCount1}})
+                >
+                    + 收藏 ({{ songListData.subscribedCount | playCount1 }})
                 </van-button>
             </div>
         </div>
@@ -25,66 +28,74 @@
                 :probe-type="3"
                 :pull-up-load="true"
                 :bounce="false"
-                @scroll="musicListScroll">
-
+                @scroll="musicListScroll"
+        >
             <div id="content">
-                <div class="bg"
-                     :style="{'background-image': `url(${songListData.picUrl})`}">
-                </div>
+                <div
+                        class="bg"
+                        :style="{ 'background-image': `url(${songListData.picUrl})` }"
+                ></div>
                 <div>
                     <div class="songListInfo">
                         <div class="topLeftBox">
                             <div class="playCount">
-                                <van-icon name="service-o" color="#eee"/>
-                                {{songListData.playCount|playCount1}}
+                                <van-icon name="service-o" color="#eee" />
+                                {{ songListData.playCount | playCount1 }}
                             </div>
                             <van-image
                                     class="leftImage"
                                     radius="5"
-                                    width="130" height="130"
-                                    :src="songListData.picUrl" alt="">
+                                    width="130"
+                                    height="130"
+                                    :src="songListData.picUrl"
+                                    alt=""
+                            >
                             </van-image>
                         </div>
                         <div class="songListTitle">
-                            <h4>{{songListData.title}}</h4>
+                            <h4>{{ songListData.title }}</h4>
                             <div class="avatarInfo">
                                 <van-image
                                         round
-                                        width="30" height="30"
-                                        :src="songListData.avatarUrl" alt="">
+                                        width="30"
+                                        height="30"
+                                        :src="songListData.avatarUrl"
+                                        alt=""
+                                >
                                 </van-image>
-                                <p>{{songListData.avatarName}}</p>
+                                <p>{{ songListData.avatarName }}</p>
                             </div>
                             <div class="subTitle">
-                                <p>{{songListData.subTitle}}</p>
+                                <p>{{ songListData.subTitle }}</p>
                             </div>
                         </div>
                     </div>
                     <div class="orderInfo">
                         <div class="musicSort-item">
-                            <van-icon size="24" name="comment-o"/>
-                            <p>{{songListData.commentCount|playCount1}}</p>
+                            <van-icon size="24" name="comment-o" />
+                            <p>{{ songListData.commentCount | playCount1 }}</p>
                         </div>
                         <div class="musicSort-item">
-                            <van-icon size="24" name="cluster-o"/>
-                            <p>{{songListData.shareCount|playCount1}}</p>
+                            <van-icon size="24" name="cluster-o" />
+                            <p>{{ songListData.shareCount | playCount1 }}</p>
                         </div>
                         <div class="musicSort-item">
-                            <van-icon size="24" name="down"/>
+                            <van-icon size="24" name="down" />
                             <p>下载</p>
                         </div>
                         <div class="musicSort-item">
-                            <van-icon size="24" name="certificate"/>
+                            <van-icon size="24" name="certificate" />
                             <p>多选</p>
                         </div>
                     </div>
                 </div>
 
-
                 <div ref="tabControl" class="musicTop">
                     <div class="leftBox">
-                        <van-icon size="24" name="play-circle-o"/>
-                        <p class="musicTopTitle">全部播放<span>(共{{musicInfo.length}}首)</span></p>
+                        <van-icon size="24" name="play-circle-o" />
+                        <p class="musicTopTitle">
+                            全部播放<span>(共{{ musicInfo.length }}首)</span>
+                        </p>
                     </div>
                     <div class="rightBox">
                         <van-button
@@ -92,7 +103,7 @@
                                 round
                                 type="danger"
                                 color="rgb(253,59,59)"
-                        >+收藏({{songListData.subscribedCount|playCount1}})
+                        >+收藏({{ songListData.subscribedCount | playCount1 }})
                         </van-button>
                     </div>
                 </div>
@@ -101,34 +112,40 @@
                             class="mc-cell"
                             :center="true"
                             :border="false"
-                            v-for="(value,index) in musicInfo"
+                            v-for="(value, index) in musicInfo"
                             :key="index"
                             label-class="ov"
                             title-class="ov titleText"
-                            @click="getMusicId(value.id)">
+                            @click="getMusicId(value.id)"
+                    >
                         <!--                            :title="value.uiElement.mainTitle.title"-->
                         <template #title>
                             <p class="ov titleText">
-                                {{value.name}}
+                                {{ value.name }}
                             </p>
                         </template>
                         <template #label>
                             <p class="ov">
-                                {{value.singer}}&nbsp--&nbsp
-                                <span class="titleAlias">
-                            {{value.album}}</span>
+                                {{ value.singer }} -- <span class="titleAlias"> {{ value.album }}</span>
                             </p>
                         </template>
                         <template #icon>
                             <van-image
                                     class="leftImage"
-                                    width="50" height="50"
+                                    width="50"
+                                    height="50"
                                     radius="5"
-                                    :src="value.picUrl" alt="">
+                                    :src="value.picUrl"
+                                    alt=""
+                            >
                             </van-image>
                         </template>
                         <template #right-icon>
-                            <van-icon @click.stop="musicDetailShow(index)" name="ellipsis" class="rightImage"/>
+                            <van-icon
+                                    @click.stop="musicDetailShow(index)"
+                                    name="ellipsis"
+                                    class="rightImage"
+                            />
                         </template>
                     </van-cell>
                 </van-cell-group>
@@ -137,115 +154,118 @@
         <active-sheet
                 :is-show-detail="isShowDetail"
                 :music-detail="musicDetail"
-                @clickOverlay="clickOverlay"/>
+                @clickOverlay="clickOverlay"
+        />
     </div>
 </template>
 
 <script>
-    import scroll from "../../../components/common/scroll";
-    import activeSheet from "../../../components/common/activeSheet";
-    import {Icon, Cell, CellGroup, Image as VanImage, Button} from 'vant'
-    import {GetSongListAPI, GetMusicDetail} from "../../../http/all-api";
-    import {createSongListInfo} from "../../../../model/dataInfo/songListInfo";
-    import {createMusicInfo} from "../../../../model/dataInfo/musicInfo";
+import scroll from '../../../components/common/scroll'
+import activeSheet from '../../../components/common/activeSheet'
+import { Icon, Cell, CellGroup, Image as VanImage, Button } from 'vant'
+import { GetSongListAPI, GetMusicDetail } from '../../../http/all-api'
+import { createSongListInfo } from '../../../../model/dataInfo/songListInfo'
+import { createMusicInfo } from '../../../../model/dataInfo/musicInfo'
 
-    export default {
-        name: "daySongList",
-        beforeCreate() {
-            this.$toast.loading({
-                message: '加载中',
-                forbidClick: true,
-                duration: 0
-            });
-        },
-        async created() {
-            await this.getSongListData(this.$route.query.id);
-            this.$toast.clear();
-
-        },
-        data() {
-            return {
-                songListData: {},
-                musicInfo: [],
-                musicDetail: {},
-                isShowTop: false,
-                isShowDetail: false
-            }
-        },
-        computed: {
-            songListPic() {
-                return this.songListData.picUrl + '?param=120y120'
-            }
-        },
-        methods: {
-            async getSongListData(id) {
-                await GetSongListAPI(id).then(res => {
-                    this.songListData = createSongListInfo(res.data.playlist);
-                    // console.log(this.songListData);
-                    let allMusicId = this.songListData.musicId.join(',');
-                    if (this.songListData.musicId.length !== 0) {
-                        GetMusicDetail(allMusicId).then(res => {
-                            res.data.songs.forEach(item => {
-                                this.musicInfo.push(createMusicInfo(item));
-                            });
-                            // console.log(this.musicInfo);
-                        }).catch(error => {
-                            console.log('获取歌单的歌曲详情失败');
-                            console.log(error);
-                        })
-                    }
-                    return res;
-                }).catch(error => {
-                    console.log('获取歌单详情失败');
-                    console.log(error);
-                })
-            },
-            goBack() {
-                this.$router.go(-1);
-            },
-            getMusicId(musicId) {
-                // 音乐id
-                console.log(musicId);
-                this.$store.commit('changeMusicId', musicId);
-                this.musicCheck(musicId);
-                this.$refs.scroll.$el.style.height = 92 + '%';
-                this.$refs.scroll.refresh();
-            },
-            musicListScroll(position) {
-                let opacity = Math.abs(Math.round(position.y) / 100);
-                this.$refs.topNav.style.background = `rgba(114,114,114,${opacity})`;
-                this.isShowTop = position.y <= -220;
-            },
-            clickOverlay() {
-                this.isShowDetail = false;
-            },
-            musicDetailShow(index) {
-                this.musicDetail = this.musicInfo[index];
-                this.isShowDetail = !this.isShowDetail;
-                console.log(this.isShowDetail);
-            },
-        },
-        components: {
-            [Cell.name]: Cell,
-            [CellGroup.name]: CellGroup,
-            [VanImage.name]: VanImage,
-            [Icon.name]: Icon,
-            [Button.name]: Button,
-            scroll,
-            activeSheet
-        },
-        filters: {
-            playCount1(num) {
-                if (num >= 100000000) {
-                    num = Math.round(num / 10000000) / 10 + '亿'
-                } else if (num >= 10000) {
-                    num = Math.round(num / 1000) / 10 + '万'
-                }
-                return num;
-            }
-        }
-
+export default {
+  name: 'daySongList',
+  beforeCreate () {
+    this.$toast.loading({
+      message: '加载中',
+      forbidClick: true,
+      duration: 0
+    })
+  },
+  async created () {
+    await this.getSongListData(this.$route.query.id)
+    this.$toast.clear()
+  },
+  data () {
+    return {
+      songListData: {},
+      musicInfo: [],
+      musicDetail: {},
+      isShowTop: false,
+      isShowDetail: false
     }
+  },
+  computed: {
+    songListPic () {
+      return this.songListData.picUrl + '?param=120y120'
+    }
+  },
+  methods: {
+    async getSongListData (id) {
+      await GetSongListAPI(id)
+        .then(res => {
+          this.songListData = createSongListInfo(res.data.playlist)
+          // console.log(this.songListData);
+          const allMusicId = this.songListData.musicId.join(',')
+          if (this.songListData.musicId.length !== 0) {
+            GetMusicDetail(allMusicId)
+              .then(res => {
+                res.data.songs.forEach(item => {
+                  this.musicInfo.push(createMusicInfo(item))
+                })
+                // console.log(this.musicInfo);
+              })
+              .catch(error => {
+                console.log('获取歌单的歌曲详情失败')
+                console.log(error)
+              })
+          }
+          return res
+        })
+        .catch(error => {
+          console.log('获取歌单详情失败')
+          console.log(error)
+        })
+    },
+    goBack () {
+      this.$router.go(-1)
+    },
+    getMusicId (musicId) {
+      // 音乐id
+      console.log(musicId)
+      this.$store.commit('changeMusicId', musicId)
+      this.musicCheck(musicId)
+      this.$refs.scroll.$el.style.height = 92 + '%'
+      this.$refs.scroll.refresh()
+    },
+    musicListScroll (position) {
+      const opacity = Math.abs(Math.round(position.y) / 100)
+      this.$refs.topNav.style.background = `rgba(114,114,114,${opacity})`
+      this.isShowTop = position.y <= -220
+    },
+    clickOverlay () {
+      this.isShowDetail = false
+    },
+    musicDetailShow (index) {
+      this.musicDetail = this.musicInfo[index]
+      this.isShowDetail = !this.isShowDetail
+      console.log(this.isShowDetail)
+    }
+  },
+  components: {
+    [Cell.name]: Cell,
+    [CellGroup.name]: CellGroup,
+    [VanImage.name]: VanImage,
+    [Icon.name]: Icon,
+    [Button.name]: Button,
+    scroll,
+    activeSheet
+  },
+  filters: {
+    playCount1 (num) {
+      if (num >= 100000000) {
+        num = Math.round(num / 10000000) / 10 + '亿'
+      } else if (num >= 10000) {
+        num = Math.round(num / 1000) / 10 + '万'
+      }
+      return num
+    }
+  }
+}
 </script>
 
 <style scoped lang="less">
@@ -275,7 +295,6 @@
             .scrollStyle();
 
             #content {
-
                 .bg {
                     width: 100vw;
                     height: 700px;
@@ -316,7 +335,6 @@
                         margin: 0 15px;
                         font-size: 36px;
                     }
-
                 }
 
                 .songListTitle {
@@ -327,7 +345,6 @@
                     -webkit-box-orient: vertical;
                     color: white;
                 }
-
 
                 .playCount {
                     position: absolute;
@@ -392,10 +409,8 @@
                     width: 500px;
                     font-size: 30px;
                 }
-
             }
         }
-
     }
 
     .ov {
