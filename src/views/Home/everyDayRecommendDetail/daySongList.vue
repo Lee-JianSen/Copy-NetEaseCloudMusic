@@ -53,7 +53,7 @@
                             </van-image>
                         </div>
                         <div class="songListTitle">
-                            <h4>{{ songListData.title }}</h4>
+                            <h4 class="title">{{ songListData.title }}</h4>
                             <div class="avatarInfo">
                                 <van-image
                                         round
@@ -114,8 +114,6 @@
                             :border="false"
                             v-for="(value, index) in musicInfo"
                             :key="index"
-                            label-class="ov"
-                            title-class="ov titleText"
                             @click="getMusicId(value.id)"
                     >
                         <!--                            :title="value.uiElement.mainTitle.title"-->
@@ -137,8 +135,7 @@
                                     height="50"
                                     radius="5"
                                     :src="value.picUrl"
-                                    alt=""
-                            >
+                                    alt="">
                             </van-image>
                         </template>
                         <template #right-icon>
@@ -336,6 +333,11 @@ export default {
                     -webkit-line-clamp: 2;
                     -webkit-box-orient: vertical;
                     color: white;
+
+                    .title {
+                        font-size: 41px;
+                        padding-bottom: 25px;
+                    }
                 }
 
                 .playCount {
@@ -354,13 +356,13 @@ export default {
 
                     p {
                         padding-left: 20px;
-                        font-size: 34px;
+                        font-size: 38px;
                     }
                 }
 
                 .subTitle {
                     p {
-                        font-size: 30px;
+                        font-size: 37px;
                         overflow: hidden;
                         text-overflow: ellipsis;
                         margin: 10px;
@@ -387,7 +389,6 @@ export default {
                 }
 
                 .titleText {
-                    width: 800px;
                     font-weight: 600;
                     font-size: 38px;
 
@@ -406,8 +407,7 @@ export default {
     }
 
     .ov {
-        .overTextEllipsis();
-        font-size: 28px;
+        .overTextEllipsis(@width: 70vw);
     }
 
     .musicTop {
