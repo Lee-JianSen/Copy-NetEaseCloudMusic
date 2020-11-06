@@ -1,35 +1,35 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import Home from "../views/Home/musicHome.vue";
+import Vue from 'vue'
+import VueRouter from 'vue-router'
+import Home from '../views/Home/musicHome.vue'
 
-Vue.use(VueRouter);
+Vue.use(VueRouter)
 
 // 路由按需加载写法
-const Login = () => import("../views/login/login");
-const Setting = () => import("../views/login/setting");
-const Register = () => import("../views/login/register");
-const PhoneLogin = () => import("../views/login/phone-login");
-const Captcha = () => import("../views/login/captcha");
-const HomeMv = () => import("../views/Home_mv/homeMv");
-const MusicMV = () => import("../views/mv/musicMv");
+const Login = () => import('../views/login/login')
+const Setting = () => import('../views/login/setting')
+const Register = () => import('../views/login/register')
+const PhoneLogin = () => import('../views/login/phone-login')
+const Captcha = () => import('../views/login/captcha')
+const HomeMv = () => import('../views/Home_mv/homeMv')
+const MusicMV = () => import('../views/mv/musicMv')
 // const Recommend = () => import('../components/music-home-child/recommend');
-const DayMusic = () => import("../views/Home/everyDayRecommendDetail/dayMusic");
+const DayMusic = () => import('../views/Home/everyDayRecommendDetail/dayMusic')
 const DaySongList = () =>
-  import("../views/Home/everyDayRecommendDetail/daySongList");
-const AllPlayList = () => import("../views/Home/allPlayList");
-const Album = () => import("../views/album/album");
-const Rank = () => import("../views/Home/rank");
-const CommentMusic = () => import("../views/musicComment/commentMusic");
-const VideoDetail = () => import("../views/video/video-detail");
-const SearchDetail = () => import("../views/search/searchDetail");
-const Dj = () => import("../views/dj/dj");
-const DjDetail = () => import("../views/dj/djDetail");
-const Singer = () => import("../views/singer/singer");
-const SingIntroduction = () => import("../views/singer/sing-Introduction");
+  import('../views/Home/everyDayRecommendDetail/daySongList')
+const AllPlayList = () => import('../views/Home/allPlayList')
+const Album = () => import('../views/album/album')
+const Rank = () => import('../views/Home/rank')
+const CommentMusic = () => import('../views/musicComment/commentMusic')
+const VideoDetail = () => import('../views/video/video-detail')
+const SearchDetail = () => import('../views/search/searchDetail')
+const Dj = () => import('../views/dj/dj')
+const DjDetail = () => import('../views/dj/djDetail')
+const Singer = () => import('../views/singer/singer')
+const SingIntroduction = () => import('../views/singer/sing-Introduction')
 const routes = [
   {
-    path: "/",
-    name: "Home",
+    path: '/',
+    name: 'Home',
     component: Home,
     meta: {
       isShow: true,
@@ -37,8 +37,8 @@ const routes = [
     }
   },
   {
-    path: "/home-mv",
-    name: "home-mv",
+    path: '/home-mv',
+    name: 'home-mv',
     component: HomeMv,
     meta: {
       isShow: true,
@@ -46,8 +46,8 @@ const routes = [
     }
   },
   {
-    path: "/music-mv",
-    name: "music-mv",
+    path: '/music-mv',
+    name: 'music-mv',
     component: MusicMV,
     meta: {
       isShow: false,
@@ -55,8 +55,8 @@ const routes = [
     }
   },
   {
-    path: "/login",
-    name: "login",
+    path: '/login',
+    name: 'login',
     component: Login,
     meta: {
       isShow: false,
@@ -64,8 +64,8 @@ const routes = [
     }
   },
   {
-    path: "/register",
-    name: "register",
+    path: '/register',
+    name: 'register',
     component: Register,
     meta: {
       isShow: false,
@@ -73,8 +73,8 @@ const routes = [
     }
   },
   {
-    path: "/phone-login",
-    name: "phone-login",
+    path: '/phone-login',
+    name: 'phone-login',
     component: PhoneLogin,
     meta: {
       isShow: false,
@@ -82,8 +82,8 @@ const routes = [
     }
   },
   {
-    path: "/captcha",
-    name: "captcha",
+    path: '/captcha',
+    name: 'captcha',
     component: Captcha,
     meta: {
       isShow: false,
@@ -91,8 +91,8 @@ const routes = [
     }
   },
   {
-    path: "/setting",
-    name: "setting",
+    path: '/setting',
+    name: 'setting',
     component: Setting,
     meta: {
       isShow: false,
@@ -100,8 +100,8 @@ const routes = [
     }
   },
   {
-    path: "/dayMusic",
-    name: "dayMusic",
+    path: '/dayMusic',
+    name: 'dayMusic',
     component: DayMusic,
     meta: {
       isShow: false,
@@ -109,8 +109,8 @@ const routes = [
     }
   },
   {
-    path: "/daySongList",
-    name: "daySongList",
+    path: '/daySongList',
+    name: 'daySongList',
     component: DaySongList,
     meta: {
       isShow: false,
@@ -118,8 +118,8 @@ const routes = [
     }
   },
   {
-    path: "/allPlayList",
-    name: "allPlayList",
+    path: '/allPlayList',
+    name: 'allPlayList',
     component: AllPlayList,
     meta: {
       isShow: false,
@@ -127,8 +127,8 @@ const routes = [
     }
   },
   {
-    path: "/album",
-    name: "album",
+    path: '/album',
+    name: 'album',
     component: Album,
     meta: {
       isShow: false,
@@ -136,8 +136,8 @@ const routes = [
     }
   },
   {
-    path: "/rank",
-    name: "rank",
+    path: '/rank',
+    name: 'rank',
     component: Rank,
     meta: {
       isShow: false,
@@ -145,8 +145,8 @@ const routes = [
     }
   },
   {
-    path: "/commentMusic",
-    name: "commentMusic",
+    path: '/commentMusic',
+    name: 'commentMusic',
     component: CommentMusic,
     meta: {
       isShow: false,
@@ -154,8 +154,8 @@ const routes = [
     }
   },
   {
-    path: "/videoDetail",
-    name: "videoDetail",
+    path: '/videoDetail',
+    name: 'videoDetail',
     component: VideoDetail,
     meta: {
       isShow: false,
@@ -163,8 +163,8 @@ const routes = [
     }
   },
   {
-    path: "/SearchDetail",
-    name: "SearchDetail",
+    path: '/SearchDetail',
+    name: 'SearchDetail',
     component: SearchDetail,
     meta: {
       isShow: false,
@@ -172,8 +172,8 @@ const routes = [
     }
   },
   {
-    path: "/DJ",
-    name: "Dj",
+    path: '/DJ',
+    name: 'Dj',
     component: Dj,
     meta: {
       isShow: false,
@@ -181,8 +181,8 @@ const routes = [
     }
   },
   {
-    path: "/DJ-detail",
-    name: "Dj-detail",
+    path: '/DJ-detail',
+    name: 'Dj-detail',
     component: DjDetail,
     meta: {
       isShow: false,
@@ -190,27 +190,27 @@ const routes = [
     }
   },
   {
-    path: "/singer",
-    name: "singer",
+    path: '/singer',
+    name: 'singer',
     component: Singer,
     meta: {
       isShow: false
     }
   },
   {
-    path: "/sing-introduction",
-    name: "sing-introduction",
+    path: '/sing-introduction',
+    name: 'sing-introduction',
     component: SingIntroduction,
     meta: {
       isShow: false,
       keep: true
     }
   }
-];
+]
 
 const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
-});
+})
 
-export default router;
+export default router
