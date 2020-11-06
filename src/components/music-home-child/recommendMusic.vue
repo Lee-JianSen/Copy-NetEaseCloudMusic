@@ -45,10 +45,8 @@ export default {
     allPlayBtn () {
       let allId = []
       console.log(this.recommendMusic)
-      this.recommendMusic.creatives.forEach(value => {
-        value.resources.forEach(item => {
-          allId.push(item.resourceId)
-        })
+      this.recommendMusic.flat().forEach(value => {
+        allId.push(value.id)
       })
       this.getMusicId(allId[0])
       allId = allId.join(',')
