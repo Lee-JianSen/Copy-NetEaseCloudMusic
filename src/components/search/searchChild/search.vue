@@ -10,16 +10,14 @@
                         @input="onInput"
                         @blur="onBlur"
                         @focus="onFocus"
-                        :clearable="false"
-                >
+                        :clearable="false">
                     <template #left>
                         <van-icon
                                 size="22"
                                 @click="goBack"
                                 color="black"
                                 name="arrow-left"
-                                style="margin-right: 10px"
-                        />
+                                style="margin-right: 10px" />
                     </template>
                     <template #action>
                         <van-icon
@@ -27,16 +25,14 @@
                                 color="black"
                                 name="search"
                                 style="position: relative;top: 6px"
-                                @click="onSearch"
-                        />
+                                @click="onSearch" />
                     </template>
                     <template #right-icon>
                         <van-icon
                                 size="22"
                                 color="black"
                                 name="cross"
-                                @click="cleanLabel"
-                        />
+                                @click="cleanLabel" />
                     </template>
                 </van-search>
             </div>
@@ -49,16 +45,14 @@
                         @input="onInput"
                         @blur="onBlur"
                         @focus="onFocus"
-                        :clearable="false"
-                >
+                        :clearable="false">
                     <template #left>
                         <van-icon
                                 size="22"
                                 @click="goBack"
                                 color="black"
                                 name="arrow-left"
-                                style="margin-right: 10px"
-                        />
+                                style="margin-right: 10px" />
                     </template>
                     <template #action>
                         <van-icon
@@ -66,16 +60,14 @@
                                 color="black"
                                 name="search"
                                 style="position: relative;top: 6px"
-                                @click="onSearch"
-                        />
+                                @click="onSearch" />
                     </template>
                     <template #right-icon>
                         <van-icon
                                 size="22"
                                 color="black"
                                 name="cross"
-                                @click="cleanLabel"
-                        />
+                                @click="cleanLabel" />
                     </template>
                 </van-search>
             </div>
@@ -119,18 +111,13 @@ export default {
   methods: {
     // 确定搜索时触发
     onSearch (val) {
-      this.$toast.loading({
-        message: '加载中',
-        forbidClick: true,
-        duration: 0
-      })
-
       if (this.value.replace(/(^\s*)|(\s*$)/g, '') === '') {
         this.value = this.$store.state.guanjianci
       }
       GetSearchApi(this.value, '1018')
         .then(res => {
           const lists = res.data.result
+          console.log(lists)
           // eslint-disable-next-line vue/custom-event-name-casing
           this.$emit('isSearchResultFunc', true)
           this.$store.commit('searchResultList', lists)
@@ -142,16 +129,9 @@ export default {
 
           this.$store.commit('searchWordFunc', this.value)
           this.$store.commit('addWord', val)
-          this.$toast.clear()
         })
         .catch(error => {
           console.log(error)
-          this.$toast.clear()
-          this.$toast({
-            message: '加载失败',
-            forbidClick: true,
-            duration: 1000
-          })
         })
       // 点击搜索按钮之后，关闭推荐列表
       const IsShow = false

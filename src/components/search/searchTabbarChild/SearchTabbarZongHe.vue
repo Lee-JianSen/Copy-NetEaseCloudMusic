@@ -36,10 +36,6 @@
                         <span>{{ ' - ' + item.al.name }}</span>
                         <span v-if="item.alia.length !== 0"> ({{ item.alia[0] }})</span>
                     </template>
-                    <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-                    <template #right-icon>
-                        <van-icon name="ellipsis" class="search-icon" size="18px" />
-                    </template>
                 </van-cell>
             </div>
             <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto" />
@@ -186,18 +182,12 @@ import { formatDuring, formatDate } from '../../../tool/utils'
 
 import { GetSearchApi } from '../../../http/all-api'
 
+import { getMusicId } from '../../../tool/mixin'
+
 export default {
   name: 'SearchTabbarZongHe',
-  created () {
-    console.log(this.$store.state.searchResultList)
-  },
+  mixins: [getMusicId],
   methods: {
-    getMusicId (musicId) {
-      // 音乐id
-      console.log(musicId)
-      this.$store.commit('changeMusicId', musicId)
-      this.musicCheck(musicId)
-    },
     getVideoDetailData (vid) {
       this.$router.push({
         path: '/videoDetail',
@@ -207,22 +197,20 @@ export default {
       })
     },
     relevantSearch (item) {
-      GetSearchApi(item, '1018')
-        .then(res => {
-          const lists = res.data.result
-          // eslint-disable-next-line vue/custom-event-name-casing
-          this.$emit('isSearchResultFunc', true)
-          console.log(this.$store.state.searchResultShow)
-          this.$store.commit('searchResultList', lists)
-          this.$store.commit('searchWordFunc', item)
-          const IsShow = false
-          this.$store.commit('searchResultShow', IsShow)
-          this.$store.commit('addWord', item)
-          this.$emit('backtop')
-        })
-        .catch(error => {
-          console.log(error)
-        })
+      GetSearchApi(item, '1018').then(res => {
+        const lists = res.data.result
+        // eslint-disable-next-line vue/custom-event-name-casing
+        this.$emit('isSearchResultFunc', true)
+        console.log(this.$store.state.searchResultShow)
+        this.$store.commit('searchResultList', lists)
+        this.$store.commit('searchWordFunc', item)
+        const IsShow = false
+        this.$store.commit('searchResultShow', IsShow)
+        this.$store.commit('addWord', item)
+        this.$emit('backtop')
+      }).catch(error => {
+        console.log(error)
+      })
     },
     getSongListData (id) {
       this.$router.push({

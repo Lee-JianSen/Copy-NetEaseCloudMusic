@@ -11,10 +11,10 @@ class RecommendMusicInfo {
 }
 
 export function createRecommendMusicInfo ({ titleData, data }) {
-  let info = data.uiElement
-  let singer = data.resourceExtInfo.artists[0].name
-  let subTitles = info.subTitle?.title ?? null
-  let subTitlesType = info.subTitle?.titleType ?? ''
+  const info = data?.uiElement
+  const singer = data?.resourceExtInfo?.artists[0]?.name
+  const subTitles = info?.subTitle?.title ?? null
+  const subTitlesType = info?.subTitle?.titleType ?? ''
   return new RecommendMusicInfo({
     titles: info.mainTitle.title,
     subTitles: subTitles,
@@ -27,9 +27,9 @@ export function createRecommendMusicInfo ({ titleData, data }) {
 }
 
 export function createNewMusicOrDisc (data) {
-  let info = data.uiElement
-  let singer = data.resourceExtInfo?.artists ?? []
-  let subTitles = info.subTitle?.title ?? null
+  const info = data.uiElement
+  const singer = data.resourceExtInfo?.artists ?? []
+  const subTitles = info.subTitle?.title ?? null
   return new RecommendMusicInfo({
     titles: info.mainTitle.title,
     subTitles: subTitles,
@@ -40,7 +40,7 @@ export function createNewMusicOrDisc (data) {
 }
 
 function filterSinger (singer) {
-  let ret = []
+  const ret = []
   if (!singer) {
     return ''
   }

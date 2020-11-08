@@ -121,7 +121,6 @@ export default new Vuex.Store({
     },
     addWord (state, val) {
       state.addWord = val
-      console.log('addword' + state.addWord)
     },
     cutWord (state) {
       state.addWord = ''

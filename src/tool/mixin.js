@@ -1,3 +1,4 @@
+// 计算横向可滑动范围
 export const initScroll = {
   data () {
     return {
@@ -19,6 +20,7 @@ export const initScroll = {
   }
 }
 
+// 请求音乐播放地址
 export const getMusicId = {
   computed: {
     getLength: {

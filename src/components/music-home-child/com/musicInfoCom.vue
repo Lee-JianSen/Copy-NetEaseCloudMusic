@@ -35,6 +35,7 @@
                     </van-image>
                 </template>
                 <template #right-icon>
+                    <!--                    插槽传值-->
                     <slot name="right-icon" :index1="index" />
                 </template>
             </van-cell>

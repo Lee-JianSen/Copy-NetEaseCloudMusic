@@ -34,6 +34,7 @@
                     </div>
                 </div>
                 <music-info-com :music-info="musicInfo" @cellClick="getMusicId">
+                    <!--                    getIndex对象是包含插槽传递的值-->
                     <template #right-icon="getIndex">
                         <van-icon
                                 @click.stop="musicDetailShow(getIndex.index1)"

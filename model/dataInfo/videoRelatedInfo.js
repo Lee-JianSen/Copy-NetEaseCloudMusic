@@ -11,11 +11,11 @@ class VideoRelatedInfo {
 
 export function createVideoRelated (data) {
   return new VideoRelatedInfo({
-    title: data.title,
-    userName: data.creator[0].userName,
-    durationms: data.durationms,
-    coverUrl: data.coverUrl,
-    vid: data.vid,
-    type: data.type
+    title: data?.title,
+    userName: data?.creator[0]?.userName,
+    durationms: data?.durationms,
+    coverUrl: data?.coverUrl,
+    vid: data?.vid,
+    type: data?.type
   })
 }
