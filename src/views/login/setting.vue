@@ -18,28 +18,23 @@ export default {
     btn () {
       Dialog.confirm({
         message: '确定退出当前账号吗'
+      }).then(() => {
+        logoutAPI().then(res => {
+          this.$store.commit('changeLogin', false)
+          this.$store.commit('saveToken', '')
+          console.log(res)
+          this.$toast.success({
+            message: '退出成功'
+          })
+          this.$router.replace({
+            path: '/'
+          })
+        }).catch(error => {
+          console.log(error)
+        })
+      }).catch(() => {
+        // on cancel
       })
-        .then(() => {
-          // on confirm
-          logoutAPI()
-            .then(res => {
-              this.$store.commit('changeLogin', false)
-              this.$store.commit('saveToken', '')
-              console.log(res)
-              this.$toast.success({
-                message: '退出成功'
-              })
-              this.$router.replace({
-                path: '/'
-              })
-            })
-            .catch(error => {
-              console.log(error)
-            })
-        })
-        .catch(() => {
-          // on cancel
-        })
     }
   },
   components: {
@@ -49,5 +44,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

@@ -14,8 +14,7 @@ const HomeMv = () => import('../views/Home_mv/homeMv')
 const MusicMV = () => import('../views/mv/musicMv')
 // const Recommend = () => import('../components/music-home-child/recommend');
 const DayMusic = () => import('../views/Home/everyDayRecommendDetail/dayMusic')
-const DaySongList = () =>
-  import('../views/Home/everyDayRecommendDetail/daySongList')
+const DaySongList = () => import('../views/Home/everyDayRecommendDetail/daySongList')
 const AllPlayList = () => import('../views/Home/allPlayList')
 const Album = () => import('../views/album/album')
 const Rank = () => import('../views/Home/rank')

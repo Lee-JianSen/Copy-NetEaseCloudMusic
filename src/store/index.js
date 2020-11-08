@@ -4,28 +4,33 @@ import { GetMusicDetail, GetMusicUrlAPI } from '../http/all-api'
 import { createMusicInfo } from '../../model/dataInfo/musicInfo'
 import { unique } from '../tool/utils'
 import { Toast } from 'vant'
+// import createPersistedState from 'vuex-persistedstate'
 import persistedState from 'vuex-persistedstate'
+import login from './modules/login'
 
 Vue.use(Toast)
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
+    // createPersistedState({
+    //   storage: window.sessionStorage,
+    //   path: [login.state.token, login.state.isLogin]
+    // })
     persistedState({
       storage: window.sessionStorage,
       reducer (val) {
+        console.log(val)
         return {
-          token: val.token,
+          token: val.login.token,
           currentIndexRouter: val.currentIndexRouter,
           historyList: val.historyList,
-          isLogin: val.isLogin
+          isLogin: val.login.isLogin
         }
       }
     })
   ],
   state: {
-    token: '',
-    isLogin: false,
     currentIndexRouter: 1,
     musicId: null,
     musicUrl: null,
@@ -49,12 +54,6 @@ export default new Vuex.Store({
     searchWord: ''
   },
   mutations: {
-    saveToken (state, token) {
-      state.token = token
-    },
-    changeLogin (state, type) {
-      state.isLogin = type
-    },
     changeCurrentIndexRouter (state, index) {
       state.currentIndexRouter = index
     },
@@ -192,6 +191,6 @@ export default new Vuex.Store({
         })
     }
   },
-  modules: {},
+  modules: { login },
   getters: {}
 })

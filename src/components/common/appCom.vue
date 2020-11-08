@@ -164,10 +164,10 @@ export default {
   computed: {
     isLogin: {
       get () {
-        return this.$store.state.isLogin
+        return this.$store.state.login.isLogin
       },
       set (nv) {
-        return (this.$store.state.isLogin = nv)
+        return (this.$store.state.login.isLogin = nv)
       }
     },
     isMusicPlay () {
