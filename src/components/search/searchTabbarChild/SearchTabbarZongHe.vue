@@ -19,7 +19,7 @@
                     />
                     <span style="color: black">播放全部</span></van-button>
             </div>
-            <div v-for="(item,index) in $store.state.searchResultList.song.songs"
+            <div v-for="(item,index) in $store.state.search.searchResultList.song.songs"
                  :key="item.id">
                 <van-cell
                         class="my-cell"
@@ -43,7 +43,7 @@
             <div style="height: 30px;">
                 <span style="margin-left: 18px;font-weight: bold;">歌单</span>
             </div>
-            <div v-for="item in $store.state.searchResultList.playList.playLists" :key="item.id">
+            <div v-for="item in $store.state.search.searchResultList.playList.playLists" :key="item.id">
                 <van-card @click="getSongListData(item.id)">
                     <template #thumb><img :src="item.coverImgUrl" style="width: 80px;height: 80px" /></template>
                     <template #desc>
@@ -80,7 +80,7 @@
                 </van-card>
             </div>
             <div style="font-size: 14px;text-align: center;margin-top: 8px">
-                {{ $store.state.searchResultList.playList.moreText }}
+                {{ $store.state.search.searchResultList.playList.moreText }}
             </div>
             <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto" />
 
@@ -88,7 +88,7 @@
             <div style="height: 30px;">
                 <span style="margin-left: 18px;font-weight: bold;">视频</span>
             </div>
-            <div v-for="(item,index) in $store.state.searchResultList.video.videos"
+            <div v-for="(item,index) in $store.state.search.searchResultList.video.videos"
                  :key="index.playTime">
                 <van-card @click="getVideoDetailData(item.vid)">
                     <template #thumb>
@@ -110,7 +110,7 @@
                 </van-card>
             </div>
             <div style="font-size: 14px;text-align: center;margin-top: 8px">
-                {{ $store.state.searchResultList.video.moreText }}
+                {{ $store.state.search.searchResultList.video.moreText }}
             </div>
             <!--       相关搜索-->
             <div style="height: 30px;margin-top: 10px">
@@ -118,7 +118,7 @@
             </div>
             <div class="historyFather">
                 <div
-                        v-for="(item,index) in $store.state.searchResultList.sim_query.sim_querys"
+                        v-for="(item,index) in $store.state.search.searchResultList.sim_query.sim_querys"
                         :key="index"
                         @click="relevantSearch(item.keyword)"
                         style="background-color:#F3F3F3;font-size: 15px"
@@ -130,7 +130,7 @@
             <div style="height: 30px;margin-top: 10px">
                 <span style="margin-left: 18px;font-weight: bold;">歌手</span>
             </div>
-            <div v-for="item in $store.state.searchResultList.artist.artists"
+            <div v-for="item in $store.state.search.searchResultList.artist.artists"
                  :key="item.name">
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
@@ -149,7 +149,7 @@
             <div style="height: 30px;margin-top: 10px">
                 <span style="margin-left: 18px;font-weight: bold;">专辑</span>
             </div>
-            <div v-for="(item,index) in $store.state.searchResultList.album.albums" :key="index+20">
+            <div v-for="(item,index) in $store.state.search.searchResultList.album.albums" :key="index+20">
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #icon>
@@ -201,7 +201,6 @@ export default {
         const lists = res.data.result
         // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('isSearchResultFunc', true)
-        console.log(this.$store.state.searchResultShow)
         this.$store.commit('searchResultList', lists)
         this.$store.commit('searchWordFunc', item)
         const IsShow = false

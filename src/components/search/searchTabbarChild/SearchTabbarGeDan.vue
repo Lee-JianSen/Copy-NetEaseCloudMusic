@@ -56,7 +56,7 @@ export default {
     [VanImage.name]: VanImage
   },
   created () {
-    GetSearchApi(this.$store.state.addWord, '1000')
+    GetSearchApi(this.$store.state.search.addWord, '1000')
       .then(res => {
         this.songsList = res.data.result.playlists
         console.log(this.songsList)

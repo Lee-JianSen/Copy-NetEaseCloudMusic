@@ -1,11 +1,11 @@
 <template>
     <div class="searchBox">
         <form action="/">
-            <div v-if="$store.state.addWord === ''">
+            <div v-if="$store.state.search.addWord === ''">
                 <van-search
                         v-model="value"
                         :show-action="true"
-                        :placeholder="this.$store.state.guanjianci"
+                        :placeholder="this.$store.state.search.keyWords"
                         @search="onSearch"
                         @input="onInput"
                         @blur="onBlur"
@@ -36,11 +36,11 @@
                     </template>
                 </van-search>
             </div>
-            <div v-if="$store.state.addWord !== ''">
+            <div v-if="$store.state.search.addWord !== ''">
                 <van-search
-                        v-model="$store.state.addWord"
+                        v-model="$store.state.search.addWord"
                         :show-action="true"
-                        :placeholder="this.$store.state.guanjianci"
+                        :placeholder="$store.state.search.keyWords"
                         @search="onSearch"
                         @input="onInput"
                         @blur="onBlur"
@@ -97,9 +97,10 @@ export default {
     }
   },
   created () {
+    console.log(this.$store.state.search.addWord)
     this.getSearchData()
-    if (this.$store.state.addWord !== '') {
-      this.value = this.$store.state.addWord
+    if (this.$store.state.search.addWord !== '') {
+      this.value = this.$store.state.search.addWord
     }
   },
   components: {
@@ -112,18 +113,17 @@ export default {
     // 确定搜索时触发
     onSearch (val) {
       if (this.value.replace(/(^\s*)|(\s*$)/g, '') === '') {
-        this.value = this.$store.state.guanjianci
+        this.value = this.$store.state.search.keyWords
       }
       GetSearchApi(this.value, '1018')
         .then(res => {
           const lists = res.data.result
-          console.log(lists)
           // eslint-disable-next-line vue/custom-event-name-casing
           this.$emit('isSearchResultFunc', true)
           this.$store.commit('searchResultList', lists)
 
-          this.$store.state.historyList.unshift(val)
-          const hisList = this.$store.state.historyList
+          this.this.$store.state.search.historyList.unshift(val)
+          const hisList = this.this.$store.state.search.historyList
           const newarr = Array.from(new Set(hisList))
           this.$store.commit('historyBianLiList', newarr)
 
@@ -181,7 +181,7 @@ export default {
       }
     },
     cleanLabel () {
-      this.$store.state.addWord === ''
+      this.$store.state.search.addWord === ''
         ? (this.value = '')
         : this.$store.commit('cutWord')
     },
@@ -189,7 +189,7 @@ export default {
       GetSearchGuanJianCiAPI()
         .then(res => {
           // console.log(res);
-          this.$store.state.guanjianci = res.data.data.realkeyword
+          this.$store.state.search.keyWords = res.data.data.realkeyword
         })
         .catch(error => {
           console.log('关键词失败')

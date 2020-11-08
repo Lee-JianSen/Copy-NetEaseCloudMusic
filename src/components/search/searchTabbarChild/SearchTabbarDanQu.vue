@@ -66,13 +66,14 @@ export default {
     }
   },
   created () {
-    GetSearchApi(this.$store.state.addWord)
+    GetSearchApi(this.$store.state.search.addWord)
       .then(res => {
         // console.log(res);
         const lists = res.data.result.songs
         lists.forEach(item => {
           this.songsList.push(createSearchMusicInfo(item))
         })
+        console.log(this.songsList)
       })
       .catch(error => {
         console.log(error)

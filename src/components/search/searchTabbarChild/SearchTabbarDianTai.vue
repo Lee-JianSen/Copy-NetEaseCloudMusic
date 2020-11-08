@@ -49,7 +49,7 @@ export default {
     [VanImage.name]: VanImage
   },
   created () {
-    GetSearchApi(this.$store.state.addWord, '1009')
+    GetSearchApi(this.$store.state.search.addWord, '1009')
       .then(res => {
         this.diantais = res.data.result.djRadios
         console.log(this.diantais)

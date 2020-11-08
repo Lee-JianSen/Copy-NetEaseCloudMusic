@@ -39,7 +39,7 @@ export default {
     }
   },
   created () {
-    GetSearchApi(this.$store.state.addWord, '100')
+    GetSearchApi(this.$store.state.search.addWord, '100')
       .then(res => {
         this.artists = res.data.result.artists
         console.log(this.artists)

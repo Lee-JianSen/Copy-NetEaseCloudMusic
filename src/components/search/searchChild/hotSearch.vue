@@ -50,7 +50,6 @@ export default {
       GetSearchApi(val, '1018').then(res => {
         // console.log(res);
         const lists = res.data.result
-        console.log(lists)
         // console.log(lists);
         // let lists = res;
         // console.log(lists);
@@ -59,8 +58,8 @@ export default {
         this.$emit('isSearchResultFunc', true)
         this.$store.commit('searchResultList', lists)
 
-        this.$store.state.historyList.unshift(val)
-        const hisList = this.$store.state.historyList
+        this.$store.state.search.historyList.unshift(val)
+        const hisList = this.$store.state.search.historyList
 
         const newarr = Array.from(new Set(hisList))
 

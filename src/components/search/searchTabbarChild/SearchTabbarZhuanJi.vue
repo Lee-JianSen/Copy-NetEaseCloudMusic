@@ -49,7 +49,7 @@ export default {
     [CellGroup.name]: CellGroup
   },
   created () {
-    GetSearchApi(this.$store.state.addWord, '10')
+    GetSearchApi(this.$store.state.search.addWord, '10')
       .then(res => {
         this.zhuanjis = res.data.result.albums
         console.log(res)

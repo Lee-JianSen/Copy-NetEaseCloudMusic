@@ -47,7 +47,7 @@ export default {
     [CellGroup.name]: CellGroup
   },
   created () {
-    GetSearchApi(this.$store.state.addWord, '1014')
+    GetSearchApi(this.$store.state.search.addWord, '1014')
       .then(res => {
         this.videos = res.data.result.videos
         console.log(res)

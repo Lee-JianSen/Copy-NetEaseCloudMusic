@@ -1,9 +1,9 @@
 <template>
     <div>
-        <div class="father" v-if="$store.state.searchResultShow">
+        <div class="father" v-if="$store.state.search.searchResult">
             <van-cell-group>
                 <van-cell
-                        v-for="(item, index) in $store.state.searchResult"
+                        v-for="(item, index) in $store.state.search.searchResult"
                         :title="item.keyword"
                         :key="index"
                         icon="search"
@@ -36,8 +36,8 @@ export default {
           this.$store.commit('searchResultShow', IsShow)
           this.$store.commit('addWord', val)
 
-          this.$store.state.historyList.unshift(val)
-          const hisList = this.$store.state.historyList
+          this.this.$store.state.search.historyList.unshift(val)
+          const hisList = this.this.$store.state.search.historyList
           const newarr = Array.from(new Set(hisList))
           this.$store.commit('historyBianLiList', newarr)
           this.$toast.clear()

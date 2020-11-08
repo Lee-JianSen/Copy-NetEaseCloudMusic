@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="$store.state.historyList.length !== 0">
+        <div v-if="this.$store.state.search.historyList.length !== 0">
             <van-cell title="历史记录" style="padding-top: 0;padding-left: 15px" title-class="title">
                 <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                 <template #right-icon>
@@ -14,7 +14,7 @@
             </van-cell>
             <div class="historyFather">
                 <div
-                        v-for="(item, index) in $store.state.historyList"
+                        v-for="(item, index) in this.$store.state.search.historyList"
                         :key="index"
                         class="historySon"
                         @click="historysearch(item)"
@@ -52,7 +52,6 @@ export default {
           const lists = res.data.result
           // eslint-disable-next-line vue/custom-event-name-casing
           this.$emit('isSearchResultFunc', true)
-          console.log(this.$store.state.searchResultShow)
           this.$store.commit('searchResultList', lists)
           this.$store.commit('searchWordFunc', item)
           const IsShow = false
