@@ -163,7 +163,7 @@ export default {
       }
     },
     homeScroll: debounce(function (position) {
-      if (this.$store.state.musicId !== null && !this.toChangeHeight) {
+      if (this.$store.state.musicPlay.musicId !== null && !this.toChangeHeight) {
         this.toChangeHeight = true
         this.$refs.scroll.$el.style.height = 80 + 'vh'
         this.$refs.scroll.refresh()

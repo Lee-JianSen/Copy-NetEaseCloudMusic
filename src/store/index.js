@@ -1,26 +1,19 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import { GetMusicDetail, GetMusicUrlAPI } from '../http/all-api'
-import { createMusicInfo } from '../../model/dataInfo/musicInfo'
-import { unique } from '../tool/utils'
-import { Toast } from 'vant'
-// import createPersistedState from 'vuex-persistedstate'
-import persistedState from 'vuex-persistedstate'
-import login from './modules/login'
 
-Vue.use(Toast)
+import persistedState from 'vuex-persistedstate'
+
+// 导入模块
+import login from './modules/login'
+import musicPlay from './modules/musicPlay'
+
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
-    // createPersistedState({
-    //   storage: window.sessionStorage,
-    //   path: [login.state.token, login.state.isLogin]
-    // })
     persistedState({
       storage: window.sessionStorage,
       reducer (val) {
-        console.log(val)
         return {
           token: val.login.token,
           currentIndexRouter: val.currentIndexRouter,
@@ -31,17 +24,14 @@ export default new Vuex.Store({
     })
   ],
   state: {
+    // 用途：顶部判断是否是home还是视频且切换颜色
     currentIndexRouter: 1,
-    musicId: null,
-    musicUrl: null,
-    isPlay: false,
+
     isShowDrawer: false,
     changeIcon: false,
     userInfo: {},
     currentTimer: 0,
     maxTimer: 0,
-    musicAllDetail: {},
-    playList: [],
     musicIndex: 0,
     commentCount: 0,
     audioEl: null,
@@ -57,33 +47,8 @@ export default new Vuex.Store({
     changeCurrentIndexRouter (state, index) {
       state.currentIndexRouter = index
     },
-    // musicId
-    changeMusicId (state, newId) {
-      state.musicId = newId
-    },
-    changeMusicUrl (state, newUrl) {
-      state.musicUrl = newUrl
-    },
-    // 正在播放
-    IsPlaying (state) {
-      state.isPlay = true
-    },
-    NotPlaying (state) {
-      state.isPlay = false
-    },
-    showIcon (state, val) {
-      if (val !== undefined) {
-        state.changeIcon = val
-      } else {
-        state.changeIcon = !state.changeIcon
-      }
-    },
     toggleDrawer (state) {
       state.isShowDrawer = !state.isShowDrawer
-    },
-    joinPlayList (state, data) {
-      state.playList.push(data)
-      state.playList = unique(state.playList)
     },
     changeMusicIndex (state, index) {
       state.musicIndex = index
@@ -127,70 +92,12 @@ export default new Vuex.Store({
     },
     searchWordFunc (state, val) {
       state.searchWord = val
-    },
-    update_musicAllDetail (state, { type, val }) {
-      state.musicAllDetail[type] = val
     }
   },
-  actions: {
-    getMusicUrl (context, musicId) {
-      GetMusicUrlAPI(musicId)
-        .then(res => {
-          if (res.data.data[0].url !== null) {
-            context.commit('changeMusicUrl', res.data.data[0].url)
-            context.commit('NotPlaying')
-            context.commit('showIcon', false)
-            context.commit('update_musicAllDetail', {
-              type: 'musicUrl',
-              val: res.data.data[0].url
-            })
-            // state.musicAllDetail.musicUrl = res.data.data[0].url;
-          } else {
-            Toast('获取音乐播放地址失败')
-            context.commit('NotPlaying')
-            context.commit('showIcon')
-            context.commit('changeMusicUrl', '')
-          }
-        })
-        .catch(error => {
-          console.dir(Vue)
-          Toast('获取音乐播放地址失败')
-          console.log('获取音乐url失败')
-          console.log(error)
-        })
-    },
-    getMusicDetail (context, musicId) {
-      GetMusicDetail(musicId)
-        .then(res => {
-          let musicInfo
-          res.data.songs.forEach(item => {
-            musicInfo = createMusicInfo(item)
-            const playList = {}
-            for (const item in musicInfo) {
-              // eslint-disable-next-line no-prototype-builtins
-              if (musicInfo.hasOwnProperty(item)) {
-                context.commit('update_musicAllDetail', {
-                  type: item,
-                  val: musicInfo[item]
-                })
-              }
-            }
-            //
-            for (const item in musicInfo) {
-              // eslint-disable-next-line no-prototype-builtins
-              if (musicInfo.hasOwnProperty(item)) {
-                playList[item] = musicInfo[item]
-              }
-            }
-            context.commit('joinPlayList', playList)
-          })
-        })
-        .catch(error => {
-          console.log('获取音乐名字出错')
-          console.log(error.message)
-        })
-    }
+  actions: {},
+  modules: {
+    login,
+    musicPlay
   },
-  modules: { login },
   getters: {}
 })

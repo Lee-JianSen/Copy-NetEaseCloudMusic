@@ -8,8 +8,6 @@ const login = {
   },
   mutations: {
     [types.SAVE_TOKEN] (state, token) {
-      console.log('zhixing', token)
-      console.log(state)
       state.token = token
     },
     [types.CHANGE_LOGIN] (state, type) {

@@ -122,7 +122,7 @@
                     <router-view v-if="$route.meta.keep" />
                 </keep-alive>
                 <router-view v-if="!$route.meta.keep" />
-                <music-play v-if="isMusicPlay" :music-id.sync="$store.state.musicId" />
+                <music-play v-if="isMusicPlay" :music-id.sync="$store.state.musicPlay.musicId" />
                 <!--                <router-view v-if="$route.meta.isShow"></router-view>-->
             </div>
         </drawer>
@@ -171,7 +171,7 @@ export default {
       }
     },
     isMusicPlay () {
-      return this.$store.state.musicId !== null
+      return this.$store.state.musicPlay.musicId !== null
     },
     userInfo: {
       get () {
@@ -230,7 +230,7 @@ export default {
     },
     mineFunClick () {
       this.$store.commit('toggleDrawer')
-      if (this.$store.state.isLogin) {
+      if (this.$store.state.musicPlay.isLogin) {
         console.log('已经登录，跳转到xxx页面')
       } else {
         this.$toast('请先登录')

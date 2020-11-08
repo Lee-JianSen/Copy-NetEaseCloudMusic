@@ -25,11 +25,11 @@ export const getMusicId = {
   computed: {
     getLength: {
       get () {
-        return this.$store.state.playList.length + 1
+        return this.$store.state.musicPlay.playList.length + 1
       }
     },
     isMusicPlay () {
-      return this.$store.state.musicId !== null
+      return this.$store.state.musicPlay.musicId !== null
     }
   },
   methods: {

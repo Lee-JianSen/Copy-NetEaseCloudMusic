@@ -1,6 +1,6 @@
 <template>
     <div class="musicPlay">
-        <audio-com ref="audio" :audio-src="changeMusicUrls"></audio-com>
+        <audio-com ref="audio" :audio-src="changeMusicUrls" />
         <!--        迷你播放器-->
         <div @click.stop="minOrMax" v-show="!isMinOrMax" class="audio-com-box-min">
             <van-image round width="30px" height="30px" :src="musicInfo.picUrl" />
@@ -228,6 +228,7 @@ export default {
   },
   mounted () {
     // 请求音乐播放地址，音乐信息，歌词
+    console.log(this.musicId)
     this.$store.dispatch('getMusicUrl', this.musicId)
     this.$store.dispatch('getMusicDetail', this.musicId)
     this.Lyric(this.musicId)
@@ -258,11 +259,7 @@ export default {
     musicId: {
       deep: true,
       handler (nv, ov) {
-        this.$toast.loading({
-          message: '加载中',
-          forbidClick: true,
-          duration: 0
-        })
+        console.log('hhhhhhhhhhhhhhhhhhhh', nv)
         this.$store.dispatch('getMusicUrl', nv)
         this.$store.dispatch('getMusicDetail', nv)
         if (Object.keys(this.currentLyric).length !== 0) {
@@ -272,7 +269,6 @@ export default {
         }
         this.Lyric(nv)
         this.$nextTick(() => {
-          this.$toast.clear()
           if (Object.keys(this.currentLyric).length !== 0) {
             this.currentLyric.play()
           }
@@ -286,18 +282,18 @@ export default {
     // 使用get/set 获取和修改
     changeIcons: {
       get () {
-        return this.$store.state.changeIcon
+        return this.$store.state.musicPlay.changeIcon
       },
       set (nv) {
-        return (this.$store.state.changeIcon = nv)
+        return (this.$store.state.musicPlay.changeIcon = nv)
       }
     },
     changeMusicUrls: {
       get () {
-        return this.$store.state.musicUrl
+        return this.$store.state.musicPlay.musicUrl
       },
       set (nv) {
-        return (this.$store.state.musicUrl = nv)
+        return (this.$store.state.musicPlay.musicUrl = nv)
       }
     },
     getCurrentTime: {
@@ -322,22 +318,22 @@ export default {
     },
     musicInfo: {
       get () {
-        return this.$store.state.musicAllDetail
+        return this.$store.state.musicPlay.musicAllDetail
       },
       set (nv) {
-        return (this.$store.state.musicAllDetail = nv)
+        return (this.$store.state.musicPlay.musicAllDetail = nv)
       }
     },
     playList: {
       get () {
-        return this.$store.state.playList
+        return this.$store.state.musicPlay.playList
       },
       set (nv) {
-        return (this.$store.state.playList = nv)
+        return (this.$store.state.musicPlay.playList = nv)
       }
     },
     title1 () {
-      return '当前播放(' + this.$store.state.playList.length + ')'
+      return '当前播放(' + this.$store.state.musicPlay.playList.length + ')'
     },
     musicIndex1: {
       get () {
@@ -349,10 +345,10 @@ export default {
     },
     playing1: {
       get () {
-        return this.$store.state.isPlay
+        return this.$store.state.musicPlay.isPlay
       },
       set (nv) {
-        return (this.$store.state.isPlay = nv)
+        return (this.$store.state.musicPlay.isPlay = nv)
       }
     },
     commentCount: {
@@ -367,7 +363,7 @@ export default {
   },
   methods: {
     ChangeIcon () {
-      this.animationShow = this.$store.state.changeIcon ? 'running' : 'paused'
+      this.animationShow = this.changeIcons ? 'running' : 'paused'
       this.$store.commit('showIcon')
       if (Object.keys(this.currentLyric).length !== 0) {
         this.currentLyric.togglePlay()
@@ -459,7 +455,7 @@ export default {
     },
     removeBtn (index, item) {
       this.$delete(this.playList, index)
-      if (this.$store.state.musicId === item.id) {
+      if (this.$store.state.musicPlay.musicId === item.id) {
         this.$store.commit('changeMusicIndex', index - 1)
         this.nextMusic()
         this.playList.forEach(item => {
@@ -509,7 +505,7 @@ export default {
       console.log(this.currentLineNum)
       this.isShowLrc = !this.isShowLrc
       if (this.isShowLrc && Object.keys(this.currentLyric).length !== 0) {
-        if (!this.$store.state.changeIcon) {
+        if (!this.changeIcon) {
           console.log('开始')
           this.currentLyric.play()
           this.currentLyric.seek(this.$refs.audio.getCurrentTime() * 1000)

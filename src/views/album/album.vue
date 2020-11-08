@@ -155,7 +155,7 @@ export default {
   async created () {
     await this.getAlbumData(this.$route.query.id)
     this.$toast.clear()
-    if (this.$store.state.musicId !== null) {
+    if (this.$store.state.musicPlay.musicId !== null) {
       this.$refs.scroll.$el.style.height = 92 + '%'
       this.$refs.scroll.refresh()
     }

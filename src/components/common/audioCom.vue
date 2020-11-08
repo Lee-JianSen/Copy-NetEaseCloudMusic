@@ -36,12 +36,12 @@ export default {
     },
     playList: {
       get () {
-        return this.$store.state.playList
+        return this.$store.state.musicPlay.playList
       }
     },
     musicId: {
       get () {
-        return this.$store.state.musicId
+        return this.$store.state.musicPlay.musicId
       }
     }
   },
@@ -55,8 +55,8 @@ export default {
     // 控制音频的播放与暂停
     startPlayOrPause () {
       console.log('播放暂停1')
-      console.log('this.$store.state.isPlay-' + this.$store.state.isPlay)
-      this.$store.state.isPlay ? this.pause() : this.play()
+      console.log('this.$store.state.musicPlay.isPlay-' + this.$store.state.musicPlay.isPlay)
+      this.$store.state.musicPlay.isPlay ? this.pause() : this.play()
     },
     // 播放音频
     play () {
@@ -75,7 +75,7 @@ export default {
     },
     onPause () {
       console.log('执行 onPause')
-      // this.$store.state.changeIcon = false;
+      // this.$store.state.musicPlay.changeIcon = false;
       this.$store.commit('NotPlaying')
       this.$store.state.musicCurrentTime = this.$refs.audio.currentTime
     },
@@ -96,7 +96,7 @@ export default {
     },
     // 播放结束后
     onEnded () {
-      console.log(this.$store.state.changeIcon)
+      console.log(this.$store.state.musicPlay.changeIcon)
       this.$store.commit('showIcon')
       console.log('音乐播放完了')
       switch (this.$parent.playType) {
@@ -192,7 +192,6 @@ export default {
           this.musicIndex1 = this.playList.length - 1
         }
       }
-      console.log(this.disorderArr)
       const nextId = this.disorderArr[this.musicIndex1].id
       console.log('nextId' + nextId)
       this.$store.commit('changeMusicId', nextId)

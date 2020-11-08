@@ -197,7 +197,7 @@ export default {
   },
   computed: {
     isMusicPlay () {
-      return this.$store.state.musicId !== null
+      return this.$store.state.musicPlay.musicId !== null
     },
     musicId () {
       return this.$route.query.id
