@@ -25,6 +25,7 @@ const Dj = () => import('../views/dj/dj')
 const DjDetail = () => import('../views/dj/djDetail')
 const Singer = () => import('../views/singer/singer')
 const SingIntroduction = () => import('../views/singer/sing-Introduction')
+
 const routes = [
   {
     path: '/',
@@ -204,6 +205,12 @@ const routes = [
       isShow: false,
       keep: true
     }
+  },
+  {
+    path: '*',
+    redirect: {
+      name: '404'
+    }
   }
 ]
 
@@ -211,5 +218,9 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
-
+const routerPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push (location, onResolve, onReject) {
+  if (onReject || onResolve) return routerPush.call(this, location, onResolve, onReject)
+  return routerPush.call(this, location).catch(error => error)
+}
 export default router
