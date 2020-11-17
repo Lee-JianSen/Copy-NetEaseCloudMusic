@@ -24,20 +24,17 @@
                         :scrollspy="true"
                         title-active-color="#c2463a"
                         @change="activeChange"
-                        background="transparent"
-                >
+                        background="transparent">
                     <van-tab
                             v-for="(item) in allType"
                             :key="item.name"
                             :title="item.title"
-                            :name="item.name"
-                    >
+                            :name="item.name">
                         <van-grid class="gridItem" :border="false" :column-num="3">
                             <van-grid-item
                                     class="gridItems"
                                     :key="indey"
-                                    v-for="(value, indey) in item.data"
-                            >
+                                    v-for="(value, indey) in item.data">
                                 <song-list-com :song-list-data="value" />
                             </van-grid-item>
                         </van-grid>
@@ -58,20 +55,12 @@ import { debounce, unique } from '../../tool/utils'
 
 export default {
   name: 'allPlayList',
-  beforeCreate () {
-    this.$toast.loading({
-      message: '加载中',
-      forbidClick: true,
-      duration: 0
-    })
-  },
-  async created () {
-    await this.getAllPlayListData({
+  created () {
+    this.getAllPlayListData({
       limit: this.limit,
       cat: '全部',
       dataType: this.allType[0].data
     })
-    this.$toast.clear()
   },
   data () {
     return {
@@ -110,13 +99,6 @@ export default {
         }
       ],
       maxCount: 0
-    }
-  },
-  computed: {
-    imageUrlSize () {
-      return function (item) {
-        return item.coverImgUrl + '?param=150y150'
-      }
     }
   },
   methods: {
