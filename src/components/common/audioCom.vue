@@ -1,6 +1,7 @@
 <template>
     <div class="audioCom">
         <audio
+                id="audio"
                 ref="audio"
                 :src="audioSrc"
                 @play="onPlay"
@@ -24,6 +25,10 @@ export default {
       type: String,
       default: ''
     }
+  },
+  mounted () {
+    this.autoPlayMusic()// 调用所有浏览器自动音乐播放的函数
+    this.audioAutoPlay()
   },
   computed: {
     musicIndex1: {
@@ -52,6 +57,47 @@ export default {
     }
   },
   methods: {
+    // 处理微信浏览器音乐自动播放问题
+    audioAutoPlay () {
+      const audio = document.getElementById('audio')
+      audio.play()
+      document.addEventListener('WeixinJSBridgeReady', function () {
+        audio.play()
+      }, false)
+    },
+    // 解决所有浏览器音乐自动播放的问题
+    autoPlayMusic () {
+      const _this = this
+
+      /* 自动播放音乐效果，解决浏览器或者APP自动播放问题 */
+      function musicInBrowserHandler () {
+        _this.musicPlay(true)
+        document.body.removeEventListener('touchstart', musicInBrowserHandler)
+      }
+
+      document.body.addEventListener('touchstart', musicInBrowserHandler)
+
+      /* 自动播放音乐效果，解决微信自动播放问题 */
+      function musicInWeixinHandler () {
+        _this.musicPlay(true)
+        document.addEventListener('WeixinJSBridgeReady', function () {
+          _this.musicPlay(true)
+        }, false)
+        document.removeEventListener('DOMContentLoaded', musicInWeixinHandler)
+      }
+
+      document.addEventListener('DOMContentLoaded', musicInWeixinHandler)
+    },
+    // 音乐状态判断
+    musicPlay (isPlay) {
+      const media = document.getElementById('audio')
+      if (isPlay && media.paused) {
+        media.play()
+      }
+      if (!isPlay && !media.paused) {
+        media.pause()
+      }
+    },
     // 控制音频的播放与暂停
     startPlayOrPause () {
       console.log('播放暂停1')
@@ -88,7 +134,7 @@ export default {
     },
     // 一个音频文件加入到audio时触发
     onLoadedmetadata (el) {
-      this.$store.state.maxTimer = el.target.duration
+      this.$store.state.maxTimer = el.target.duration || this.$refs.audio.duration
     },
     // 拖动进度条，改变当前时间，index是进度条改变时的回调函数的参数，index为当前播放秒数
     changeCurrentTime (index) {

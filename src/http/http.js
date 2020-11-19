@@ -8,7 +8,7 @@ export function http (config) {
   const instance = axios.create({
     // 跨域请求，使用代理
     // NetEaseCloudMusicApi代表 http://localhost:3000
-    baseURL: 'NetEaseCloudMusicApi',
+    baseURL: process.env.VUE_APP_BASE_URL,
     timeout: 5000,
     withCredentials: true
   })

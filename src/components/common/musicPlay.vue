@@ -259,7 +259,6 @@ export default {
     musicId: {
       deep: true,
       handler (nv, ov) {
-        console.log('hhhhhhhhhhhhhhhhhhhh', nv)
         this.$store.dispatch('getMusicUrl', nv)
         this.$store.dispatch('getMusicDetail', nv)
         if (Object.keys(this.currentLyric).length !== 0) {
@@ -545,13 +544,13 @@ export default {
 
     .move2-enter-active,
     .move2-leave-active {
-        transition: all 0.7s;
+        transition: transform 0.7s;
     }
 
     /* 显示前或隐藏后的效果 */
     .move2-enter,
     .move2-leave-to {
-        transform: translateY(200%);
+        transform: translateY(100%);
     }
 
     .musicPlay {
@@ -607,17 +606,15 @@ export default {
             bottom: 0;
             z-index: 2047;
             width: 100vw;
-            height: 100vh;
             align-items: center;
             background-repeat: no-repeat;
-            background-size: 100% 100%;
             background-attachment: fixed;
             overflow: hidden;
         }
 
         .musicContent {
             width: 100vw;
-            height: 100vh;
+            height: 93vh;
             z-index: 999;
             background-color: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(50px);
@@ -813,12 +810,12 @@ export default {
 
     .move-enter-active,
     .move-leave-active {
-        transition: all 0.7s;
+        transition: transform 0.7s;
     }
 
     /* 显示前或隐藏后的效果 */
     .move-enter,
     .move-leave-to {
-        transform: translateY(200%);
+        transform: translateY(100%);
     }
 </style>
