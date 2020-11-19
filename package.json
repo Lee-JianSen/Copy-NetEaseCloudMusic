@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "npm run build && node deploy/deploy.js"
   },
   "dependencies": {
     "better-scroll": "^1.15.2",
@@ -39,8 +40,10 @@
     "eslint-plugin-prettier": "^3.1.3",
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-vue": "^7.1.0",
+    "ora": "^5.1.0",
     "postcss-px-to-viewport": "^1.1.1",
     "prettier": "^1.19.1",
+    "scp2": "^0.5.0",
     "style-resources-loader": "^1.3.3",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2",
