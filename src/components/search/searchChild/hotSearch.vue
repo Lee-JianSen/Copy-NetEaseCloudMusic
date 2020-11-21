@@ -74,7 +74,8 @@ export default {
 
 <style scoped lang="less">
     .hotSearch {
-        margin: 50px 30px;
+        width: 100vw;
+        padding: 15px;
 
         .title {
             font-weight: bold;
@@ -85,15 +86,14 @@ export default {
         }
 
         .rightText {
-            font-size: 10px;
+            font-size: 36px;
             color: #cecece;
             width: 0;
             height: 80px;
         }
 
         .labelText {
-            font-size: 10px;
-            font-weight: normal;
+            font-size: 36px;
             color: #979797;
         }
 

@@ -9,9 +9,8 @@
                     hairline
                     color="#BEBFC0"
                     size="mini"
-                    style="width:80px;height: 24px;float: right;margin-right: 10px;display: inline-block;vertical-align: middle">
-                <van-icon name="play-circle-o" color="black" style="margin-top: 2px" />
-                <span style="color: black">播放全部</span></van-button>
+                    style="width:80px;height: 24px;float: right;margin-right: 10px">
+                <span style="color: black;font-size: 10px">播放全部</span></van-button>
         </div>
         <div v-for="(item,index) in songsList" :key="item.id">
             <van-cell
@@ -110,7 +109,7 @@ export default {
 
     .labelStyle {
         width: 500px;
-        font-size: 10px;
+        font-size: 36px;
         overflow: hidden;
         text-overflow: ellipsis;
     }

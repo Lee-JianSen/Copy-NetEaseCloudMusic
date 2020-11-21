@@ -21,7 +21,7 @@
                                     @click="pushPop"
                                     color="#fff"
                                     size="24"
-                                    name="arrow-down" />
+                                    name="arrow-down"/>
                         </template>
                     </van-cell>
                 </div>
@@ -34,7 +34,7 @@
                             round
                             width="12rem"
                             height="12rem"
-                            :src="musicInfo.picUrl" />
+                            :src="musicInfo.picUrl"/>
                 </div>
                 <div class="lrcBox" v-show="isShowLrc" @click="showLrc">
                     <scroll class="contentLrc" ref="lyricList" :probe-type="3">
@@ -66,8 +66,8 @@
                                 name="comment-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click="commentBtn" />
-                        <van-icon name="like-o" size="32px" color="#bfbfbf" />
+                                @click="commentBtn"/>
+                        <van-icon name="like-o" size="32px" color="#bfbfbf"/>
                     </div>
                     <div class="musicSlider">
                         <p class="currentTime">{{ getCurrentTime | formatSecond }}</p>
@@ -89,48 +89,48 @@
                                 @click="changePlayType"
                                 src="../../assets/cycle_list.png"
                                 height="32"
-                                width="32" alt="" />
+                                width="32" alt=""/>
                         <img
                                 v-show="playType === 2"
                                 @click="changePlayType"
                                 src="../../assets/random.png"
                                 height="32"
-                                width="32" alt="" />
+                                width="32" alt=""/>
                         <img
                                 v-show="playType === 3"
                                 @click="changePlayType"
                                 src="../../assets/loop.png"
                                 height="32"
-                                width="32" alt="" />
+                                width="32" alt=""/>
                         <img
                                 src="../../assets/previous.png"
                                 height="32"
                                 width="32"
-                                @click="previousMusic" alt="" />
+                                @click="previousMusic" alt=""/>
                         <van-icon
                                 v-show="changeIcons"
                                 name="play-circle-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click.stop=" changeIcon" />
+                                @click.stop=" changeIcon"/>
                         <van-icon
                                 v-show="!changeIcons"
                                 name="pause-circle-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click.stop="changeIcon" />
+                                @click.stop="changeIcon"/>
                         <img
                                 src="../../assets/next.png"
                                 alt=""
                                 height="32"
                                 width="32"
-                                @click="nextMusic" />
+                                @click="nextMusic"/>
                         <img
                                 src="../../assets/more.png"
                                 alt=""
                                 height="32"
                                 width="32"
-                                @click="more" />
+                                @click="more"/>
                     </div>
                 </div>
             </div>
@@ -235,14 +235,14 @@ export default {
     },
     changeIcon () {
       this.animationShow =
-        this.$store.state.musicPlay.isPlay ? 'paused' : 'running'
+          this.$store.state.musicPlay.isPlay ? 'paused' : 'running'
       console.log(this.animationShow)
       this.audioEl.startPlayOrPause()
       this.$store.commit('showIcon')
       if (Object.keys(this.currentLyric).length) {
         // this.currentLyric.togglePlay()
         this.$store.state.musicPlay.isPlay
-          // eslint-disable-next-line multiline-ternary
+        // eslint-disable-next-line multiline-ternary
           ? this.currentLyric.stop() : this.currentLyric.seek(this.audioEl.getCurrentTime() * 1000)
       }
     },
@@ -363,7 +363,7 @@ export default {
       console.log(this.isShowLrc && Object.keys(this.currentLyric).length)
       if (this.isShowLrc && Object.keys(this.currentLyric).length !== 0) {
         this.$store.state.musicPlay.isPlay
-          // eslint-disable-next-line multiline-ternary
+        // eslint-disable-next-line multiline-ternary
           ? this.currentLyric.seek(this.audioEl.getCurrentTime() * 1000) : this.currentLyric.stop()
       }
     },
@@ -392,13 +392,13 @@ export default {
   components: {
     scroll,
     [Slider.name]:
-    Slider,
+      Slider,
     [Icon.name]:
-    Icon,
+      Icon,
     [VanImage.name]:
-    VanImage,
+      VanImage,
     [Cell.name]:
-    Cell
+      Cell
   }
 }
 </script>
@@ -414,10 +414,7 @@ export default {
     }
 
     .audio-com-box-max {
-        position: absolute;
-        /*top: 0;*/
-        left: 0;
-        bottom: 0;
+        position: relative;
         z-index: 2047;
         width: 100vw;
         align-items: center;
@@ -463,6 +460,7 @@ export default {
             .musicController {
                 position: absolute;
                 bottom: 0;
+                padding-bottom: 150px;
 
                 .musicTopBtn {
                     margin-bottom: 20px;
@@ -540,11 +538,9 @@ export default {
             border-radius: 400px;
             margin: 0 auto;
             justify-content: center;
-            flex-wrap: wrap;
             align-items: center;
-            position: absolute;
-            left: 18%;
-            top: 30%;
+            position: relative;
+            top: 150px;
         }
 
         .isrotate {

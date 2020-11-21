@@ -158,7 +158,7 @@ export default {
 <style scoped lang="less">
     .move2-enter-active,
     .move2-leave-active {
-        transition: transform 0.7s;
+        transition: transform 0.5s;
     }
 
     /* 显示前或隐藏后的效果 */

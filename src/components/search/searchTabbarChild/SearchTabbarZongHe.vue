@@ -11,13 +11,9 @@
                         hairline
                         color="#BEBFC0"
                         size="mini"
-                        style="width:80px;height: 24px;float: right;margin-right: 10px;display: inline-block;vertical-align: middle">
-                    <van-icon
-                            name="play-circle-o"
-                            color="black"
-                            style="margin-top: 2px"
-                    />
-                    <span style="color: black">播放全部</span></van-button>
+                        style="width:80px;height: 24px;float: right;margin-right: 10px;">
+
+                    <span style="color: black;font-size: 10px">播放全部</span></van-button>
             </div>
             <div v-for="(item,index) in $store.state.search.searchResultList.song.songs"
                  :key="item.id">
@@ -38,14 +34,14 @@
                     </template>
                 </van-cell>
             </div>
-            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto" />
+            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
             <!--        歌单-->
             <div style="height: 30px;">
                 <span style="margin-left: 18px;font-weight: bold;">歌单</span>
             </div>
             <div v-for="item in $store.state.search.searchResultList.playList.playLists" :key="item.id">
                 <van-card @click="getSongListData(item.id)">
-                    <template #thumb><img :src="item.coverImgUrl" style="width: 80px;height: 80px" /></template>
+                    <template #thumb><img :src="item.coverImgUrl" style="width: 80px;height: 80px"/></template>
                     <template #desc>
                         <div style="margin-top: 4px">
               <span>
@@ -82,7 +78,7 @@
             <div style="font-size: 14px;text-align: center;margin-top: 8px">
                 {{ $store.state.search.searchResultList.playList.moreText }}
             </div>
-            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto" />
+            <img src="../../../assets/jietu.jpg" style="width: 100%;height: auto"/>
 
             <!--        视频-->
             <div style="height: 30px;">
@@ -92,7 +88,7 @@
                  :key="index.playTime">
                 <van-card @click="getVideoDetailData(item.vid)">
                     <template #thumb>
-                        <img :src="item.coverUrl" style="width: 130px;height: auto" />
+                        <img :src="item.coverUrl" style="width: 130px;height: auto"/>
                         <span style="position: absolute;left: 85px;color: white">{{Math.round((item.playTime / 10000) * Math.pow(10, 1)) / Math.pow(10, 1)}}万</span>
                     </template>
                     <template #title>
@@ -134,7 +130,7 @@
                  :key="item.name">
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
-                    <template #icon><img :src="item.img1v1Url" class="getgold_top_head_img" /></template>
+                    <template #icon><img :src="item.img1v1Url" class="getgold_top_head_img"/></template>
                     <template #title>
                         <div>
                             <div style="position: relative;top: 22px;left: 14px">
@@ -153,7 +149,7 @@
                 <van-cell>
                     <!-- 使用 right-icon 插槽来自定义右侧图标 -->
                     <template #icon>
-                        <img :src="item.picUrl" style="width: 80px;height: auto;" />
+                        <img :src="item.picUrl" style="width: 80px;height: auto;"/>
                     </template>
                     <template #title>
                         <div>
@@ -257,7 +253,7 @@ export default {
 
     .labelStyle {
         width: 600px;
-        font-size: 10px;
+        font-size: 36px;
         overflow: hidden;
         text-overflow: ellipsis;
     }
