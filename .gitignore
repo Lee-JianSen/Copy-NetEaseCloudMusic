@@ -2,6 +2,7 @@
 node_modules/
 deploy.js
 dist/
+.eslintrc.js
 
 # local env files
 .env.local

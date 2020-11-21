@@ -261,6 +261,8 @@ export default {
                     height: 700px;
                     filter: blur(50px);
                     backdrop-filter: blur(10px);
+                    -webkit-backdrop-filter: blur(10px);
+                    -webkit-filter: blur(50px);
                 }
 
                 .songListInfo {

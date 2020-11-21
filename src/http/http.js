@@ -9,7 +9,7 @@ export function http (config) {
     // 跨域请求，使用代理
     // NetEaseCloudMusicApi代表 http://localhost:3000
     baseURL: process.env.VUE_APP_BASE_URL,
-    timeout: 5000,
+    timeout: 10000,
     withCredentials: true
   })
   // 请求拦截

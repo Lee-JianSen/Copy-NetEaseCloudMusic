@@ -28,7 +28,6 @@ export default {
   },
   mounted () {
     this.autoPlayMusic()// 调用所有浏览器自动音乐播放的函数
-    this.audioAutoPlay()
   },
   computed: {
     musicIndex1: {
@@ -57,14 +56,6 @@ export default {
     }
   },
   methods: {
-    // 处理微信浏览器音乐自动播放问题
-    audioAutoPlay () {
-      const audio = document.getElementById('audio')
-      audio.play()
-      document.addEventListener('WeixinJSBridgeReady', function () {
-        audio.play()
-      }, false)
-    },
     // 解决所有浏览器音乐自动播放的问题
     autoPlayMusic () {
       const _this = this
@@ -76,17 +67,6 @@ export default {
       }
 
       document.body.addEventListener('touchstart', musicInBrowserHandler)
-
-      /* 自动播放音乐效果，解决微信自动播放问题 */
-      function musicInWeixinHandler () {
-        _this.musicPlay(true)
-        document.addEventListener('WeixinJSBridgeReady', function () {
-          _this.musicPlay(true)
-        }, false)
-        document.removeEventListener('DOMContentLoaded', musicInWeixinHandler)
-      }
-
-      document.addEventListener('DOMContentLoaded', musicInWeixinHandler)
     },
     // 音乐状态判断
     musicPlay (isPlay) {
@@ -100,8 +80,6 @@ export default {
     },
     // 控制音频的播放与暂停
     startPlayOrPause () {
-      console.log('播放暂停1')
-      console.log('this.$store.state.musicPlay.isPlay-' + this.$store.state.musicPlay.isPlay)
       this.$store.state.musicPlay.isPlay ? this.pause() : this.play()
     },
     // 播放音频
@@ -117,7 +95,7 @@ export default {
     onPlay () {
       console.log('执行 onPlay')
       this.$store.commit('IsPlaying')
-      this.$store.commit('changeAudioEl', this.$refs.audio)
+      this.$store.commit('changeAudioEl', this)
     },
     onPause () {
       console.log('执行 onPause')

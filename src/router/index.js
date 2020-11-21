@@ -25,6 +25,7 @@ const Dj = () => import('../views/dj/dj')
 const DjDetail = () => import('../views/dj/djDetail')
 const Singer = () => import('../views/singer/singer')
 const SingIntroduction = () => import('../views/singer/sing-Introduction')
+const BigMusicPlay = () => import('../components/common/maxMusicPlay')
 
 const routes = [
   {
@@ -105,7 +106,7 @@ const routes = [
     component: DayMusic,
     meta: {
       isShow: false,
-      keep: false
+      keep: true
     }
   },
   {
@@ -194,7 +195,8 @@ const routes = [
     name: 'singer',
     component: Singer,
     meta: {
-      isShow: false
+      isShow: false,
+      keep: false
     }
   },
   {
@@ -204,6 +206,15 @@ const routes = [
     meta: {
       isShow: false,
       keep: true
+    }
+  },
+  {
+    path: '/big-music-play',
+    name: 'big-music-play',
+    component: BigMusicPlay,
+    meta: {
+      isShow: false,
+      keep: false
     }
   },
   {
