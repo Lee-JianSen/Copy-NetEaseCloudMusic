@@ -28,8 +28,7 @@
                 :probe-type="3"
                 :pull-up-load="true"
                 :bounce="false"
-                @scroll="musicListScroll"
-        >
+                @scroll="musicListScroll">
             <div id="content">
                 <div
                         class="bg"
@@ -47,9 +46,9 @@
                                     radius="5"
                                     width="130"
                                     height="130"
+                                    lazy-load
                                     :src="songListData.picUrl"
-                                    alt=""
-                            >
+                                    alt="">
                             </van-image>
                         </div>
                         <div class="songListTitle">
@@ -59,6 +58,7 @@
                                         round
                                         width="30"
                                         height="30"
+                                        lazy-load
                                         :src="songListData.avatarUrl"
                                         alt=""
                                 >
@@ -114,8 +114,7 @@
                             :border="false"
                             v-for="(value, index) in musicInfo"
                             :key="index"
-                            @click="getMusicId(value.id)"
-                    >
+                            @click="getMusicId(value.id)">
                         <!--                            :title="value.uiElement.mainTitle.title"-->
                         <template #title>
                             <p class="ov titleText">
@@ -134,6 +133,7 @@
                                     width="50"
                                     height="50"
                                     radius="5"
+                                    lazy-load
                                     :src="value.picUrl"
                                     alt="">
                             </van-image>

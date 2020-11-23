@@ -3,6 +3,8 @@ node_modules/
 deploy.js
 dist/
 .eslintrc.js
+.env.development
+.env.production
 
 # local env files
 .env.local

@@ -101,7 +101,6 @@ export default {
             this.$store.commit('changeLogin', true)
 
             this.$store.commit('saveToken', res.data.token)
-            console.log(this.$store.state.token)
             this.$router.push({
               path: '/'
             })

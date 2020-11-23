@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="maxMusicPlay">
         <div
                 ref="bigPlayer"
                 :style="{
@@ -21,7 +21,7 @@
                                     @click="pushPop"
                                     color="#fff"
                                     size="24"
-                                    name="arrow-down"/>
+                                    name="arrow-down" />
                         </template>
                     </van-cell>
                 </div>
@@ -32,9 +32,9 @@
                         :style="{ 'animation-play-state': animationShow }">
                     <van-image
                             round
-                            width="12rem"
-                            height="12rem"
-                            :src="musicInfo.picUrl"/>
+                            width="10rem"
+                            height="10rem"
+                            :src="musicInfo.picUrl" />
                 </div>
                 <div class="lrcBox" v-show="isShowLrc" @click="showLrc">
                     <scroll class="contentLrc" ref="lyricList" :probe-type="3">
@@ -66,8 +66,8 @@
                                 name="comment-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click="commentBtn"/>
-                        <van-icon name="like-o" size="32px" color="#bfbfbf"/>
+                                @click="commentBtn" />
+                        <van-icon name="like-o" size="32px" color="#bfbfbf" />
                     </div>
                     <div class="musicSlider">
                         <p class="currentTime">{{ getCurrentTime | formatSecond }}</p>
@@ -89,48 +89,48 @@
                                 @click="changePlayType"
                                 src="../../assets/cycle_list.png"
                                 height="32"
-                                width="32" alt=""/>
+                                width="32" alt="" />
                         <img
                                 v-show="playType === 2"
                                 @click="changePlayType"
                                 src="../../assets/random.png"
                                 height="32"
-                                width="32" alt=""/>
+                                width="32" alt="" />
                         <img
                                 v-show="playType === 3"
                                 @click="changePlayType"
                                 src="../../assets/loop.png"
                                 height="32"
-                                width="32" alt=""/>
+                                width="32" alt="" />
                         <img
                                 src="../../assets/previous.png"
                                 height="32"
                                 width="32"
-                                @click="previousMusic" alt=""/>
+                                @click="previousMusic" alt="" />
                         <van-icon
                                 v-show="changeIcons"
                                 name="play-circle-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click.stop=" changeIcon"/>
+                                @click.stop=" changeIcon" />
                         <van-icon
                                 v-show="!changeIcons"
                                 name="pause-circle-o"
                                 size="32px"
                                 color="#bfbfbf"
-                                @click.stop="changeIcon"/>
+                                @click.stop="changeIcon" />
                         <img
                                 src="../../assets/next.png"
                                 alt=""
                                 height="32"
                                 width="32"
-                                @click="nextMusic"/>
+                                @click="nextMusic" />
                         <img
                                 src="../../assets/more.png"
                                 alt=""
                                 height="32"
                                 width="32"
-                                @click="more"/>
+                                @click="more" />
                     </div>
                 </div>
             </div>
@@ -235,14 +235,14 @@ export default {
     },
     changeIcon () {
       this.animationShow =
-          this.$store.state.musicPlay.isPlay ? 'paused' : 'running'
+        this.$store.state.musicPlay.isPlay ? 'paused' : 'running'
       console.log(this.animationShow)
       this.audioEl.startPlayOrPause()
       this.$store.commit('showIcon')
       if (Object.keys(this.currentLyric).length) {
         // this.currentLyric.togglePlay()
         this.$store.state.musicPlay.isPlay
-        // eslint-disable-next-line multiline-ternary
+          // eslint-disable-next-line multiline-ternary
           ? this.currentLyric.stop() : this.currentLyric.seek(this.audioEl.getCurrentTime() * 1000)
       }
     },
@@ -363,7 +363,7 @@ export default {
       console.log(this.isShowLrc && Object.keys(this.currentLyric).length)
       if (this.isShowLrc && Object.keys(this.currentLyric).length !== 0) {
         this.$store.state.musicPlay.isPlay
-        // eslint-disable-next-line multiline-ternary
+          // eslint-disable-next-line multiline-ternary
           ? this.currentLyric.seek(this.audioEl.getCurrentTime() * 1000) : this.currentLyric.stop()
       }
     },
@@ -392,13 +392,13 @@ export default {
   components: {
     scroll,
     [Slider.name]:
-      Slider,
+    Slider,
     [Icon.name]:
-      Icon,
+    Icon,
     [VanImage.name]:
-      VanImage,
+    VanImage,
     [Cell.name]:
-      Cell
+    Cell
   }
 }
 </script>
@@ -413,138 +413,141 @@ export default {
         }
     }
 
-    .audio-com-box-max {
-        position: relative;
-        z-index: 2047;
+    .maxMusicPlay {
         width: 100vw;
-        align-items: center;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: 100% 100%;
-        overflow: hidden;
+        height: 90vh;
 
-        .musicContent {
-            width: 100vw;
-            height: 100vh;
-            z-index: 999;
-            background-color: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(50px);
+        .audio-com-box-max {
+            position: relative;
+            z-index: 2047;
+            align-items: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: 100% 100%;
+            overflow: hidden;
 
-            .lrcBox {
-                text-align: center;
+            .musicContent {
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(50px);
 
-                .contentLrc {
-                    width: 90vw;
-                    height: 52vh;
-                    margin: 10vh auto;
-                    overflow: hidden;
-
-                    .lyric {
-                        color: white;
-
-                        .text {
-                            height: 120px;
-                            font-size: 40px;
-                            white-space: pre-wrap;
-                        }
-
-                        .current {
-                            /*transition: font-size 0.5s;*/
-                            font-size: 50px;
-                            color: #c2463a;
-                        }
-                    }
-                }
-            }
-
-            .musicController {
-                position: absolute;
-                bottom: 0;
-                padding-bottom: 150px;
-
-                .musicTopBtn {
-                    margin-bottom: 20px;
+                .lrcBox {
                     text-align: center;
 
-                    i {
-                        margin: 30px;
+                    .contentLrc {
+                        width: 90vw;
+                        height: 52vh;
+                        margin: 10vh auto;
+                        overflow: hidden;
+
+                        .lyric {
+                            color: white;
+
+                            .text {
+                                height: 120px;
+                                font-size: 40px;
+                                white-space: pre-wrap;
+                            }
+
+                            .current {
+                                /*transition: font-size 0.5s;*/
+                                font-size: 50px;
+                                color: #c2463a;
+                            }
+                        }
                     }
                 }
 
-                .musicSlider {
-                    display: flex;
-                    margin: 0 100px;
-                    align-items: center;
-                    justify-content: space-between;
-                    color: white;
+                .musicController {
+                    position: absolute;
+                    bottom: 6%;
 
-                    .currentTime {
-                        padding-right: 30px;
-                    }
-
-                    .maxTime {
-                        padding-left: 30px;
-                    }
-
-                    .custom-button {
-                        width: 26px;
-                        height: 26px;
-                        font-size: 10px;
-                        line-height: 18px;
+                    .musicTopBtn {
+                        margin-bottom: 20px;
                         text-align: center;
-                        background-color: #ffffff;
-                        border-radius: 100px;
+
+                        i {
+                            margin: 30px;
+                        }
+                    }
+
+                    .musicSlider {
+                        display: flex;
+                        margin: 0 100px;
+                        align-items: center;
+                        justify-content: space-between;
+                        color: white;
+
+                        .currentTime {
+                            padding-right: 30px;
+                        }
+
+                        .maxTime {
+                            padding-left: 30px;
+                        }
+
+                        .custom-button {
+                            width: 26px;
+                            height: 26px;
+                            font-size: 10px;
+                            line-height: 18px;
+                            text-align: center;
+                            background-color: #ffffff;
+                            border-radius: 100px;
+                        }
+                    }
+
+                    .musicAllBtn {
+                        display: flex;
+                        width: 100vw;
+                        height: 300px;
+                        align-items: center;
+                        justify-content: space-around;
                     }
                 }
 
-                .musicAllBtn {
-                    display: flex;
-                    width: 100vw;
-                    height: 300px;
-                    align-items: center;
-                    justify-content: space-around;
-                }
             }
 
-        }
+            .nav {
+                padding-left: 30px;
+                padding-top: 30px;
 
-        .nav {
-            padding-left: 30px;
-            padding-top: 30px;
+                .mc-cell {
+                    background-color: transparent;
 
-            .mc-cell {
-                background-color: transparent;
+                    .titleText {
+                        margin-left: 40px;
+                        width: 500px;
+                        font-weight: 600;
+                        font-size: 40px;
+                        color: #f7f8fa;
+                        .overTextEllipsis();
 
-                .titleText {
-                    margin-left: 40px;
-                    width: 500px;
-                    font-weight: 600;
-                    font-size: 40px;
-                    color: #f7f8fa;
-
-                    .titleTextName {
-                        color: #a7a6a7;
-                        font-size: 26px;
+                        .titleTextName {
+                            .overTextEllipsis();
+                            color: #a7a6a7;
+                            font-size: 26px;
+                        }
                     }
                 }
             }
-        }
 
-        .albumPic {
-            display: flex;
-            width: 700px;
-            height: 700px;
-            background-color: rgb(15, 14, 19);
-            border-radius: 400px;
-            margin: 0 auto;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            top: 150px;
-        }
+            .albumPic {
+                display: flex;
+                width: 600px;
+                height: 600px;
+                background-color: rgb(15, 14, 19);
+                border-radius: 400px;
+                margin: 30% auto;
+                justify-content: center;
+                align-items: center;
+            }
 
-        .isrotate {
-            animation: rotatePic 30s linear 0.2s infinite;
+            .isrotate {
+                animation: rotatePic 30s linear 0.2s infinite;
+            }
         }
     }
+
 </style>

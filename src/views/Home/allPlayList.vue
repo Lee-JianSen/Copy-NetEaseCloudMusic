@@ -15,8 +15,7 @@
                     ref="scroll"
                     :probe-type="3"
                     :pull-up-load="true"
-                    @pullingUp="pullingUp"
-            >
+                    @pullingUp="pullingUp">
                 <van-tabs
                         v-model="active"
                         animated

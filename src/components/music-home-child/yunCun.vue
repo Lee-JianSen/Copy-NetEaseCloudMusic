@@ -2,27 +2,27 @@
 <template>
     <div class="yunCun">
         <div class="topTitle">
-            <h4 @click="TopClick">{{ yunCun.moduleName }}</h4>
-            <btn-more title="查看更多" @click.native="TopClick"></btn-more>
+            <h4 @click="TopClick">云村精选</h4>
+            <btn-more title="查看更多" @click.native="TopClick" />
         </div>
 
         <horizontal-scroll ref="hScroll">
             <div ref="list" class="list">
                 <div
-                        v-for="(item, index) in yunCun.squareFeedViewDTOList"
+                        v-for="(item, index) in yunCun"
                         :key="index"
                         class="gridItem">
                     <div class="playCount">
-                        {{ item.resource.mlogExt.likedCount | playCount }}赞
+                        {{ item.creativeExtInfoVO.playCount | playCount }}次播放
                     </div>
                     <div class="songListInfo" @click="SongListClick(item.id)">
                         <van-image
                                 fit="fill"
                                 radius="5px"
                                 height="120px"
-                                :src="item.resource.mlogBaseData.coverUrl"
+                                :src="item.uiElement.image.imageUrl"
                         />
-                        <p class="text">{{ item.resource.mlogBaseData.text }}</p>
+                        <p class="text">{{ item.uiElement.mainTitle.title }}</p>
                     </div>
                 </div>
             </div>
@@ -41,17 +41,17 @@ export default {
   mixins: [initScroll],
   props: {
     yunCun: {
-      type: Object,
+      type: Array,
       default () {
-        return {}
+        return []
       }
     }
   },
   mounted () {
     this.$nextTick(() => {
       setTimeout(() => {
-        this.itemWidth = 20
-        this.itemMargin = 2
+        this.itemWidth = 30
+        this.itemMargin = 5
         this.initPics()
         this.$refs.hScroll.refresh()
       }, 600)
@@ -59,11 +59,10 @@ export default {
   },
   methods: {
     TopClick () {
-      this.$toast('暂无云村')
+      this.$toast('暂无更多')
     },
     SongListClick (id) {
-      console.log('歌单点击跳转')
-      console.log(id)
+      this.$toast('暂无页面')
     }
   },
   components: {

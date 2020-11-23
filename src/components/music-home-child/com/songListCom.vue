@@ -10,6 +10,7 @@
                 <van-image
                         fit="cover"
                         radius="5px"
+                        lazy-load
                         :src="imageUrlSize(songListData)"
                         @load="imageLoadEnd"
                 />

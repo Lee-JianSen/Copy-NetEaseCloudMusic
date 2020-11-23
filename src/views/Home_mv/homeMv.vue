@@ -249,7 +249,7 @@ export default {
         .collapseItem {
             padding: 0 30px;
             position: relative;
-            z-index: 2048;
+            z-index: 206;
         }
 
         .area,

@@ -4,8 +4,7 @@ npm
         <tab-control
                 :title="['推荐', '视频']"
                 @tabClick="tabClick"
-                ref="tabControl1"
-        >
+                ref="tabControl1">
         </tab-control>
         <scroll
                 class="content"
@@ -104,7 +103,7 @@ export default {
       // 官方歌单更多按钮文案
       btnMore2: '',
       // 云村
-      yunCun: {},
+      yunCun: [],
       // 直播
       liveList: {},
       liveInfoList: [],
@@ -141,7 +140,7 @@ export default {
       // 官方歌单更多按钮文案
       this.btnMore2 = ''
       // 云村
-      this.yunCun = {}
+      this.yunCun = []
       // 直播
       this.liveList = {}
       this.liveInfoList = []
@@ -188,25 +187,33 @@ export default {
       GetHomeFindAPI()
         .then(res => {
           this.initData()
-          const recommendSongList = res.data.data.blocks[0]
-          const recommendMusicObj = res.data.data.blocks[1]
-          const officialSongList = res.data.data.blocks[2]
-
-          this.yunCun = res.data.data.blocks[3].extInfo
-
+          let recommendSongList
+          let recommendMusicObj
+          let officialSongList
+          let newMusicOrDec
+          console.log(this.$store.state.login.isLogin)
+          if (this.$store.state.login.isLogin) {
+            recommendSongList = res.data.data.blocks[0]
+            recommendMusicObj = res.data.data.blocks[1]
+            officialSongList = res.data.data.blocks[2]
+            newMusicOrDec = res.data.data.blocks[3]
+          } else {
+            recommendSongList = res.data.data.blocks[1]
+            recommendMusicObj = res.data.data.blocks[2]
+            officialSongList = res.data.data.blocks[4]
+            newMusicOrDec = res.data.data.blocks[6]
+            this.yunCun.push(...res.data.data.blocks[10].creatives)
+          }
+          console.log(recommendSongList.creatives)
           // 推荐歌单数据
           recommendSongList.creatives.forEach(item => {
             const data = createSongList(item)
             this.songListInfoList.push(data)
           })
 
-          // 官方歌单数据
-          officialSongList.creatives.forEach(item => {
-            const data = createSongList(item)
-            this.officialSongInfoList.push(data)
-          })
-
           // 推荐音乐数据
+          console.log(recommendMusicObj.creatives)
+
           recommendMusicObj.creatives.forEach((item, index) => {
             this.recommendMusic.push([])
             item.resources.forEach(value => {
@@ -219,8 +226,16 @@ export default {
             })
           })
 
+          // 官方歌单数据
+          console.log(officialSongList.creatives)
+          officialSongList.creatives.forEach(item => {
+            const data = createSongList(item)
+            this.officialSongInfoList.push(data)
+          })
+
           // 新歌新碟
-          res.data.data.blocks[3].creatives
+          console.log(newMusicOrDec.creatives)
+          newMusicOrDec.creatives
             .slice(0, 2)
             .forEach((item, index) => {
               this.newMusic.push([])
@@ -228,7 +243,7 @@ export default {
                 this.newMusic[index].push(createNewMusicOrDisc(value))
               })
             })
-          res.data.data.blocks[3].creatives
+          newMusicOrDec.creatives
             .slice(2, 4)
             .forEach((item, index) => {
               this.newDisc.push([])
@@ -264,6 +279,10 @@ export default {
         .catch(error => {
           console.log('首页-发现出错')
           console.dir(error)
+          this.$toast.fail({
+            message: '若刚退出登录或刚登录过，接口数据并不是实时更新，所以会空白，需等待几分钟再刷新',
+            duration: 4000
+          })
         })
     },
     async getVideoData () {

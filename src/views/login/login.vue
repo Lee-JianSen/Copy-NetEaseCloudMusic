@@ -16,7 +16,9 @@ export default {
   name: 'login',
   methods: {
     backIconClick () {
-      this.$router.back()
+      this.$router.push({
+        path: '/'
+      })
     }
   },
   components: {
