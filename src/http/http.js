@@ -61,7 +61,6 @@ export function http (config) {
       console.log('响应出错')
       console.dir(error)
       if (error.response.status) {
-        console.log('这里')
         switch (error.response.status) {
           case 401:
             store.commit('saveToken', '')
@@ -82,12 +81,9 @@ export function http (config) {
             break
           case 301:
             store.commit('saveToken', '')
-            Vue.prototype.$toast('请先登录')
+            Vue.prototype.$toast('请先登录,以获取更好得效果')
             router.push({
-              path: '/login',
-              query: {
-                redirect: router.currentRoute.fullPath
-              }
+              path: '/login'
             })
             break
           default:
