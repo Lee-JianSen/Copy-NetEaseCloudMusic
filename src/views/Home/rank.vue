@@ -21,6 +21,7 @@
                                 width="6rem"
                                 height="6rem"
                                 fit="cover"
+                                lazy-load
                                 radius="5"
                                 :src="item.coverImgUrl"
                         />
@@ -39,14 +40,13 @@
                                 class="rankPic"
                                 v-for="(item, index) in rankInfo.slice(4, 33)"
                                 @click="rankClick(item.id)"
-                                :key="index"
-                        >
+                                :key="index">
                             <div>
                                 <van-image
                                         fit="cover"
                                         radius="5"
-                                        :src="picUrl(item.coverImgUrl)"
-                                />
+                                        lazy-load
+                                        :src="picUrl(item.coverImgUrl)" />
                                 <p class="updateTime">{{ item.updateTime }}</p>
                                 <p class="rankName">{{ item.name }}</p>
                             </div>

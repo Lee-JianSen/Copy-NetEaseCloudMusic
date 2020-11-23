@@ -22,8 +22,7 @@
                 :bounce="false"
                 @scroll="musicListScroll">
             <div>
-                <van-image height="200" cover :src="musicInfo[1].picUrl" alt="">
-                </van-image>
+                <van-image height="200" cover :src="musicInfo[1].picUrl" alt="" />
                 <div ref="tabControl" class="musicTop">
                     <div class="leftBox" @click="allPlayBtn">
                         <van-icon size="24" name="play-circle-o" />
@@ -191,7 +190,8 @@ export default {
             }
         }
     }
-    .loginBtn{
+
+    .loginBtn {
         display: block;
         margin: 0 auto;
     }

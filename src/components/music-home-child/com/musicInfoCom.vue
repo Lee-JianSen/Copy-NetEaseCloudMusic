@@ -30,6 +30,7 @@
                             width="50"
                             height="50"
                             radius="5"
+                            lazy-load
                             :src="value.picUrl"
                             alt="">
                     </van-image>

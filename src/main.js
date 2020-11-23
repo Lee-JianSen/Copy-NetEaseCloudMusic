@@ -5,18 +5,19 @@ import store from './store'
 import base from './http/base'
 import './assets/common/common.less'
 import VueCookies from 'vue-cookies'
+
 // 视频播放
 import vueMiniPlayer from 'vue-mini-player'
 import 'vue-mini-player/lib/vue-mini-player.css'
+
 // 全局引入vant组件
-import { Toast } from 'vant'
+import { Toast, Lazyload } from 'vant'
 
 Vue.use(VueCookies)
-
-Vue.use(vueMiniPlayer)
-Vue.use(base)
-
-Vue.use(Toast)
+  .use(vueMiniPlayer)
+  .use(base)
+  .use(Toast)
+  .use(Lazyload)
 
 Vue.config.productionTip = false
 if (Vue.$cookies.get('MUSIC_U')) {
