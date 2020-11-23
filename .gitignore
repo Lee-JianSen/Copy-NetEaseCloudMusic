@@ -5,6 +5,7 @@ dist/
 .eslintrc.js
 .env.development
 .env.production
+
 # local env files
 .env.local
 .env.*.local
