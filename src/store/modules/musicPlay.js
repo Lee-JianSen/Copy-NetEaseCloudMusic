@@ -40,8 +40,8 @@ const musicPlay = {
       }
     },
 
-    [types.UPDATE_MUSIC_ALL_DETAIL] (state, { type, val }) {
-      state.musicAllDetail[type] = val
+    [types.UPDATE_MUSIC_ALL_DETAIL] (state, { val }) {
+      state.musicAllDetail = val
     },
 
     [types.JOIN_PLAY_LIST] (state, data) {
@@ -82,15 +82,19 @@ const musicPlay = {
           res.data.songs.forEach(item => {
             musicInfo = createMusicInfo(item)
             const playList = {}
-            for (const item in musicInfo) {
-              // eslint-disable-next-line no-prototype-builtins
-              if (musicInfo.hasOwnProperty(item)) {
-                context.commit('update_musicAllDetail', {
-                  type: item,
-                  val: musicInfo[item]
-                })
-              }
-            }
+            console.log(musicInfo)
+            context.commit('update_musicAllDetail', {
+              val: musicInfo
+            })
+            // for (const item in musicInfo) {
+            //   // eslint-disable-next-line no-prototype-builtins
+            //   if (musicInfo.hasOwnProperty(item)) {
+            //     context.commit('update_musicAllDetail', {
+            //       type: item,
+            //       val: musicInfo[item]
+            //     })
+            //   }
+            // }
             //
             for (const item in musicInfo) {
               // eslint-disable-next-line no-prototype-builtins
