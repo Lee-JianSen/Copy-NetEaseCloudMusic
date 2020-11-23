@@ -51,6 +51,10 @@
                 @clickOverlay="clickOverlay"
         />
     </div>
+    <div v-else>
+        <van-icon size="24" @click="goBack" name="arrow-left" />
+        <van-button type="primary" class="loginBtn">请先登录</van-button>
+    </div>
 </template>
 
 <script>
@@ -59,7 +63,7 @@ import musicInfoCom from '../../../components/music-home-child/com/musicInfoCom'
 import activeSheet from '../../../components/common/activeSheet'
 import { GetRecommendSongAPI } from '../../../http/all-api'
 import { createMusicInfo } from '../../../../model/dataInfo/musicInfo'
-import { Image as VanImage, Icon } from 'vant'
+import { Image as VanImage, Icon, Button } from 'vant'
 import { getMusicId } from '../../../tool/mixin'
 
 export default {
@@ -137,7 +141,8 @@ export default {
     activeSheet,
     musicInfoCom,
     [VanImage.name]: VanImage,
-    [Icon.name]: Icon
+    [Icon.name]: Icon,
+    [Button.name]: Button
   }
 }
 </script>
@@ -185,5 +190,9 @@ export default {
                 padding-left: 30px;
             }
         }
+    }
+    .loginBtn{
+        display: block;
+        margin: 0 auto;
     }
 </style>
