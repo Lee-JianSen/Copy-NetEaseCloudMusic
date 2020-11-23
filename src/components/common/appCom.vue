@@ -158,7 +158,10 @@ export default {
       .catch(error => {
         console.log(error)
         // if (error.status === 301) {
-        this.$toast('请先登录')
+        this.$toast({
+          message: '请先登录，以获取更好效果',
+          duration: 3000
+        })
       })
   },
   computed: {

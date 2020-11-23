@@ -98,6 +98,7 @@ export default {
     },
     musicInfo: {
       get () {
+        console.log(this.$store.state.musicPlay.musicAllDetail)
         return this.$store.state.musicPlay.musicAllDetail
       },
       set (nv) {
