@@ -86,14 +86,14 @@ export default {
         }
 
         .rightText {
-            font-size: 36px;
+            font-size: 37px;
             color: #cecece;
             width: 0;
             height: 80px;
         }
 
         .labelText {
-            font-size: 36px;
+            font-size: 37px;
             color: #979797;
         }
 

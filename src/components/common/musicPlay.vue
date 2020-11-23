@@ -1,9 +1,9 @@
 <template>
     <div class="musicPlay">
-        <audio-com ref="audio" :audio-src="changeMusicUrls" />
+        <audio-com ref="audio" :audio-src="changeMusicUrls"/>
         <!--        迷你播放器-->
-        <div class="audio-com-box-min" @click.stop="pushToMaxMusicPlay">
-            <van-image round width="30px" height="30px" :src="musicInfo.picUrl" />
+        <div class="audio-com-box-min" @click="pushToMaxMusicPlay">
+            <van-image round width="30px" height="30px" :src="musicInfo.picUrl"/>
             <div class="musicName">
                 <p>{{ musicInfo.name === '' ? '正在播放电台' : musicInfo.name }}</p>
                 <p class="tip">左右滑动可切换上下首</p>
@@ -14,25 +14,25 @@
                         name="play-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()" />
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"/>
                 <van-icon
                         v-show="!changeIcons"
                         name="pause-circle-o"
                         size="24px"
                         color="#bfbfbf"
-                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()" />
+                        @click.stop="$refs.audio.startPlayOrPause(-1), ChangeIcon()"/>
                 <img
                         src="../../assets/more.png"
                         height="28"
                         width="28"
                         @click.stop="isMore"
-                        alt="" />
+                        alt=""/>
             </div>
         </div>
 
         <transition name="move2">
             <div class="mask" v-show="show" @click.stop="isMore">
-                <history-music-list class="list" @click.native="isMore" v-show="show" />
+                <history-music-list class="list" @click.native="isMore" v-show="show"/>
             </div>
         </transition>
     </div>
