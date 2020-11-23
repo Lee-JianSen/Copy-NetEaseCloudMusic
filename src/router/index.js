@@ -124,7 +124,7 @@ const routes = [
     component: AllPlayList,
     meta: {
       isShow: false,
-      keep: false
+      keep: true
     }
   },
   {
