@@ -5,7 +5,7 @@
                 <van-search
                         v-model="value"
                         :show-action="true"
-                        :placeholder="this.$store.state.search.keyWords"
+                        :placeholder="$store.state.search.keyWords"
                         @search="onSearch"
                         @input="onInput"
                         @blur="onBlur"
@@ -97,7 +97,6 @@ export default {
     }
   },
   created () {
-    console.log(this.$store.state.search.addWord)
     this.getSearchData()
     if (this.$store.state.search.addWord !== '') {
       this.value = this.$store.state.search.addWord
@@ -117,18 +116,19 @@ export default {
       }
       GetSearchApi(this.value, '1018')
         .then(res => {
+          console.log(this.value)
           const lists = res.data.result
           // eslint-disable-next-line vue/custom-event-name-casing
           this.$emit('isSearchResultFunc', true)
           this.$store.commit('searchResultList', lists)
 
-          this.this.$store.state.search.historyList.unshift(val)
-          const hisList = this.this.$store.state.search.historyList
+          this.$store.state.search.historyList.unshift(val)
+          const hisList = this.$store.state.search.historyList
           const newarr = Array.from(new Set(hisList))
           this.$store.commit('historyBianLiList', newarr)
 
           this.$store.commit('searchWordFunc', this.value)
-          this.$store.commit('addWord', val)
+          this.$store.commit('addWord', this.value)
         })
         .catch(error => {
           console.log(error)
@@ -199,5 +199,3 @@ export default {
   }
 }
 </script>
-
-<style scoped></style>

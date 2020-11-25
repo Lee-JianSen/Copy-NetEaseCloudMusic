@@ -13,7 +13,7 @@
                         :key="index"
                         class="gridItem">
                     <div class="playCount">
-                        {{ item.creativeExtInfoVO.playCount | playCount }}次播放
+                        {{ item.resources[0].resourceExtInfo.playCount | playCount }}次播放
                     </div>
                     <div class="songListInfo" @click="SongListClick(item.id)">
                         <van-image
@@ -48,6 +48,7 @@ export default {
     }
   },
   mounted () {
+    console.log(this.yunCun)
     this.$nextTick(() => {
       setTimeout(() => {
         this.itemWidth = 30

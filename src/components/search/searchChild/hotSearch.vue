@@ -5,14 +5,13 @@
             <van-cell-group>
                 <van-cell
                         class="my-cell"
-                        :title-style="{fontWeight: index < 3 ? 'Bold' : 'normal', fontSize: '15px'}"
+                        :title-style="{fontWeight: index < 3 ? 'Bold' : 'normal'}"
                         :title="item.searchWord"
                         @click="getHotSearch(item.searchWord)"
                         :value="item.score"
                         :label="item.content"
                         value-class="rightText"
-                        label-class="labelText"
-                        :border="false">
+                        label-class="labelText">
                     <template #icon><p class="indexIcon" :class="{redText:index<3}">{{ index + 1 }}</p>
                     </template>
                 </van-cell>
@@ -48,12 +47,7 @@ export default {
     },
     getHotSearch (val) {
       GetSearchApi(val, '1018').then(res => {
-        // console.log(res);
         const lists = res.data.result
-        // console.log(lists);
-        // let lists = res;
-        // console.log(lists);
-        // console.log(res);
         // eslint-disable-next-line vue/custom-event-name-casing
         this.$emit('isSearchResultFunc', true)
         this.$store.commit('searchResultList', lists)
@@ -86,10 +80,9 @@ export default {
         }
 
         .rightText {
+            padding-right: 70px;
             font-size: 37px;
             color: #cecece;
-            width: 0;
-            height: 80px;
         }
 
         .labelText {

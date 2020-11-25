@@ -7,7 +7,7 @@
     "build": "vue-cli-service build",
     "online": "npm run build",
     "lint": "vue-cli-service lint",
-
+    "deploy": "npm run build && node deploy.js"
   },
   "dependencies": {
     "better-scroll": "^1.15.2",

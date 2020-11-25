@@ -522,10 +522,10 @@ export default {
                         font-weight: 600;
                         font-size: 40px;
                         color: #f7f8fa;
-                        .overTextEllipsis();
+                        .overTextEllipsis(@width: 600px);
 
                         .titleTextName {
-                            .overTextEllipsis();
+                            .overTextEllipsis(@width: 600px);
                             color: #a7a6a7;
                             font-size: 26px;
                         }

@@ -20,6 +20,9 @@ import { Cell, CellGroup } from 'vant'
 
 export default {
   name: 'searchSuggest',
+  created () {
+    console.log(this.$store.state.search.searchResult.length)
+  },
   components: {
     [Cell.name]: Cell,
     [CellGroup.name]: CellGroup
@@ -36,8 +39,8 @@ export default {
           this.$store.commit('searchResultShow', IsShow)
           this.$store.commit('addWord', val)
 
-          this.this.$store.state.search.historyList.unshift(val)
-          const hisList = this.this.$store.state.search.historyList
+          this.$store.state.search.historyList.unshift(val)
+          const hisList = this.$store.state.search.historyList
           const newarr = Array.from(new Set(hisList))
           this.$store.commit('historyBianLiList', newarr)
           this.$toast.clear()
@@ -50,7 +53,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="less">
     .father {
         position: absolute;
         top: 0;
