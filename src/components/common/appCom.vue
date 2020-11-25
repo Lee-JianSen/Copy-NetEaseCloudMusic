@@ -118,10 +118,14 @@
             </div>
             <div slot="content">
                 <home-nav v-if="$route.meta.isShow" />
-                <keep-alive>
-                    <router-view v-if="$route.meta.keep" />
-                </keep-alive>
-                <router-view v-if="!$route.meta.keep" />
+                <transition :name="transitionName">
+                    <keep-alive>
+                        <router-view v-if="$route.meta.keep" />
+                    </keep-alive>
+                </transition>
+                <transition :name="transitionName">
+                    <router-view v-if="!$route.meta.keep" />
+                </transition>
                 <music-play v-if="isMusicPlay" :music-id.sync="$store.state.musicPlay.musicId" />
                 <!--                <router-view v-if="$route.meta.isShow"></router-view>-->
             </div>
@@ -148,6 +152,14 @@ import musicPlay from './musicPlay'
 
 export default {
   name: 'appCom',
+  watch: {
+    '$route' (to, from) {
+      const routeDeep = this.allRouter
+      const toDepth = routeDeep.indexOf(to.path)
+      const fromDepth = routeDeep.indexOf(from.path)
+      this.transitionName = toDepth > fromDepth ? 'fold-left' : 'fold-right'
+    }
+  },
   created () {
     LoginStatusAPI()
       .then(res => {
@@ -163,6 +175,9 @@ export default {
           duration: 3000
         })
       })
+    this.$router.options.routes.forEach(item => {
+      this.allRouter.push(item.path)
+    })
   },
   computed: {
     isLogin: {
@@ -184,6 +199,8 @@ export default {
   },
   data () {
     return {
+      allRouter: [],
+      transitionName: '',
       isSignIn: false,
       cellItem1: [
         {
@@ -291,10 +308,42 @@ export default {
 </script>
 
 <style scoped lang="less">
-    .ovtext() {
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
+    @keyframes fold-left-in {
+        0% {
+            transform: translate3d(100%, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+    @keyframes fold-left-out {
+        0% {
+            transform: translate3d(0, 0, 0);
+        }
+        100% {
+            transform: translate3d(100%, 0, 0);
+        }
+    }
+
+    .fold-left-enter-active {
+        animation-name: fold-left-in;
+        animation-duration: .3s;
+    }
+
+    .fold-left-leave-active {
+        animation-name: fold-left-out;
+        animation-duration: .3s;
+    }
+
+    .fold-right-enter-active {
+        animation-name: fold-left-in;
+        animation-duration: .3s;
+    }
+
+    .fold-right-leave-active {
+        animation-name: fold-left-out;
+        animation-duration: .3s;
     }
 
     .appCom {

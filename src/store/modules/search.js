@@ -31,7 +31,7 @@ const search = {
       state.keyWords = item
     },
     searchWord (state, val) {
-      state.guanjianci = val
+      state.keyWords = val
     },
     addWord (state, val) {
       state.addWord = val

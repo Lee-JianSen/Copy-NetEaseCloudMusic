@@ -22,7 +22,8 @@
                 <div v-if="isSearchResult">
                     <search-tabbar @backtop="getbacktop" />
                 </div>
-                <search-suggest @isSearchResultFunc="isSearchResultFunc" />
+                <search-suggest v-show="$store.state.search.searchResultShow"
+                                @isSearchResultFunc="isSearchResultFunc" />
             </div>
         </scroll>
     </div>
